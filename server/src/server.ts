@@ -1,16 +1,17 @@
-const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
+import express, { Express } from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
 
+import { router } from './routes';
 
-const app = express();
+const app: Express = express();
 
 app.use(cors());
 app.use(morgan('dev'));
 
 const port = 3001;
 
-app.get('/', (req, res) => {res.send('works?')});
+app.use('/', router);
 
 app.set('port',port);
 app.listen(port, () => console.log(`listening on port ${port}`));
