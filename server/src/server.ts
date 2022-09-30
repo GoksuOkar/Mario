@@ -8,6 +8,7 @@ const app: Express = express();
 
 app.use(cors());
 app.use(morgan('dev'));
+app.use(express.json());
 
 const port = 3001;
 
