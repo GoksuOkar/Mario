@@ -5,8 +5,8 @@ import LoginView from './Login/LoginView.js'
 const serverURL = 'http://localhost:3001'
 
 function App() {
-  //const divRef = useRef(null);
-  const [userId, setUserId] = useState(null);
+  //const divRef = useRef(true);
+  const [userId, setUserId] = useState(true);
 
   return (
     <div className="App">
