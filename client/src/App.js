@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Dropdown from '../src/components/Messages/Messages.js';
 import NavBar from './components/NavBar.js';
+import Dashboard from './components/Dashboard/Dashboard.jsx';
 
 const serverURL = 'http://localhost:3001';
 
@@ -14,6 +15,7 @@ export default function App() {
     <div className='App'>
       <NavBar />
       <Dropdown />
+      <Dashboard />
     </div>
   );
 }
