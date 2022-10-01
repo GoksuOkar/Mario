@@ -1,31 +1,19 @@
-import { Card, Text, Grid, SimpleGrid, Avatar, Chip, SegmentedControl } from '@mantine/core';
+import { Card, Text, Grid, SimpleGrid, Avatar, Chip } from '@mantine/core';
 import moment from 'moment';
 import { useState } from 'react';
 
 // later replace this with a prop
 const sampleEvents = require('./sampleData.js');
 
-const EventCards = ({ sortBy, setSortBy }) => {
+const EventCards = () => {
   // Later: somehow keep state for each chip?
   const [checked, setChecked] = useState(false);
 
   return (
     <>
-    <p>Sort by:</p>
-    <span>
-      <SegmentedControl
-        data={[
-          {label: 'upcoming', value: 'upcoming'},
-          {label: 'distance', value: 'distance'},
-          {label: 'friends', value: 'friends'}
-        ]}
-        value={sortBy}
-        onChange={setSortBy}
-        />
-    </span>
     <Grid>
       {sampleEvents.map(event =>
-        <Grid.Col span={4}>
+        <Grid.Col key={event._id} span={4}>
           <Card shadow='sm' p='lg' radius='md'>
             <Text sx={{textAlign:'center'}}>
               <h3>{event.eventName}</h3>
@@ -33,8 +21,9 @@ const EventCards = ({ sortBy, setSortBy }) => {
             <SimpleGrid cols={6} spacing='sm' verticalSpacing='sm'>
                 {/* later: click avatar to go to friend's page */}
                 {/* later: add default initials if user has no photo */}
+                {/* later: use Indicator to point out which are your friends, maybe move them to the top */}
                 {event.peopleAttending.map(people =>
-                  <Avatar src={people.photo} alt='small picture of person attending' radius='xl'></Avatar>
+                  <Avatar key={people._id} src={people.photo} alt='small picture of person attending' radius='xl'></Avatar>
                 )}
             </SimpleGrid>
             <Text>{event.location}</Text>
