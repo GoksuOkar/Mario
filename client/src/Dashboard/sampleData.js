@@ -102,3 +102,5 @@ const sampleEvents = [
     endTime: 'Sat Oct 01 2022 13:14:27 GMT-0700 (Pacific Daylight Time)',
     },
 ]
+
+module.exports = sampleEvents;
