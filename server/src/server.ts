@@ -1,4 +1,5 @@
 import express, { Express } from 'express';
+import session from 'express-session';
 
 import morgan from 'morgan';
 import cors from 'cors';
@@ -12,6 +13,13 @@ const app: Express = express();
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
+
+// session middleware for obtaining cookies
+app.use(session({
+  secret: 'key that will sign the cookie',  //change at later point
+  resave: false,
+  saveUninitialized: false,
+}))
 
 const port = 3001;
 
