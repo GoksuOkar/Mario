@@ -8,32 +8,36 @@ import { router } from './routes';
 import { Server } from 'socket.io';
 
 const app: Express = express();
+const port = 3001;
+const server = app.listen(port, () => console.log(`listening on port ${port}`));
+const socket = http.createServer(app);
 
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 
-const port = 3001;
+app.use('/', router);
 
-const socket = http.createServer(app);
 
 const io = new Server(socket, {
   cors: {
     origin: "http://localhost:3000",
     methods: ["Get", "POST"],
   },
-})
+}).listen(server);
 
 io.on('connection', (socket) => {
+  console.log(`User ${socket.id} connected`)
 
   socket.on('send_message', (data) => {
     socket.broadcast.emit('receive_message', () => {
 
     })
   })
+
+  socket.on('disconnect', () => {
+    console.log(`User ${socket.id} disconnected`);
+  })
+
 })
 
-app.use('/', router);
-
-app.set('port',port);
-app.listen(port, () => console.log(`listening on port ${port}`));
