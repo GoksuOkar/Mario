@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import EventCards from './EventCards.jsx'
 
 const Dashboard = () => {
+  const [sortBy, setSortBy] = useState('upcoming');
   return (
     <>
       <div>
         Dashboard
       </div>
-      <EventCards />
+      <EventCards sortBy={sortBy} setSortBy={setSortBy}/>
     </>
   )
 
