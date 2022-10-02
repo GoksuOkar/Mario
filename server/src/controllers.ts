@@ -4,7 +4,8 @@ import * as db from './db/BlueOceanSchema';  // db object has models as property
 
 
 export function test (req: Request, res: Response): void {
-  console.log(req.session)
+  console.log(req.session);
+  console.log(db.User);
   db.User.create({login: {
     username: 'Blake',
     email: 'email@email',
