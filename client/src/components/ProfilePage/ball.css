@@ -1,0 +1,134 @@
+.roll0 {
+
+  /* Animation to spin and move the sphere */
+  -webkit-animation: spin0 1000ms linear , moveLeftToRight0 5s linear;
+  /* -moz-animation: spin 1000ms linear infinite, moveLeftToRight 5s linear infinite;
+  -ms-animation: spin 1000ms linear infinite, moveLeftToRight 5s linear infinite; */
+  animation: spin0 1000ms linear , moveLeftToRight0 1s linear;
+
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+  position:relative;
+}
+
+@keyframes spin0 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes moveLeftToRight0 {
+  0%   { left:0%; }
+  100% { left: 0%; }
+}
+
+.roll1 {
+
+  /* Animation to spin and move the sphere */
+  -webkit-animation: spin1 1000ms linear , moveLeftToRight1 5s linear;
+  /* -moz-animation: spin 1000ms linear infinite, moveLeftToRight 5s linear infinite;
+  -ms-animation: spin 1000ms linear infinite, moveLeftToRight 5s linear infinite; */
+  animation: spin1 1000ms linear , moveLeftToRight1 1s linear;
+
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+  position:relative;
+}
+@keyframes spin1 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes moveLeftToRight1 {
+  0%   { left:-10%; }
+  100% { left: 0%; }
+}
+.roll2 {
+
+  /* Animation to spin and move the sphere */
+  -webkit-animation: spin2 1000ms linear , moveLeftToRight2 5s linear;
+  /* -moz-animation: spin 1000ms linear infinite, moveLeftToRight 5s linear infinite;
+  -ms-animation: spin 1000ms linear infinite, moveLeftToRight 5s linear infinite; */
+  animation: spin2 1000ms linear , moveLeftToRight2 1s linear;
+
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+  position:relative;
+}
+@keyframes spin2 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes moveLeftToRight2 {
+  0%   { left:-20%; }
+  100% { left: 0%; }
+}
+.roll3 {
+
+  /* Animation to spin and move the sphere */
+  -webkit-animation: spin3 1000ms linear , moveLeftToRight3 5s linear;
+  /* -moz-animation: spin 1000ms linear infinite, moveLeftToRight 5s linear infinite;
+  -ms-animation: spin 1000ms linear infinite, moveLeftToRight 5s linear infinite; */
+  animation: spin3 1000ms linear , moveLeftToRight3 1s linear;
+
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+  position:relative;
+}
+@keyframes spin3 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes moveLeftToRight3 {
+  0%   { left:-30%; }
+  100% { left: 0%; }
+}
+.roll4 {
+
+  /* Animation to spin and move the sphere */
+  -webkit-animation: spin4 1000ms linear , moveLeftToRight4 5s linear;
+  /* -moz-animation: spin 1000ms linear infinite, moveLeftToRight 5s linear infinite;
+  -ms-animation: spin 1000ms linear infinite, moveLeftToRight 5s linear infinite; */
+  animation: spin4 1000ms linear , moveLeftToRight4 1s linear;
+
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+  position:relative;
+}
+@keyframes spin4 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes moveLeftToRight4 {
+  0%   { left:-40%; }
+  100% { left: 0%; }
+}
+/* Spinning the sphere using key frames */
+/* @-ms-keyframes spin {
+  from { -ms-transform: rotate(0deg); }
+  to { -ms-transform: rotate(360deg); }
+}
+@-moz-keyframes spin {
+  from { -moz-transform: rotate(0deg); }
+  to { -moz-transform: rotate(360deg); }
+} */
+/* @-webkit-keyframes spin {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+} */
+
+/* Move sphere from left to right */
+/* @-moz-keyframes moveLeftToRight {
+  0%   { left: -100px; }
+  100% { left: 100%; }
+}
+@-ms-keyframes moveLeftToRight {
+  0%   { left: -100px; }
+  100% { left: 100%; }
+} */
+/* @-webkit-keyframes moveLeftToRight {
+  0%   { left: -100px; }
+  100% { left: 100%; }
+} */
