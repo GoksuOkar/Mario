@@ -6,8 +6,7 @@ import NavBar from './components/NavBar.js';
 const serverURL = 'http://localhost:3001';
 
 function App() {
-  //const divRef = useRef(true);
-  const [userId, setUserId] = useState(true);
+  const [userId, setUserId] = useState(null);
 
   return (
     <div className="App">
