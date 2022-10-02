@@ -1,0 +1,19 @@
+#left-form-panel {
+  position: absolute;
+  background-color: #f7d25b;
+  width: 50%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
+
+#right-form-panel {
+  position: absolute;
+  background-color: #542381;
+  width: 50%;
+  height: 100%;
+  right: 0;
+  top: 0;
+  z-index: 2;
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SegmentedControl, Button } from '@mantine/core';
 import EventCards from './EventCards.jsx';
 import UpcomingGames from './UpcomingGames.jsx';
+import MakeGame from './MakeGame.jsx';
 
 
 const Dashboard = () => {
@@ -28,6 +29,7 @@ const Dashboard = () => {
       <Button radius='xl' size='xl'>
         Make Game
       </Button>
+      <MakeGame />
     </>
   )
 
