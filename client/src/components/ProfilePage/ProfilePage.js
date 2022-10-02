@@ -1,5 +1,6 @@
 import Profile from './Profile.js';
 import Game from './Game.js';
+import Friends from './Friends.js';
 
 export default function ProfilePage() {
   const sty = {
@@ -9,7 +10,10 @@ export default function ProfilePage() {
   };
   return (
     <div style={sty}>
-      <Profile />
+      <div>
+        <Profile />
+        <Friends />
+      </div>
       <div>
         Your games
         {[...Array(5)].map((n, i) => (
