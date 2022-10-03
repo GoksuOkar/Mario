@@ -6,12 +6,15 @@ import cors from 'cors';
 import http from 'http';
 
 import { router } from './routes';
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
+import { onConnection } from './Sockets/route_socket'
+
+import * as I from './Utilities/Interfaces/Sockets';
 
 const app: Express = express();
 const port = 3001;
 const server = app.listen(port, () => console.log(`listening on port ${port}`));
-const socket = http.createServer(app);
+const socketServer = http.createServer(app);
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -26,26 +29,22 @@ app.use(session({
 
 app.use('/', router);
 
-
-const io = new Server(socket, {
+const io = new Server(socketServer, {
   cors: {
-    origin: "http://localhost:3000",
-    methods: ["Get", "POST"],
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST'],
   },
 }).listen(server);
 
-io.on('connection', (socket) => {
-  console.log(`User ${socket.id} connected`)
-
-  socket.on('send_message', (data) => {
-    socket.broadcast.emit('receive_message', () => {
-
-    })
-  })
-
-  socket.on('disconnect', () => {
-    console.log(`User ${socket.id} disconnected`);
-  })
-
+io.use((socket: I.ExtendedSocket | any, next):void => {
+  // authorization
+  const username = socket.handshake.auth.username;
+  if (!username) {
+    return next(new Error('invalid username'))
+  }
+  socket.username = username;
+  next();
 })
+
+io.on('connection', onConnection)
 
