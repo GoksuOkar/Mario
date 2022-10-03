@@ -64,8 +64,6 @@ export function login (req: Request, res: Response): void {
 }
 
 export function logout (req: Request, res: Response) {
-  console.log('hello')
-  console.log(req.session);
   req.session.destroy((err) => {
     if (err) {
       console.log(err)
@@ -80,6 +78,6 @@ export function auth (req: Request, res: Response) {
   if (req.session.isAuth === true)  {
     res.send({id: req.session.user}).status(200)
   } else {
-    res.send(null).status(404)
+    res.send({id: null}).status(404)
   }
 }
