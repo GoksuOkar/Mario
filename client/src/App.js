@@ -5,9 +5,7 @@ import NavBar from './components/NavBar.js';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import ProfilePage from './components/ProfilePage/ProfilePage.js';
 
-const serverURL = 'http://localhost:3001';
-
-function App() {
+export default function App() {
   //const divRef = useRef(true);
   const [userId, setUserId] = useState(true);
 
@@ -25,5 +23,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
