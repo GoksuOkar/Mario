@@ -1,4 +1,4 @@
-import { Tabs } from '@mantine/core';
+import { Tabs, Header } from '@mantine/core';
 import img from '../assets/images/AlleyHoopsGreen.png';
 
 const sty = {
@@ -8,11 +8,14 @@ const sty = {
   fontSize: 'larger',
 };
 
-const chgPg = (e) => {
-  console.log(e.target.innerHTML);
+const headSty = {
+  backgroundColor: '#0d5f65',
+  color: 'white',
+  fontWeight: 'bolder',
+  fontSize: '35px',
 };
 
-export default function NavBar() {
+export default function NavBar({ userId, page, setPage }) {
   return (
     <Tabs
       color='orange'
@@ -20,15 +23,36 @@ export default function NavBar() {
       defaultValue='games'>
       <Tabs.List>
         <img src={img} alt='IMG NOT FOUND' />
-        <Tabs.Tab sx={sty} style={sty} value='games' ml='auto' onClick={chgPg}>
-          Games
-        </Tabs.Tab>
-        <Tabs.Tab sx={sty} style={sty} value='friends' onClick={chgPg}>
-          Friends
-        </Tabs.Tab>
-        <Tabs.Tab sx={sty} style={sty} value='profile' onClick={chgPg}>
-          Profile
-        </Tabs.Tab>
+        {page === 'login' && !userId ? (
+          <Header m='auto' sx={headSty}>
+            Login
+          </Header>
+        ) : (
+          <>
+            <Tabs.Tab
+              sx={sty}
+              style={sty}
+              value='games'
+              ml='auto'
+              onClick={() => setPage('games')}>
+              Games
+            </Tabs.Tab>
+            <Tabs.Tab
+              sx={sty}
+              style={sty}
+              value='friends'
+              onClick={() => setPage('friends')}>
+              Friends
+            </Tabs.Tab>
+            <Tabs.Tab
+              sx={sty}
+              style={sty}
+              value='profile'
+              onClick={() => setPage('profile')}>
+              Profile
+            </Tabs.Tab>
+          </>
+        )}
       </Tabs.List>
     </Tabs>
   );

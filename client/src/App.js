@@ -8,18 +8,17 @@ import ProfilePage from './components/ProfilePage/ProfilePage.js';
 export default function App() {
   //const divRef = useRef(true);
   const [userId, setUserId] = useState(true);
+  const [page, setPage] = useState('login');
 
   return (
     <div className='App'>
-      <NavBar />
-      <ProfilePage />
-      {!userId && <LoginView login={setUserId} userId={userId} />}
-      {userId && (
-        <div>
-          <Dropdown />
-          <Dashboard />
-        </div>
-      )}
+      <NavBar userId={userId} page={page} setPage={setPage} />
+      {page === 'login' ? (
+        <LoginView login={setUserId} userId={userId} />
+      ) : null}
+      {page === 'games' ? <Dashboard /> : null}
+      {page === 'friends' ? <Dropdown /> : null}
+      {page === 'profile' ? <ProfilePage /> : null}
     </div>
   );
 }
