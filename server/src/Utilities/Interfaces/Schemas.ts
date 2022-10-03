@@ -2,6 +2,8 @@ export interface User {
   username: string,
   email: string,
   password: string,
+  location: string,
+  overallSkill: string,
   stats: Object,
   friends: Array<String>,
   events: Array<String>,

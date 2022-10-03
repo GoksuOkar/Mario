@@ -5,6 +5,8 @@ const userSchema = new Schema<I.User>({
   username: String, // username, gmail or email, password
   email: String,
   password: String,
+  location: String,
+  overallSkill: String,
   stats: Object, // dribbling, passing, shooting, dunking,
   friends: Array, // of [ids]
   events: Array, // of [ids]
