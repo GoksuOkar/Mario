@@ -47,6 +47,13 @@ export default function NavBar({ userId, page, setPage }) {
             <Tabs.Tab
               sx={sty}
               style={sty}
+              value='findTeam'
+              onClick={() => setPage('findTeam')}>
+              Find teammates
+            </Tabs.Tab>
+            <Tabs.Tab
+              sx={sty}
+              style={sty}
               value='profile'
               onClick={() => setPage('profile')}>
               Profile
