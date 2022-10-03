@@ -1,19 +1,22 @@
 export interface User {
   login: Object,
   stats: Object,
-  friends: Array<string>,
-  events: Array<string>,
-  picture: string,
-  conversations: Object,
+  friends: Array<String>,
+  events: Array<String>,
+  picture: String,
+  conversations: Array<String>, // array of conversation IDs
 }
 
 export interface Conversation {
-  friendId: Object,
+  users: String[], // array of usernames
+  messages: Message[],
 }
 
 export interface Message {
   conversationId: Number,
-  body: Array<object>,
+  username: String,
+  text: String,
+  time: Date
 }
 
 export interface Event {

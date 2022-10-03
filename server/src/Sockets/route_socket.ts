@@ -1,7 +1,8 @@
 import { Socket } from 'socket.io';
 import { message, room, user } from '../Utilities/socket_listeners'
-import { getConversationsFor } from './controller_socket';
+import { getConversationsFor, updateConversation } from './controller_socket';
 import { io } from '../server';
+import * as I from '../Utilities/Interfaces/Schemas'
 
 export async function onConnection (socket: Socket | any) {
   console.log(`User ${socket.id} connected`)
@@ -17,11 +18,11 @@ export async function onConnection (socket: Socket | any) {
       io.to(socket.username).emit(user.getConversations, results.conversations)
     })
 
-  socket.on(user.directMessage, (data: any) => {
-    // expects data to have conversationID property
-
-    socket.broadcast.emit(user.directMessage, () => {
-
+  socket.on(user.directMessage, (message: I.Message) => {
+    updateConversation(message);
+    // find conversation from ID, update message array, save to db and emit to room
+    socket.to(message.conversationId).emit(user.directMessage, () => {
+      // show on client side
     })
   })
 

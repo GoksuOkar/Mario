@@ -7,23 +7,22 @@ const userSchema = new Schema<I.User>({
   friends: Array, // of [ids]
   events: Array, // of [ids]
   picture: String, // url?
-  conversations: Object, // other users // store objects of objects
+  conversations: Array<String> // other users // store objects of objects
 });
 
 // not to implement, just to see inside object of objects
 const conversationSchema = new Schema<I.Conversation>({
-  friendId: Object, // username, conversationId: Number
+  // friendId: Object, // username, conversationId: Number
+  users: Array<String>,
+  messages: Array<I.Message>
 });
 
+// sample
 const messageSchema = new Schema<I.Message>({
   conversationId: Number,
-  body: Array,
-  // Object
-  /*
-  body: String
-  from: String, // username
-  date: Date,
-  */
+  username: String,
+  text: String,
+  time: Date
 });
 
 const eventSchema = new Schema<I.Event>({
