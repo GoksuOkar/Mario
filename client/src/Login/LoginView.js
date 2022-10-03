@@ -8,7 +8,10 @@ function LoginView({ login, userId }) {
   const divRef = useRef(null);
 
   useEffect(() => {
+    //get request /auth path
     // check from server if the user already signed in?
+    // /LOGIN path > if wrong sign in, say something > 401
+    // /
 
     // if not do below vv
 
@@ -24,7 +27,6 @@ function LoginView({ login, userId }) {
       type: 'standard',
       text: 'continue_with',
     });
-
     // else set user id to returned id
   }, [])
 
@@ -35,7 +37,9 @@ function LoginView({ login, userId }) {
 
   return (
     <div>
-      <img alt="ball" src="../assests/images/basketballbg.png"></img>
+      <div>
+        <img alt="ball" src="../assests/images/basketballbg.png"></img>
+      </div>
       <div
         id="LoginView"
         style={{
@@ -45,9 +49,10 @@ function LoginView({ login, userId }) {
           alignItems: "center"
         }}
       >
-        {!userId && (
-          <div id="google-button" ref={divRef}></div>
-          )}
+        <div id="google-button" ref={divRef}></div>
+          <div>
+
+          </div>
       </div>
     </div>
   );
