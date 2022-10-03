@@ -7,12 +7,12 @@ import ProfilePage from './components/ProfilePage/ProfilePage.js';
 
 export default function App() {
   //const divRef = useRef(true);
-  const [userId, setUserId] = useState(true);
+  const [userId, setUserId] = useState(null);
 
   return (
     <div className='App'>
-      <NavBar />
       <ProfilePage />
+      <NavBar />
       {!userId && <LoginView login={setUserId} userId={userId} />}
       {userId && (
         <div>

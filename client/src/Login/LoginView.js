@@ -1,6 +1,7 @@
 
 import background from "../assets/images/basketballbg.png";
 import React, { useEffect, useRef, useState } from 'react';
+import { TextInput, Button } from '@mantine/core';
 
 const serverURL = 'http://localhost:3001'
 
@@ -22,10 +23,10 @@ function LoginView({ login, userId }) {
     });
     // eslint-disable-next-line no-undef
     window.google.accounts.id.renderButton(document.getElementById("google-button"), {
-      theme: 'filled_blue',
+      theme: 'filled_black',
       size: 'medium',
       type: 'standard',
-      text: 'continue_with',
+      text: 'continue_with'
     });
     // else set user id to returned id
   }, [])
@@ -45,14 +46,37 @@ function LoginView({ login, userId }) {
         style={{
           height: "100vh",
           display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
+          justifyContent: "center"
         }}
       >
-        <div id="google-button" ref={divRef}></div>
-          <div>
-
-          </div>
+        <div id="container"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            alignItems: "center"
+          }}
+        >
+          <div id="google-button" ref={divRef}></div>
+          <span style={{margin: '10px'}}>OR</span>
+          <TextInput
+            label="Username:"
+          />
+          <TextInput
+            label="Email:"
+            placeholder="your@email.com"
+            type={'email'}
+          />
+          <Button
+            styles={(theme) => ({
+              root: {
+                marginTop: '20px',
+            }})}
+          >
+            Sign In/Sign Up
+          </Button>
+        </div>
       </div>
     </div>
   );
