@@ -35,8 +35,8 @@ export function register (req: Request, res: Response): void {
 }
 
 export function login (req: Request, res: Response): void {
-  const {username, password} = req.body;
-  db.User.findOne({userName: username})
+  const {email, password} = req.body;
+  db.User.findOne({email: email})
   .then ((result) => {
     // if there is a user
     if (result) {
