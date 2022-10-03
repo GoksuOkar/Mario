@@ -32,7 +32,6 @@ export function register (req: Request, res: Response): void {
 
 export function login (req: Request, res: Response): void {
   const {username, password} = req.body;
-  console.log(req.session)
   db.User.findOne({userName: username})
   .then ((result) => {
     // if there is a user
@@ -53,10 +52,15 @@ export function login (req: Request, res: Response): void {
         req.session.isAuth = false;
         res.sendStatus(401)
       }
+    } else {
+      // if no matches in data base
+      req.session.isAuth = false;
+      res.sendStatus(404);
     }
   })
   .catch((err) => {
     // if login failed session is not authorized
+    console.log('hi')
     req.session.isAuth = false;
     console.log(err);
     res.sendStatus(401);
