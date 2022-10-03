@@ -13,8 +13,8 @@ const EventCards = () => {
     <>
     <Grid>
       {sampleEvents.map(event =>
-        <Grid.Col key={event._id} span={4}>
-          <Card shadow='sm' p='lg' radius='md'>
+        <Grid.Col key={event._id} span={3}>
+          <Card shadow='sm' p='lg' radius='md' >
             <Text sx={{textAlign:'center'}}>
               <h3>{event.eventName}</h3>
             </Text>
