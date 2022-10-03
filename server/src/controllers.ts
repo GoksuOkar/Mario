@@ -10,7 +10,7 @@ export function register (req: Request, res: Response): void {
   .then((result) => {
     // if there is one in the database send back that it already exists
     if (result) {
-      res.send('already exists').status(404);
+      res.status(300).send('already exists');
 
     } else {
       // if not in database create a new one and send back new user id
@@ -58,7 +58,7 @@ export function login (req: Request, res: Response): void {
     } else {
       // if no matches in data base
       req.session.isAuth = false;
-      res.sendStatus(404);
+      res.sendStatus(401);
     }
   })
   .catch((err) => {
@@ -84,6 +84,6 @@ export function auth (req: Request, res: Response) {
   if (req.session.isAuth === true)  {
     res.send({id: req.session.user}).status(200)
   } else {
-    res.send({id: null}).status(404)
+    res.status(404).send({id: null})
   }
 }
