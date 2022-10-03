@@ -9,6 +9,6 @@ export const room = {
 
 export const user = {
   connected: 'user_connected',
-  direct_message: 'direct_message',
-
+  directMessage: 'direct_message',
+  getConversations: 'get_conversations',
 }

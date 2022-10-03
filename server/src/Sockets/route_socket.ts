@@ -1,18 +1,26 @@
 import { Socket } from 'socket.io';
 import { message, room, user } from '../Utilities/socket_listeners'
-import { getUserConversationss } from './controller_socket';
+import { getConversationsFor } from './controller_socket';
+import { io } from '../server';
 
 export async function onConnection (socket: Socket | any) {
   console.log(`User ${socket.id} connected`)
 
-  getUserConversationss(socket.username)
+  socket.join(socket.username);
+
+  // On connection, retrieves all conversations of user from db and sends to client
+  // Joins socket to all conversation rooms
+  await getConversationsFor(socket.username)
     .then((results) =>  {
-      const conversations = Object.values(results)
-      socket.emit(room.join, conversations)
+      const conversations = Object.values(results.conversations)
+      conversations.forEach((convo:any) => socket.join(convo.id))
+      io.to(socket.username).emit(user.getConversations, results.conversations)
     })
 
-  socket.on(message.send, (data: any) => {
-    socket.broadcast.emit(message.receive, () => {
+  socket.on(user.directMessage, (data: any) => {
+    // expects data to have conversationID property
+
+    socket.broadcast.emit(user.directMessage, () => {
 
     })
   })
