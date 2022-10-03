@@ -4,6 +4,7 @@ import Dropdown from '../src/components/Messages/Messages.js';
 import NavBar from './components/NavBar.js';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import ProfilePage from './components/ProfilePage/ProfilePage.js';
+import FindTeammates from './components/FindTeammates/FindTeammates.jsx';
 
 export default function App() {
   //const divRef = useRef(true);
@@ -12,12 +13,13 @@ export default function App() {
   return (
     <div className='App'>
       <NavBar />
-      {/* <ProfilePage /> */}
+      <ProfilePage />
       {!userId && <LoginView login={setUserId} userId={userId} />}
       {userId && (
         <div>
-          {/* <Dropdown />
-          <Dashboard /> */}
+          <Dropdown />
+          <Dashboard />
+          <FindTeammates />
         </div>
       )}
     </div>

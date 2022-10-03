@@ -10,9 +10,6 @@ const Dashboard = () => {
   const [formOpen, setFormOpen] = useState(false);
   return (
     <>
-      <div>
-        Dashboard
-      </div>
       <Grid>
         <Grid.Col span={2}>
           <UpcomingGames />
