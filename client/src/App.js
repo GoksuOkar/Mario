@@ -12,12 +12,12 @@ export default function App() {
   return (
     <div className='App'>
       <NavBar />
-      <ProfilePage />
+      {/* <ProfilePage /> */}
       {!userId && <LoginView login={setUserId} userId={userId} />}
       {userId && (
         <div>
-          <Dropdown />
-          <Dashboard />
+          {/* <Dropdown />
+          <Dashboard /> */}
         </div>
       )}
     </div>

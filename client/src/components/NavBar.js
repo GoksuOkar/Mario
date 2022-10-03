@@ -27,6 +27,9 @@ export default function NavBar() {
           Friends
         </Tabs.Tab>
         <Tabs.Tab sx={sty} style={sty} value='profile' onClick={chgPg}>
+          Find teammates
+        </Tabs.Tab>
+        <Tabs.Tab sx={sty} style={sty} value='profile' onClick={chgPg}>
           Profile
         </Tabs.Tab>
       </Tabs.List>
