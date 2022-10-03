@@ -32,6 +32,7 @@ export function register (req: Request, res: Response): void {
 
 export function login (req: Request, res: Response): void {
   const {username, password} = req.body;
+  console.log(req.session)
   db.User.findOne({userName: username})
   .then ((result) => {
     // if there is a user
@@ -62,3 +63,23 @@ export function login (req: Request, res: Response): void {
   })
 }
 
+export function logout (req: Request, res: Response) {
+  console.log('hello')
+  console.log(req.session);
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err)
+      res.send('unable to log out').status(404);
+    } else {
+      res.sendStatus(200);
+    }
+  })
+}
+
+export function auth (req: Request, res: Response) {
+  if (req.session.isAuth === true)  {
+    res.send({id: req.session.user}).status(200)
+  } else {
+    res.send(null).status(404)
+  }
+}
