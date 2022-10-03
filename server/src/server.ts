@@ -50,7 +50,7 @@ app.use(session({
 
 app.use('/', router);
 
- export const io = new Server(socketServer, {
+export const io = new Server(socketServer, {
   cors: {
     origin: 'http://localhost:3000',
     methods: ['GET', 'POST'],
