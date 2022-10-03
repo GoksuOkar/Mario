@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 
 export function register (req: Request, res: Response): void {
   const {email, username, password} = req.body;
-  db.User.findOne({login: {email: email}})
+  db.User.findOne({email: email})
 
   .then((result) => {
     // if there is one in the database send back that it already exists
