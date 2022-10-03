@@ -25,9 +25,6 @@ function LoginView({ login, userId }) {
       text: 'continue_with',
     });
 
-    // // eslint-disable-next-line no-undef
-    // google.accounts.id.prompt();
-
     // else set user id to returned id
   }, [])
 
@@ -38,13 +35,10 @@ function LoginView({ login, userId }) {
 
   return (
     <div>
+      <img alt="ball" src="../assests/images/basketballbg.png"></img>
       <div
-        Id="LoginView"
+        id="LoginView"
         style={{
-          backgroundImage: `url(${background})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          opacity: "0.6",
           height: "100vh",
           display: "flex",
           justifyContent: "center",
