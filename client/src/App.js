@@ -4,6 +4,7 @@ import Dropdown from '../src/components/Messages/Messages.js';
 import NavBar from './components/NavBar.js';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import ProfilePage from './components/ProfilePage/ProfilePage.js';
+import FindTeammates from './components/FindTeammates/FindTeammates.jsx';
 
 export default function App() {
   //const divRef = useRef(true);
@@ -18,6 +19,7 @@ export default function App() {
         <div>
           <Dropdown />
           <Dashboard />
+          <FindTeammates />
         </div>
       )}
     </div>
