@@ -18,7 +18,11 @@ export function register (req: Request, res: Response): void {
       db.User.create({email: email, username: username, password: hashedPassword})
 
       .then((result) => {
-        // send back new status code created
+        const id = result._id.toString();
+
+        // set the session to be authorized and have user id
+        req.session.isAuth = true;
+        req.session.user = id;
         res.send({id: result._id}).status(201);
       })
     }
@@ -45,7 +49,6 @@ export function login (req: Request, res: Response): void {
         // set the session to be authorized and have user id
         req.session.isAuth = true;
         req.session.user = id;
-        console.log(id);
         res.send({id: result._id}).status(201);
       } else {
         // if login failed session is not authorized
@@ -60,7 +63,6 @@ export function login (req: Request, res: Response): void {
   })
   .catch((err) => {
     // if login failed session is not authorized
-    console.log('hi')
     req.session.isAuth = false;
     console.log(err);
     res.sendStatus(401);
