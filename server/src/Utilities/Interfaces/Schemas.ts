@@ -1,4 +1,5 @@
-import { ObjectId, Types } from "mongoose";
+
+import { ObjectId, Types, Schema } from "mongoose";
 
 export interface User {
   username: string,
@@ -27,6 +28,10 @@ export interface Message {
   time: Date
 }
 
+// export interface Attendee {
+//   _id: Schema.Types.ObjectId
+// }
+
 export interface NewMessage extends Message {
   toUser: String, // receiving user
 }
@@ -49,7 +54,7 @@ export interface Event {
   location: String,
   startTime: Date,
   endTime: Date,
-  creator: string,
+  creator: Schema.Types.ObjectId,
 }
 
 export interface Comment {

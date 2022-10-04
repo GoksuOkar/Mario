@@ -1,4 +1,4 @@
-import {Schema, model, connect } from 'mongoose';
+import {Schema, model, connect, isObjectIdOrHexString } from 'mongoose';
 import * as I from '../Utilities/Interfaces/Schemas'
 
 const userSchema = new Schema<I.User>({
@@ -31,15 +31,19 @@ const messageSchema = new Schema<I.Message>({
   time: Date
 });
 
+// const attendees = new Schema<I.Attendee>({
+//   _id: Schema.Types.ObjectId
+// })
+
 const eventSchema = new Schema<I.Event>({
   eventName: String,
   eventDescription: String,
-  peopleAttending: Array,
+  peopleAttending: Array, //array of objectids
   comments: Array,
   location: String, // ???
   startTime: Date,
   endTime: Date,
-  creator: String, // user id
+  creator: Schema.Types.ObjectId, // user id, should be objectId not string?
 });
 
 const commentSchema = new Schema<I.Comment>({
