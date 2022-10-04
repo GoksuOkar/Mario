@@ -3,8 +3,10 @@ export const samplePlayers = [
     username: 'takattack', // username, gmail or email, password
     email: 'tak@gmail.com',
     password: 'ballislife',
+    overallSkill: 'beginner',
+    city: 'San Jose',
+    state: 'CA',
     stats: {
-      skillLevel: 'beginner',
       dribbling: 3,
       passing: 4,
       shooting: 5,
@@ -19,8 +21,10 @@ export const samplePlayers = [
     username: 'MakeOrBlake', // username, gmail or email, password
     email: 'blake@gmail.com',
     password: 'ballislife',
+    overallSkill: 'pro',
+    city: 'San Jose',
+    state: 'CA',
     stats: {
-      skillLevel: 'pro',
       dribbling: 2,
       passing: 5,
       shooting: 3,
@@ -35,8 +39,10 @@ export const samplePlayers = [
     username: 'LukItsIvan', // username, gmail or email, password
     email: 'ivan@gmail.com',
     password: 'ballislife',
+    overallSkill: 'intermediate',
+    city: 'Sunnyvale',
+    state: 'CA',
     stats: {
-      skillLevel: 'intermediate',
       dribbling: 3,
       passing: 3,
       shooting: 2,
@@ -51,8 +57,10 @@ export const samplePlayers = [
     username: 'LynnFTWynn', // username, gmail or email, password
     email: 'lynn@gmail.com',
     password: 'ballislife',
+    overallSkill: 'pro',
+    city: 'Sunnyvale',
+    state: 'CA',
     stats: {
-      skillLevel: 'pro',
       dribbling: 5,
       passing: 4,
       shooting: 5,
@@ -67,8 +75,10 @@ export const samplePlayers = [
     username: 'Goksu9000', // username, gmail or email, password
     email: 'goksu@gmail.com',
     password: 'ballislife',
+    overallSkill: 'intermediate',
+    city: 'San Jose',
+    state: 'CA',
     stats: {
-      skillLevel: 'intermediate',
       dribbling: 3,
       passing: 2,
       shooting: 3,
@@ -83,8 +93,10 @@ export const samplePlayers = [
     username: 'TJ Dribblz', // username, gmail or email, password
     email: 'tim@gmail.com',
     password: 'ballislife',
+    overallSkill: 'pro',
+    city: 'Sunnyvale',
+    state: 'CA',
     stats: {
-      skillLevel: 'pro',
       dribbling: 4,
       passing: 5,
       shooting: 2,

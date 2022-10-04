@@ -17,18 +17,21 @@ const loadData = async () => {
     await db.User.insertMany(samplePlayers);
     let players = await db.User.find({});
 
+    // have one player create each event
     for (let i = 0; i < players.length; i++) {
       let player = players[i];
       let newEvent = sampleEvents[i];
       newEvent.creator = player._id.toString(); //should creator be the name or id?
       await db.Event.create(newEvent);
     }
-
+    // populate each event with all sample players
     let events = await db.Event.find({});
     for (let event of events) {
       players.forEach(player => event.peopleAttending.push(player._id.toString()));
       await event.save();
     }
+
+    // have each player befriend everyone else
 
   } catch (err) {
     console.log(err);
