@@ -15,8 +15,8 @@ export default function MessageRoom({ rm, socket }) {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    const t = { room: rm, message: e.target.elements.input.value };
-    socket.emit('send_message', t);
+    // const t = { room: rm, message: e.target.elements.input.value };
+    // socket.to().emit('direct_message', t);
   };
 
   const sty2 = {
