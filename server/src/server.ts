@@ -18,8 +18,6 @@ import { router } from './routes';
 import { Server, Socket } from 'socket.io';
 import { onConnection } from './Sockets/route_socket'
 
-import * as I from './Utilities/Interfaces/Sockets';
-
 import { mongo, ObjectId } from 'mongoose';
 import { Session } from 'inspector';
 
@@ -32,7 +30,7 @@ const socketServer = http.createServer(app);
 // creates a session DB to store "sessions when instructed to"
 const store = mongoDBSession(session)
 const Store = new store({
-  uri:'mongodb://localhost/AlleyOops',
+  uri:'mongodb://18.144.12.217/AlleyOops',
   collection: 'mySessions'
 })
 
@@ -50,22 +48,23 @@ app.use(session({
 
 app.use('/', router);
 
-export const io = new Server(socketServer, {
+const io = new Server(socketServer, {
   cors: {
     origin: 'http://localhost:3000',
     methods: ['GET', 'POST'],
   },
 }).listen(server);
 
-io.use((socket: I.ExtendedSocket | any, next):void => {
+io.use((socket: Socket, next):void => {
   // authorization
-  const username = socket.handshake.auth.username;
-  if (!username) {
-    return next(new Error('invalid username'))
-  }
-  socket.username = username;
+  // const username = socket.handshake.auth.username;
+  // if (!username) {
+  //   return next(new Error('invalid username'))
+  // }
+  // socket.username = username;
   next();
 })
 
 io.on('connection', onConnection)
 
+export default io;
