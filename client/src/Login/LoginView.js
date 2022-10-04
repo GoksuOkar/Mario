@@ -16,22 +16,6 @@ function LoginView({ setUserId, userId, setPage }) {
   const divRef = useRef(null);
 
   useEffect(() => {
-    //get request /auth path
-    Axios
-      .get('/auth', {withCredentials: true})
-      .then((res) => {
-        console.log(res);
-        if (res.data.id !== null) {
-          setUserId(res.data.id);
-          setPage('games')
-        }
-      })
-    // check from server if the user already signed in?
-    // /LOGIN path > if wrong sign in, say something > 401
-    // /
-
-    // if not do below vv
-
     // eslint-disable-next-line no-undef
     window.google.accounts.id.initialize({
       client_id: '143714965385-rruq4eamet32hpn61alm2913qgbfed0o.apps.googleusercontent.com',
@@ -97,7 +81,7 @@ function LoginView({ setUserId, userId, setPage }) {
             zIndex: "2"
           }}
         >
-          {/* <div id="google-button" ref={divRef}></div> */}
+          <div id="google-button" ref={divRef}></div>
           <span style={{margin: '10px'}}>OR</span>
           <form
             id='myform'

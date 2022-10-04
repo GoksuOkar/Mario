@@ -27,7 +27,7 @@ export default function App() {
       }
     })
     .catch(() => setPage('login'));
-  }, [Axios])
+  }, [])
 
   return (
     <div className='App'>
