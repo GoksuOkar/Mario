@@ -16,6 +16,7 @@ export default function App() {
     baseURL: 'http://localhost:3001',
   });
 
+  // checks if the user is already authenticated, sets the page to 'login' if not.
   useEffect(() => {
     Axios
     .get('/auth', {withCredentials: true})
