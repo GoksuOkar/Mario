@@ -1,5 +1,8 @@
-import {Schema, model, connect } from 'mongoose';
-import * as I from '../Utilities/Interfaces/Schemas'
+import {Schema, model, connect, isObjectIdOrHexString } from 'mongoose';
+import * as I from '../Utilities/Interfaces/Schemas';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const userSchema = new Schema<I.User>({
   username: String, // username, gmail or email, password
@@ -12,12 +15,13 @@ const userSchema = new Schema<I.User>({
   friends: Array, // of [ids]
   events: Array, // of [ids]
   picture: String, // url?
-  conversations: Array<String> // other users // store objects of objects
+  conversations: Array<String> // array of conversation IDs
 });
 
 // not to implement, just to see inside object of objects
 const conversationSchema = new Schema<I.Conversation>({
   // friendId: Object, // username, conversationId: Number
+  conversationName: String,
   users: Array<String>,
   messages: Array<I.Message>
 });
@@ -30,15 +34,19 @@ const messageSchema = new Schema<I.Message>({
   time: Date
 });
 
+// const attendees = new Schema<I.Attendee>({
+//   _id: Schema.Types.ObjectId
+// })
+
 const eventSchema = new Schema<I.Event>({
   eventName: String,
   eventDescription: String,
-  peopleAttending: Array,
+  peopleAttending: Array, //array of objectids
   comments: Array,
   location: String, // ???
   startTime: Date,
   endTime: Date,
-  creator: String, // user id
+  creator: Schema.Types.ObjectId, // user id, should be objectId not string?
 });
 
 const commentSchema = new Schema<I.Comment>({
@@ -53,11 +61,10 @@ export const Message = model('Message', messageSchema);
 export const Event = model ('Event', eventSchema);
 export const Comment = model ('Comment', commentSchema);
 
-const DBName = 'AlleyOops'; //  defin in env file later
 
-connect(`mongodb://18.144.12.217/${DBName}`)
+connect(`mongodb://${process.env.USERNAME}:${process.env.PASSWORD}@18.144.12.217/${process.env.DBNAME}`)
   .then((res) => {
-    console.log(`connected to DB: ${DBName}`);
+    console.log(`connected to DB: ${process.env.DBNAME}`);
   })
   .catch((err) => {
     console.log("could not connect");
