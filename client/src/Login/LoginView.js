@@ -6,15 +6,17 @@ import { TextInput, Button, PasswordInput} from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 
-const serverURL = 'http://localhost:3001'
+const Axios = axios.create({
+  baseURL: 'http://localhost:3001',
+});
 
 function LoginView({ login, userId }) {
   const divRef = useRef(null);
 
   useEffect(() => {
     //get request /auth path
-    axios
-      .get(serverURL + '/auth')
+    Axios
+      .get('/auth')
       .then((res) => {
         if (res.data.id !== null) {
           login(res.data.id);
@@ -43,12 +45,12 @@ function LoginView({ login, userId }) {
   }, [])
 
   const handleCredentialResponse = (response) => {
-    console.log('success');
     login('blblba');
   }
 
-  // Activates when user wants to log in. Alerts if log in credentials are not right
+  // Sends login credentials to backend, alerts if wrong login
   const handleSubmit = (values) => {
+    // axios.get()
     console.log(values);
   }
 
