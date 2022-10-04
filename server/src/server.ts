@@ -1,5 +1,8 @@
 import express, { Express } from 'express';
 import session from 'express-session';
+import * as dotenv from "dotenv";
+dotenv.config();
+
 declare module 'express-session' {
   interface SessionData {
     isAuth: boolean;
@@ -30,7 +33,7 @@ const socketServer = http.createServer(app);
 // creates a session DB to store "sessions when instructed to"
 const store = mongoDBSession(session)
 const Store = new store({
-  uri:'mongodb://18.144.12.217/AlleyOops',
+  uri:`mongodb://${process.env.DBUSER}:${process.env.DBPASS}@18.144.12.217/AlleyOops`,
   collection: 'mySessions'
 })
 

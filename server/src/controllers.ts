@@ -87,3 +87,11 @@ export function auth (req: Request, res: Response) {
     res.status(404).send({id: null})
   }
 }
+
+export function user (req: Request, res: Response) {
+  db.User.find()
+  .then(result=>console.log(result));
+  db.User.findOne({user: req.params.userId})
+  .then(result=>res.send(result))
+  .catch(err=>res.send(err))
+}

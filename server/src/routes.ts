@@ -9,3 +9,5 @@ router.get('/auth', controllers.auth)
 router.post('/register', controllers.register)
 router.get('/login', controllers.login)
 router.delete('/logout', controllers.logout);
+
+router.get('/user/:userId', controllers.user)

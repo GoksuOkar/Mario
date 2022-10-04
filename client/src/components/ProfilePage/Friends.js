@@ -1,18 +1,20 @@
-import { Grid, Avatar, Card, Text } from '@mantine/core';
+import { Grid, Avatar, Card, Text, SimpleGrid } from '@mantine/core';
 import players from '../FindTeammates/sampleTeammates.js';
 
-export default function Friends() {
+export default function Friends({ friends }) {
   return (
-    <>
-      <Text>FRIENDS</Text>
+    <SimpleGrid m='auto'>
+      <Text size={20} m='auto' weight='bolder'>
+        FRIENDS
+      </Text>
       <Grid m='auto'>
         {players.map((player) => (
-          <Card key={player._id}>
-            <Avatar src={player.photo} />
+          <Card m='auto' key={player._id}>
+            <Avatar m='auto' src={player.photo} />
             <Text>{player.name}</Text>
           </Card>
         ))}
       </Grid>
-    </>
+    </SimpleGrid>
   );
 }

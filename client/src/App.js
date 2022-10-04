@@ -19,7 +19,7 @@ export default function App() {
       ) : null}
       {page === 'games' ? <Dashboard /> : null}
       {page === 'friends' ? <Dropdown /> : null}
-      {page === 'profile' ? <ProfilePage /> : null}
+      {page === 'profile' ? <ProfilePage userId={userId} /> : null}
       {page === 'findTeam' ? <FindTeammates /> : null}
     </div>
   );

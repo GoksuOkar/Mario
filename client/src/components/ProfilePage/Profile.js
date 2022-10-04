@@ -3,7 +3,7 @@ import bbimg from '../../assets/images/basketballicon.png';
 // eslint-disable-next-line
 import ball from './ball.css';
 
-export default function Profile() {
+export default function Profile({ profile }) {
   const bbSty = {
     width: '25px',
     height: '25px',
@@ -12,22 +12,23 @@ export default function Profile() {
     <div>
       <Grid m='5%'>
         <Avatar
+          m='auto'
           radius={100}
           size={100}
           src='https://cdn.nba.com/headshots/nba/latest/1040x760/977.png'
         />
-        <SimpleGrid m='auto'>
+        <div>
           <Text>Games Attended: 43</Text>
           <Text>Prefered Role: Guard</Text>
           <Text>Height: 6'6"</Text>
-        </SimpleGrid>
+        </div>
       </Grid>
       <SimpleGrid m='5%'>
-        <Text m='auto' weight={'bolder'}>
+        <Text size={20} m='auto' weight={'bolder'}>
           Skills
         </Text>
         <Grid m='auto'>
-          <Text>Overall</Text>
+          <Text sx={{ width: '85px' }}>Overall</Text>
           {[...Array(5)].map((num, i) => (
             <img
               src={bbimg}
@@ -39,7 +40,7 @@ export default function Profile() {
           ))}
         </Grid>
         <Grid m='auto'>
-          <Text>Dunkability</Text>
+          <Text sx={{ width: '85px' }}>Dunkability</Text>
           {[...Array(5)].map((num, i) => (
             <img
               src={bbimg}
@@ -51,7 +52,7 @@ export default function Profile() {
           ))}
         </Grid>
         <Grid m='auto'>
-          <Text>Defense</Text>
+          <Text sx={{ width: '85px' }}>Defense</Text>
           {[...Array(5)].map((num, i) => (
             <img
               src={bbimg}
@@ -63,7 +64,7 @@ export default function Profile() {
           ))}
         </Grid>
         <Grid m='auto'>
-          <Text>Shooting</Text>
+          <Text sx={{ width: '85px' }}>Shooting</Text>
           {[...Array(5)].map((num, i) => (
             <img
               src={bbimg}
@@ -75,7 +76,7 @@ export default function Profile() {
           ))}
         </Grid>
         <Grid m='auto'>
-          <Text>Dribbling</Text>
+          <Text sx={{ width: '85px' }}>Dribbling</Text>
           {[...Array(5)].map((num, i) => (
             <img
               src={bbimg}
@@ -87,7 +88,7 @@ export default function Profile() {
           ))}
         </Grid>
         <Grid m='auto'>
-          <Text>Passing</Text>
+          <Text sx={{ width: '85px' }}>Passing</Text>
           {[...Array(5)].map((num, i) => (
             <img
               src={bbimg}
