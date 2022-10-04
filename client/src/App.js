@@ -8,7 +8,7 @@ import FindTeammates from './components/FindTeammates/FindTeammates.jsx';
 
 export default function App() {
   //const divRef = useRef(true);
-  const [userId, setUserId] = useState(true);
+  const [userId, setUserId] = useState('633ca1f73a3cb5d9bdc3bff5');
   const [page, setPage] = useState('login');
 
   return (

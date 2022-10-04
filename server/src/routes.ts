@@ -11,3 +11,4 @@ router.get('/login', controllers.login)
 router.delete('/logout', controllers.logout);
 
 router.get('/user/:userId', controllers.user)
+router.get('/users/:userIds', controllers.users)

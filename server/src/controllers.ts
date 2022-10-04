@@ -89,9 +89,15 @@ export function auth (req: Request, res: Response) {
 }
 
 export function user (req: Request, res: Response) {
-  db.User.find()
-  .then(result=>console.log(result));
-  db.User.findOne({user: req.params.userId})
+  db.User.findOne({_id: req.params.userId})
   .then(result=>res.send(result))
   .catch(err=>res.send(err))
+}
+
+export function users (req: Request, res: Response) {
+  console.log(req.params)
+  res.send('blah')
+  // db.User.findMany({_id: req.params.userId})
+  // .then(result=>res.send(result))
+  // .catch(err=>res.send(err))
 }

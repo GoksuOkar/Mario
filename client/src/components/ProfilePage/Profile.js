@@ -4,6 +4,7 @@ import bbimg from '../../assets/images/basketballicon.png';
 import ball from './ball.css';
 
 export default function Profile({ profile }) {
+  const { dribbling, dunking, passing, shooting } = profile.stats || 0;
   const bbSty = {
     width: '25px',
     height: '25px',
@@ -11,13 +12,11 @@ export default function Profile({ profile }) {
   return (
     <div>
       <Grid m='5%'>
-        <Avatar
-          m='auto'
-          radius={100}
-          size={100}
-          src='https://cdn.nba.com/headshots/nba/latest/1040x760/977.png'
-        />
+        <Avatar m='auto' radius={100} size={100} src={profile.picture} />
         <div>
+          <Text weight='bolder'>{profile.username}</Text>
+          <Text>City: {profile.city}</Text>
+          <Text>State: {profile.state}</Text>
           <Text>Games Attended: 43</Text>
           <Text>Prefered Role: Guard</Text>
           <Text>Height: 6'6"</Text>
@@ -27,21 +26,17 @@ export default function Profile({ profile }) {
         <Text size={20} m='auto' weight={'bolder'}>
           Skills
         </Text>
-        <Grid m='auto'>
-          <Text sx={{ width: '85px' }}>Overall</Text>
-          {[...Array(5)].map((num, i) => (
-            <img
-              src={bbimg}
-              alt='bbimg'
-              style={bbSty}
-              className={`roll${i}`}
-              key={i}
-            />
-          ))}
+        <Grid ml='xs'>
+          <Text weight='bolder' sx={{ width: '85px' }}>
+            Overall:
+          </Text>
+          <Text weight='bolder' ml='xs' sx={{ textTransform: 'capitalize' }}>
+            {profile.overallSkill}
+          </Text>
         </Grid>
-        <Grid m='auto'>
+        <Grid ml='xs'>
           <Text sx={{ width: '85px' }}>Dunkability</Text>
-          {[...Array(5)].map((num, i) => (
+          {[...Array(dunking)].map((num, i) => (
             <img
               src={bbimg}
               alt='bbimg'
@@ -51,7 +46,7 @@ export default function Profile({ profile }) {
             />
           ))}
         </Grid>
-        <Grid m='auto'>
+        <Grid ml='xs'>
           <Text sx={{ width: '85px' }}>Defense</Text>
           {[...Array(5)].map((num, i) => (
             <img
@@ -63,9 +58,9 @@ export default function Profile({ profile }) {
             />
           ))}
         </Grid>
-        <Grid m='auto'>
+        <Grid ml='xs'>
           <Text sx={{ width: '85px' }}>Shooting</Text>
-          {[...Array(5)].map((num, i) => (
+          {[...Array(shooting)].map((num, i) => (
             <img
               src={bbimg}
               alt='bbimg'
@@ -75,9 +70,9 @@ export default function Profile({ profile }) {
             />
           ))}
         </Grid>
-        <Grid m='auto'>
+        <Grid ml='xs'>
           <Text sx={{ width: '85px' }}>Dribbling</Text>
-          {[...Array(5)].map((num, i) => (
+          {[...Array(dribbling)].map((num, i) => (
             <img
               src={bbimg}
               alt='bbimg'
@@ -87,9 +82,9 @@ export default function Profile({ profile }) {
             />
           ))}
         </Grid>
-        <Grid m='auto'>
+        <Grid ml='xs'>
           <Text sx={{ width: '85px' }}>Passing</Text>
-          {[...Array(5)].map((num, i) => (
+          {[...Array(passing)].map((num, i) => (
             <img
               src={bbimg}
               alt='bbimg'
