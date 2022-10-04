@@ -1,6 +1,7 @@
 import {Schema, model, connect, isObjectIdOrHexString } from 'mongoose';
-import * as I from '../Utilities/Interfaces/Schemas'
-import * as dotenv from "dotenv";
+import * as I from '../Utilities/Interfaces/Schemas';
+import dotenv from 'dotenv';
+
 dotenv.config();
 
 const userSchema = new Schema<I.User>({
@@ -60,11 +61,10 @@ export const Message = model('Message', messageSchema);
 export const Event = model ('Event', eventSchema);
 export const Comment = model ('Comment', commentSchema);
 
-const DBName = 'AlleyOops'; //  defin in env file later
 
-connect(`mongodb://${process.env.DBUSER}:${process.env.DBPASS}@18.144.12.217/${DBName}`)
+connect(`mongodb://${process.env.USERNAME}:${process.env.PASSWORD}@18.144.12.217/${process.env.DBNAME}`)
   .then((res) => {
-    console.log(`connected to DB: ${DBName}`);
+    console.log(`connected to DB: ${process.env.DBNAME}`);
   })
   .catch((err) => {
     console.log("could not connect");
