@@ -1,6 +1,7 @@
 import { setState, useEffect } from 'react';
 // import GMap from './GMap.js';
 import Info from './Info';
+import Comments from './Comments.js';
 
 const Game:
 	{
@@ -13,9 +14,9 @@ const Game:
     endTime: "4pm",
     description: "This is the showdown between two rival teams: The Monstars and The San Jose Toonz! Don’t be late to this epic match!"
     Comments: [ {
-        Body: "This place is ok"
-        Username: "Pedro"
-        Date: "December 12, 2:45am"
+        body: "This place is ok"
+        userName: "Pedro"
+        date: "December 12, 2:45am"
       }
     ]
   },
@@ -25,7 +26,9 @@ const Game:
 
 const GamePage = () => {
 
-  // get info for the game
+  useEffect(() => {
+    //get game info here
+  }, [])
 
 
   return(
@@ -38,6 +41,9 @@ const GamePage = () => {
       start={Game.startTime}
       end={Game.endTime}
       description={Game.description}
+    />
+    <Comments
+      list={Game.comments}
     />
   )
 }
