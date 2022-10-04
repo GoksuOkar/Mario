@@ -4,8 +4,8 @@ import { Button, Avatar, Grid, Text, Card, Divider } from '@mantine/core';
 const sampleTeammates = require('./sampleTeammates.js');
 
 export default function YourGroup() {
-  const handleClick = () => {
-    // todo
+  const joinRoom = (e) => {
+    e.preventDefault();
   };
   return (
     <>
@@ -24,7 +24,7 @@ export default function YourGroup() {
             </Grid>
           </div>
         ))}
-        <Button onClick={handleClick} radius='xl' size='xs'>
+        <Button onClick={joinRoom} radius='xl' size='xs'>
           Message Group
         </Button>
       </Card>
