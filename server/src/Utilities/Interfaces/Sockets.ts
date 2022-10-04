@@ -20,6 +20,8 @@ export interface SocketData {
   age: number;
 }
 
-export interface ExtendedSocket extends Socket {
-  username: string;
+declare module 'socket.io' {
+  interface Socket {
+    username?: String;
+  }
 }

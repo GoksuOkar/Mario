@@ -9,19 +9,18 @@ import FindTeammates from './components/FindTeammates/FindTeammates.jsx';
 export default function App() {
   //const divRef = useRef(true);
   const [userId, setUserId] = useState(true);
+  const [page, setPage] = useState('login');
 
   return (
     <div className='App'>
-      <NavBar />
-      <ProfilePage />
-      {!userId && <LoginView login={setUserId} userId={userId} />}
-      {userId && (
-        <div>
-          <Dropdown />
-          <Dashboard />
-          <FindTeammates />
-        </div>
-      )}
+      <NavBar userId={userId} page={page} setPage={setPage} />
+      {page === 'login' ? (
+        <LoginView login={setUserId} userId={userId} />
+      ) : null}
+      {page === 'games' ? <Dashboard /> : null}
+      {page === 'friends' ? <Dropdown /> : null}
+      {page === 'profile' ? <ProfilePage /> : null}
+      {page === 'findTeam' ? <FindTeammates /> : null}
     </div>
   );
 }
