@@ -11,12 +11,11 @@ router.get('/login', controllers.login)
 router.delete('/logout', controllers.logout);
 
 // // GAMES
-// router.get('./games', )
+router.get('/games', controllers.getGames)
 // router.post('./games', )
 
 // // USERS
-// router.get('/users', )
-// router.get('/friends', )
+router.get('/users', controllers.getUserInfo)
+router.get('/friends', controllers.getFriends)
 
 // // CONVERSATIONS
-

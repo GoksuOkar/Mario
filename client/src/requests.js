@@ -31,6 +31,15 @@ module.exports = {
     })
   },
 
+  getGamesByIds: (gameIds) => {
+    return axios({
+      url: '/games',
+      method: 'get',
+      baseURL: basePath,
+      params: { gameIds }
+    })
+  },
+
   // USERS
   getUserInfo: (userId) => {
     return axios({
@@ -48,12 +57,14 @@ module.exports = {
       params: { gameId }
     })
   },
-  getFriendInfo: (friendId) => {
+
+  // friendIds should be an array
+  getFriendInfo: (friendIds) => {
     return axios({
       url: '/friends',
       method: 'get',
       baseURL: basePath,
-      params: { friendId }
+      params: { friendIds }
     })
   },
 }
