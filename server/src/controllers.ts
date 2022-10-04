@@ -87,3 +87,34 @@ export function auth (req: Request, res: Response) {
     res.status(404).send({id: null})
   }
 }
+
+export async function getGames (req: Request, res: Response) {
+  console.log('received request to get all games')
+  console.log('',req.query)
+  // case1 : get all games
+  // case2 : get one game based on id
+  // case3 : get games based on array of ids
+  try {
+    let results = await db.Event.find({});
+    res.send(results);
+  } catch (error) {
+    res.sendStatus(404);
+  }
+}
+
+export async function getUserInfo (req: Request, res: Response) {
+  try {
+    // search user by Id
+  } catch (error) {
+
+  }
+}
+
+export async function getFriends (req: Request, res: Response) {
+  try {
+    // search friends by array of IDs
+  } catch (error) {
+
+  }
+}
+
