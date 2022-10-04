@@ -9,12 +9,13 @@ const userSchema = new Schema<I.User>({
   friends: Array, // of [ids]
   events: Array, // of [ids]
   picture: String, // url?
-  conversations: Array<String> // other users // store objects of objects
+  conversations: Array<String> // array of conversation IDs
 });
 
 // not to implement, just to see inside object of objects
 const conversationSchema = new Schema<I.Conversation>({
   // friendId: Object, // username, conversationId: Number
+  conversationName: String,
   users: Array<String>,
   messages: Array<I.Message>
 });

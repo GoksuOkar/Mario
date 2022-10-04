@@ -3,12 +3,14 @@ export const message = {
   receive: 'receive_message'
 }
 
-export const room = {
-  join: 'join_room',
+export const join = {
+  room: 'join_room',
+  group: 'join_group'
 }
 
 export const user = {
   connected: 'user_connected',
   directMessage: 'direct_message',
   getConversations: 'get_conversations',
+  newMessage: 'new_message'
 }
