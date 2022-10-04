@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import io from 'socket.io-client';
 import MessageRoom from './MessageRoom.js';
-import { user, join } from './../Utilities/socket_listeners';
+import { user, join } from '../../Utilities/socket_listeners';
 
 // define connection
 const socket = io.connect('http://localhost:3001');
@@ -12,20 +12,20 @@ export default function Dropdown() {
   // start group message
   const joinRoom = async (e) => {
     e.preventDefault();
-    const arr = [
-    "Brian",
-    "James",
-    "Alex",
-    "Mary",
-    "Alice"
-];
+//     const arr = [
+//     "Brian",
+//     "James",
+//     "Alex",
+//     "Mary",
+//     "Alice"
+// ];
 
-    const room = e.target.elements.jr.value;
-        socket.emit(join.group, {conversationName: room,
-  users: arr});
-    const rms = [...mesRms];
-    rms.push(room);
-    await setMesRms(rms);
+//     const room = e.target.elements.jr.value;
+//         socket.emit(join.group, {conversationName: room,
+//   users: arr});
+//     const rms = [...mesRms];
+//     rms.push(room);
+//     await setMesRms(rms);
   };
 
   // start direct message
