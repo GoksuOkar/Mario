@@ -2,7 +2,6 @@ import {Request, Response} from "express";
 import * as db from './db/BlueOceanSchema';  // db object has models as property
 import bcrypt from 'bcryptjs';
 
-
 export function register (req: Request, res: Response): void {
   const {email, username, password} = req.body;
   db.User.findOne({email: email})
@@ -89,16 +88,39 @@ export function auth (req: Request, res: Response) {
 }
 
 export async function getGames (req: Request, res: Response) {
-  console.log('received request to get all games')
-  console.log('',req.query)
-  // case1 : get all games
-  // case2 : get one game based on id
-  // case3 : get games based on array of ids
-  try {
-    let results = await db.Event.find({});
+  console.log('received request with these params:',req.query)
+  let { gameId, gameIds} = req.query;
+  if (gameId) {
+    // case1 : get one game based on id
+    try {
+      let result = await db.Event.findById(gameId);
+      res.send(result);
+    } catch (error) {
+      res.sendStatus(404);
+    }
+  } else if (gameIds) {
+    // case2 : get games based on array of ids
+    let results = [];
+    // this is not best practice but it works for now, the incoming array of gameIds should be in json
+    gameIds = JSON.parse(gameIds);
+    for (let gameId of gameIds) {
+      try {
+        let result = await db.Event.findById(gameId);
+        results.push(result);
+      } catch (error) {
+        // just don't push to results
+        console.log(error);
+      }
+    }
     res.send(results);
-  } catch (error) {
-    res.sendStatus(404);
+  } else {
+    // case3 : get all games
+    try {
+      let results = await db.Event.find({});
+      res.send(results);
+    } catch (error) {
+      res.sendStatus(404);
+    }
   }
 }
 

@@ -22,21 +22,22 @@ module.exports = {
     })
   },
 
+  getGamesByIds: (gameIds) => {
+    gameIds = JSON.stringify(gameIds);
+    return axios({
+      url: '/games',
+      method: 'get',
+      baseURL: basePath,
+      params: { gameIds }
+    })
+  },
+
   createGame: (body) => {
     return axios({
       url: '/games',
       method: 'post',
       baseURL: basePath,
       data: body
-    })
-  },
-
-  getGamesByIds: (gameIds) => {
-    return axios({
-      url: '/games',
-      method: 'get',
-      baseURL: basePath,
-      params: { gameIds }
     })
   },
 
