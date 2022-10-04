@@ -35,6 +35,7 @@ export function register (req: Request, res: Response): void {
 }
 
 export function login (req: Request, res: Response): void {
+  console.log(req.session);
   const {email, password} = req.body;
   db.User.findOne({email: email})
   .then ((result) => {
@@ -81,6 +82,7 @@ export function logout (req: Request, res: Response) {
 }
 
 export function auth (req: Request, res: Response) {
+  console.log(req.session)
   if (req.session.isAuth === true)  {
     res.send({id: req.session.user}).status(200)
   } else {
@@ -115,6 +117,17 @@ export async function getFriends (req: Request, res: Response) {
     // search friends by array of IDs
   } catch (error) {
 
+  }
+}
+
+export async function getGame (req:Request, res: Response) {
+  console.log(req.query.id)
+  try {
+    let game = await db.Event.find({id: req.query.id})
+    res.status(200).send(game)
+  } catch (err)  {
+    console.log(err)
+    res.sendStatus(404);
   }
 }
 

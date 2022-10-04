@@ -12,6 +12,7 @@ router.delete('/logout', controllers.logout);
 
 // // GAMES
 router.get('/games', controllers.getGames)
+router.get('/game', controllers.getGame)
 // router.post('./games', )
 
 // // USERS
