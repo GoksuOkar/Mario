@@ -32,7 +32,8 @@ const socketServer = http.createServer(app);
 // creates a session DB to store "sessions when instructed to"
 const store = mongoDBSession(session)
 const Store = new store({
-  uri:'mongodb://18.144.12.217/AlleyOops',
+  uri:'mongodb://localhost/AlleyOops',
+  // uri:'mongodb://18.144.12.217/AlleyOops',
   collection: 'mySessions'
 })
 

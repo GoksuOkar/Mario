@@ -59,7 +59,8 @@ export const Comment = model ('Comment', commentSchema);
 
 const DBName = 'AlleyOops'; //  defin in env file later
 
-connect(`mongodb://18.144.12.217/${DBName}`)
+connect(`mongodb://localhost/${DBName}`)
+// connect(`mongodb://18.144.12.217/${DBName}`)
   .then((res) => {
     console.log(`connected to DB: ${DBName}`);
   })
