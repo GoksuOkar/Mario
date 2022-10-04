@@ -1,7 +1,9 @@
 
 import background from "../assets/images/basketballbg.png";
 import React, { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 import { TextInput, Button } from '@mantine/core';
+
 
 const serverURL = 'http://localhost:3001'
 
@@ -10,6 +12,13 @@ function LoginView({ login, userId }) {
 
   useEffect(() => {
     //get request /auth path
+    axios
+      .get(serverURL + '/auth')
+      .then((res) => {
+        if (res.data.id !== null) {
+          login(res.data.id);
+        }
+      })
     // check from server if the user already signed in?
     // /LOGIN path > if wrong sign in, say something > 401
     // /
@@ -20,6 +29,7 @@ function LoginView({ login, userId }) {
     window.google.accounts.id.initialize({
       client_id: '143714965385-rruq4eamet32hpn61alm2913qgbfed0o.apps.googleusercontent.com',
       callback: handleCredentialResponse,
+      auto_select: true,
     });
     // eslint-disable-next-line no-undef
     window.google.accounts.id.renderButton(document.getElementById("google-button"), {
@@ -61,21 +71,31 @@ function LoginView({ login, userId }) {
           <div id="google-button" ref={divRef}></div>
           <span style={{margin: '10px'}}>OR</span>
           <TextInput
-            label="Username:"
-          />
-          <TextInput
             label="Email:"
             placeholder="your@email.com"
             type={'email'}
+          />
+          <TextInput
+            label="Password:"
           />
           <Button
             styles={(theme) => ({
               root: {
                 marginTop: '20px',
+                marginBottom: '20px'
             }})}
           >
-            Sign In/Sign Up
+            Sign In
           </Button>
+          <small>
+            Don't have an account?
+            <small
+             onClick={() => console.log('register')}
+             style={{textDecoration: 'underline'}}
+            >
+              Register here
+            </small>
+          </small>
         </div>
       </div>
     </div>
