@@ -1,3 +1,4 @@
+import { Text } from '@mantine/core';
 import Profile from './Profile.js';
 import Game from './Game.js';
 import Friends from './Friends.js';
@@ -16,7 +17,7 @@ export default function ProfilePage() {
         <Friends />
       </div>
       <div>
-        Your games
+        <Text weight='bolder'>Your Games</Text>
         {sampleEvents.map((event) => (
           <Game key={event._id} event={event} />
         ))}

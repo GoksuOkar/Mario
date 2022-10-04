@@ -1,11 +1,12 @@
 import { SimpleGrid, Grid, Avatar, Text } from '@mantine/core';
 import bbimg from '../../assets/images/basketballicon.png';
+// eslint-disable-next-line
 import ball from './ball.css';
 
 export default function Profile() {
   const bbSty = {
-    width: '15px',
-    height: '15px',
+    width: '25px',
+    height: '25px',
   };
   return (
     <div>
