@@ -46,11 +46,13 @@ function LoginView({ login, userId }) {
     login('blblba');
   }
 
+  // Activates when user wants to log in. Alerts if log in credentials are not right
+  const handleSubmit = (e) => {
+
+  }
+
   return (
     <div>
-      <div>
-        <img alt="ball" src="../assests/images/basketballbg.png"></img>
-      </div>
       <div
         id="LoginView"
         style={{
@@ -65,37 +67,66 @@ function LoginView({ login, userId }) {
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
-            alignItems: "center"
+            alignItems: "center",
+            position: "relative"
           }}
         >
           <div id="google-button" ref={divRef}></div>
           <span style={{margin: '10px'}}>OR</span>
-          <TextInput
-            label="Email:"
-            placeholder="your@email.com"
-            type={'email'}
-          />
-          <TextInput
-            label="Password:"
-          />
-          <Button
-            styles={(theme) => ({
-              root: {
-                marginTop: '20px',
-                marginBottom: '20px'
-            }})}
+          <form
+            style={{
+              width: "100%",
+              textAlign: "center"
+            }}
           >
-            Sign In
-          </Button>
+            <TextInput
+              placeholder="your@email.com"
+              type={'email'}
+              styles={(theme) => ({
+                root: {
+                  width: '100%'
+                }
+              })}
+            />
+            <TextInput
+              placeholder="password"
+              styles={(theme) => ({
+                root: {
+                  marginTop: '20px',
+                  width: '100%'
+                }
+              })}
+            />
+            <Button
+              onClick={(e) => handleSubmit(e)}
+              styles={(theme) => ({
+                root: {
+                  marginTop: '20px',
+                  marginBottom: '20px'
+              }})}
+            >
+              Sign In
+            </Button>
+          </form>
           <small>
             Don't have an account?
             <small
              onClick={() => console.log('register')}
-             style={{textDecoration: 'underline'}}
+             style={{textDecoration: 'underline', cursor: 'pointer'}}
             >
               Register here
             </small>
           </small>
+        <img
+          alt="ball"
+          src={background}
+          style={{
+            opacity:'0.5',
+            position: 'absolute',
+            top: '-40%',
+            zIndex: '-1'
+          }}
+        />
         </div>
       </div>
     </div>
