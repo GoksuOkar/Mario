@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LoginView from './Login/LoginView.js';
+import { LoginView } from './Login/LoginView.js';
 import Dropdown from '../src/components/Messages/Messages.js';
 import NavBar from './components/NavBar.js';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
@@ -8,20 +8,19 @@ import FindTeammates from './components/FindTeammates/FindTeammates.jsx';
 
 export default function App() {
   //const divRef = useRef(true);
-  const [userId, setUserId] = useState(null);
+  const [userId, setUserId] = useState(true);
+  const [page, setPage] = useState('login');
 
   return (
     <div className='App'>
-      <ProfilePage />
-      <NavBar />
-      {!userId && <LoginView login={setUserId} userId={userId} />}
-      {userId && (
-        <div>
-          <Dropdown />
-          <Dashboard />
-          <FindTeammates />
-        </div>
-      )}
+      <NavBar userId={userId} page={page} setPage={setPage} />
+      {page === 'login' ? (
+        <LoginView setPage={setPage} setUserId={setUserId} userId={userId} />
+      ) : null}
+      {page === 'games' ? <Dashboard /> : null}
+      {page === 'friends' ? <Dropdown /> : null}
+      {page === 'profile' ? <ProfilePage /> : null}
+      {page === 'findTeam' ? <FindTeammates /> : null}
     </div>
   );
 }

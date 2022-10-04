@@ -2,24 +2,28 @@
 import background from "../assets/images/basketballbg.png";
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import { TextInput, Button, PasswordInput} from '@mantine/core';
+import { TextInput, Button, PasswordInput, Modal, Group} from '@mantine/core';
 import { useForm } from '@mantine/form';
+import RegisterForm from "./RegisterForm.js";
 
 
 const Axios = axios.create({
   baseURL: 'http://localhost:3001',
 });
 
-function LoginView({ login, userId }) {
+function LoginView({ setUserId, userId, setPage }) {
+  const [opened, setOpened] = useState(false);
   const divRef = useRef(null);
 
   useEffect(() => {
     //get request /auth path
     Axios
-      .get('/auth')
+      .get('/auth', {withCredentials: true})
       .then((res) => {
+        console.log(res);
         if (res.data.id !== null) {
-          login(res.data.id);
+          setUserId(res.data.id);
+          setPage('games')
         }
       })
     // check from server if the user already signed in?
@@ -41,11 +45,11 @@ function LoginView({ login, userId }) {
       shape: 'circle',
       text: 'continue_with'
     });
-    // else set user id to returned id
+    // // else set user id to returned id
   }, [])
 
   const handleCredentialResponse = (response) => {
-    login('blblba');
+    setPage('games');
   }
 
   // Sends login credentials to backend, alerts if wrong login
@@ -65,8 +69,14 @@ function LoginView({ login, userId }) {
     },
   });
 
+  // opens registering modal
+  const openRegisterForm = () => {
+    setOpened(true);
+  }
+
   return (
     <div style={{backgroundColor:'#16141c'}}>
+      <RegisterForm setOpened={setOpened} opened={opened}/>
       <div
         id="LoginView"
         style={{
@@ -87,7 +97,7 @@ function LoginView({ login, userId }) {
             zIndex: "2"
           }}
         >
-          <div id="google-button" ref={divRef}></div>
+          {/* <div id="google-button" ref={divRef}></div> */}
           <span style={{margin: '10px'}}>OR</span>
           <form
             id='myform'
@@ -133,7 +143,7 @@ function LoginView({ login, userId }) {
           >
             Don't have an account?
             <small
-             onClick={() => console.log('register')}
+             onClick={openRegisterForm}
              style={{textDecoration: 'underline', cursor: 'pointer'}}
             >
               Register here
@@ -155,4 +165,4 @@ function LoginView({ login, userId }) {
   );
 }
 
-export default LoginView;
+export { LoginView, Axios};
