@@ -27,6 +27,10 @@ const messageSchema = new Schema<I.Message>({
   time: Date
 });
 
+// const attendees = new Schema<I.Attendee>({
+//   _id: Schema.Types.ObjectId
+// })
+
 const eventSchema = new Schema<I.Event>({
   eventName: String,
   eventDescription: String,
@@ -35,7 +39,7 @@ const eventSchema = new Schema<I.Event>({
   location: String, // ???
   startTime: Date,
   endTime: Date,
-  creator: String, // user id, should be objectId not string?
+  creator: Schema.Types.ObjectId, // user id, should be objectId not string?
 });
 
 const commentSchema = new Schema<I.Comment>({

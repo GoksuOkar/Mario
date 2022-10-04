@@ -1,3 +1,5 @@
+import { Schema } from "mongoose"
+
 export interface User {
   username: string,
   email: string,
@@ -21,6 +23,10 @@ export interface Message {
   time: Date
 }
 
+// export interface Attendee {
+//   _id: Schema.Types.ObjectId
+// }
+
 export interface Event {
   eventName: string,
   eventDescription: string,
@@ -29,7 +35,7 @@ export interface Event {
   location: String,
   startTime: Date,
   endTime: Date,
-  creator: string,
+  creator: Schema.Types.ObjectId,
 }
 
 export interface Comment {
