@@ -123,7 +123,7 @@ export async function getFriends (req: Request, res: Response) {
 export async function getGame (req:Request, res: Response) {
   console.log(req.query.id)
   try {
-    let game = await db.Event.find({id: req.query.id})
+    let game = await db.Event.find({_id: req.query.id})
     res.status(200).send(game)
   } catch (err)  {
     console.log(err)
