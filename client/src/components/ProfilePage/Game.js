@@ -1,32 +1,36 @@
-import { Avatar, Card, Grid, Text } from '@mantine/core';
+import { Avatar, Grid, SimpleGrid, Text } from '@mantine/core';
 import sampleTeammates from '../FindTeammates/sampleTeammates.js';
-import sampleEvents from '../Dashboard/sampleData.js';
 
-export default function Game() {
-  const sty = {
-    border: '1px solid lightgray',
-    display: 'flex',
-    flexDirection: 'row',
-  };
-  const plyrSty = {
-    display: 'flex',
-    flexDirection: 'column',
-    placeContent: 'center',
-  };
-  const listSty = {
-    display: 'flex',
-    flexDirection: 'row',
-  };
+export default function Game({ event }) {
+  // const sty = {
+  //   border: '1px solid lightgray',
+  //   display: 'flex',
+  //   flexDirection: 'row',
+  // };
+  // const plyrSty = {
+  //   display: 'flex',
+  //   flexDirection: 'column',
+  //   placeContent: 'center',
+  // };
+  // const listSty = {
+  //   display: 'flex',
+  //   flexDirection: 'row',
+  // };
 
   return (
-    <Card>
+    <Grid sx={{ border: '1px solid lightgray' }}>
       <Grid>
         {sampleTeammates.map((player) => (
-          <Avatar key={player._id} src={player.photo} />
+          <Avatar key={player._id} src={player.photo} radius={100} />
         ))}
-        <Text>{sampleEvents.eventName}</Text>
       </Grid>
-    </Card>
+      <SimpleGrid>
+        <Text>{event.eventName}</Text>
+        <Text>{event.location}</Text>
+        <Text>{event.startTime}</Text>
+      </SimpleGrid>
+    </Grid>
+
     // <div style={sty}>
     //   <div style={plyrSty}>
     //     <div style={listSty}>

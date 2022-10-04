@@ -1,6 +1,7 @@
 import Profile from './Profile.js';
 import Game from './Game.js';
 import Friends from './Friends.js';
+import sampleEvents from '../Dashboard/sampleData.js';
 
 export default function ProfilePage() {
   const sty = {
@@ -16,8 +17,8 @@ export default function ProfilePage() {
       </div>
       <div>
         Your games
-        {[...Array(5)].map((n, i) => (
-          <Game key={i} />
+        {sampleEvents.map((event) => (
+          <Game key={event._id} event={event} />
         ))}
       </div>
     </div>
