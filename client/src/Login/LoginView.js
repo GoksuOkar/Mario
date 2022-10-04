@@ -33,9 +33,9 @@ function LoginView({ login, userId }) {
     });
     // eslint-disable-next-line no-undef
     window.google.accounts.id.renderButton(document.getElementById("google-button"), {
-      theme: 'filled_black',
       size: 'medium',
       type: 'standard',
+      shape: 'circle',
       text: 'continue_with'
     });
     // else set user id to returned id
@@ -52,14 +52,15 @@ function LoginView({ login, userId }) {
   }
 
   return (
-    <div>
+    <div style={{backgroundColor:'#16141c'}}>
       <div
         id="LoginView"
         style={{
           height: "100vh",
           display: "flex",
           alignItems: "center",
-          justifyContent: "center"
+          justifyContent: "center",
+          color: "white"
         }}
       >
         <div id="container"
@@ -68,7 +69,8 @@ function LoginView({ login, userId }) {
             flexDirection: "column",
             justifyContent: "space-between",
             alignItems: "center",
-            position: "relative"
+            position: "relative",
+            zIndex: "2"
           }}
         >
           <div id="google-button" ref={divRef}></div>
@@ -102,13 +104,16 @@ function LoginView({ login, userId }) {
               styles={(theme) => ({
                 root: {
                   marginTop: '20px',
-                  marginBottom: '20px'
+                  marginBottom: '20px',
+                  backgroundColor: '#0d5f65',
               }})}
             >
               Sign In
             </Button>
           </form>
-          <small>
+          <small
+            style={{color: 'white'}}
+          >
             Don't have an account?
             <small
              onClick={() => console.log('register')}
