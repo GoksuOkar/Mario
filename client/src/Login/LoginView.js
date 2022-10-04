@@ -2,7 +2,8 @@
 import background from "../assets/images/basketballbg.png";
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import { TextInput, Button } from '@mantine/core';
+import { TextInput, Button, PasswordInput} from '@mantine/core';
+import { useForm } from '@mantine/form';
 
 
 const serverURL = 'http://localhost:3001'
@@ -47,9 +48,20 @@ function LoginView({ login, userId }) {
   }
 
   // Activates when user wants to log in. Alerts if log in credentials are not right
-  const handleSubmit = (e) => {
-
+  const handleSubmit = (values) => {
+    console.log(values);
   }
+
+  // creates a form element using Mantine
+  const form = useForm({
+    initialValues: {
+      email: '',
+      password: ''
+    },
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+    },
+  });
 
   return (
     <div style={{backgroundColor:'#16141c'}}>
@@ -76,21 +88,23 @@ function LoginView({ login, userId }) {
           <div id="google-button" ref={divRef}></div>
           <span style={{margin: '10px'}}>OR</span>
           <form
+            id='myform'
             style={{
               width: "100%",
               textAlign: "center"
             }}
+            onSubmit={form.onSubmit((values) => handleSubmit(values))}
           >
             <TextInput
               placeholder="your@email.com"
-              type={'email'}
               styles={(theme) => ({
                 root: {
                   width: '100%'
                 }
               })}
+              {...form.getInputProps('email')}
             />
-            <TextInput
+            <PasswordInput
               placeholder="password"
               styles={(theme) => ({
                 root: {
@@ -98,9 +112,10 @@ function LoginView({ login, userId }) {
                   width: '100%'
                 }
               })}
+              {...form.getInputProps('password')}
             />
             <Button
-              onClick={(e) => handleSubmit(e)}
+              type='submit'
               styles={(theme) => ({
                 root: {
                   marginTop: '20px',
