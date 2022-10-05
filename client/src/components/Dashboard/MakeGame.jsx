@@ -8,18 +8,19 @@ import moment from 'moment';
 
 // add animation for forms to slide out on closing
 const MakeGame = ({ setFormOpen, userId }) => {
-  const [date, setDate] = useState ('');
-  const [startTime, setStartTime] = useState('');
+  const [date, setDate] = useState(null)
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
   const handleSubmit = () => {
-    // TODO
-    // extract, validate, formate, send form
+    // this extracts day and add hours and minutes from the end and start time
+    let computedStartTime = moment(date).add(moment(startTime).hour(), 'h').add(moment(startTime).minute(), 'm').format("dddd, MMMM Do YYYY, h:mm:ss a");
+    let computedEndTime = moment(date).add(moment(endTime).hour(), 'h').add(moment(endTime).minute(), 'm').format("dddd, MMMM Do YYYY, h:mm:ss a");
     let body = {
       eventName: document.getElementById('game-name').value,
       location: document.getElementById('location').value,
       date: date,
-      // startTime: moment(date).add(startTime.getTime()).format("dddd, MMMM Do YYYY, h:mm:ss a"),
-      startTime: startTime,
-      endTime: document.getElementById('end-time').value,
+      startTime: computedStartTime,
+      endTime: computedEndTime,
       userId: userId,
     }
     console.log('BODY OF FORM', body);
@@ -56,9 +57,7 @@ const MakeGame = ({ setFormOpen, userId }) => {
             value={date}
             onChange={(value) => {
               setDate(value);
-              setStartTime(value);
             }}
-
           />
           <TimeInput
             label='Start Time'
@@ -75,6 +74,8 @@ const MakeGame = ({ setFormOpen, userId }) => {
             format='12'
             amLabel="am"
             pmLabel="pm"
+            value={endTime}
+            onChange={setEndTime}
           />
           <Textarea
             placeholder='add some description'
