@@ -5,26 +5,31 @@ import { TextInput, Textarea, Button } from '@mantine/core';
 import { TimeInput, DatePicker } from '@mantine/dates';
 import 'dayjs/locale/en';
 import moment from 'moment';
+import please from '../../requests.js'
 
 // add animation for forms to slide out on closing
 const MakeGame = ({ setFormOpen, userId }) => {
-  const [date, setDate] = useState(null)
+  const [date, setDate] = useState(new Date('Oct 15, 2022'))
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
+
   const handleSubmit = () => {
-    // this extracts day and add hours and minutes from the end and start time
-    let computedStartTime = moment(date).add(moment(startTime).hour(), 'h').add(moment(startTime).minute(), 'm').format("dddd, MMMM Do YYYY, h:mm:ss a");
-    let computedEndTime = moment(date).add(moment(endTime).hour(), 'h').add(moment(endTime).minute(), 'm').format("dddd, MMMM Do YYYY, h:mm:ss a");
+    // this extracts day from date picker and add hours and minutes from the end and start time
+    let computedStartTime = moment(date).add(moment(startTime).hour(), 'h').add(moment(startTime).minute(), 'm').format();
+    let computedEndTime = moment(date).add(moment(endTime).hour(), 'h').add(moment(endTime).minute(), 'm').format();
     let body = {
       eventName: document.getElementById('game-name').value,
+      eventDescription: document.getElementById('game-description').value,
+      peopleAttending: [userId],
       location: document.getElementById('location').value,
-      date: date,
       startTime: computedStartTime,
       endTime: computedEndTime,
-      userId: userId,
+      creator: userId,
     }
-    console.log('BODY OF FORM', body);
-    // setFormOpen(false);
+    console.log('SENDING FORM TO SERVER', body);
+    please.createGame(body)
+     .then(() => setFormOpen(false))
+     .catch(error => console.log(error))
 
   }
   return (
