@@ -34,7 +34,7 @@ const GamePage = ({ gameid, userid, set }) => {
         />
       <Comments
         name={userid}
-        eventID={}
+        eventID={'633ca1f83a3cb5d9bdc3bffd'}
       />
     </div>
   )

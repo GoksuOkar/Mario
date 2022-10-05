@@ -1,5 +1,4 @@
-import { useEffect, setState } from 'react';
-import axios from 'axios';
+import { useEffect } from 'react';
 
 
 const Info = ({ name, createdBy, attending, location, start, end, description, set }) => {
