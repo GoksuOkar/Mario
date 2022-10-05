@@ -16,13 +16,13 @@ export interface User {
 }
 
 export interface Conversation {
-  conversationName: String,
+  conversationName: string,
   users: String[], // array of usernames
   messages: Message[],
 }
 
 export interface Message {
-  conversationId: Types.ObjectId,
+  conversationId: string,
   username: String,
   text: String,
   time: Date
@@ -32,8 +32,11 @@ export interface Message {
 //   _id: Schema.Types.ObjectId
 // }
 
-export interface NewMessage extends Message {
+export interface NewMessage {
+  username: String,
   toUser: String, // receiving user
+  text: String,
+  time: Date
 }
 
 export interface JoinRoom {

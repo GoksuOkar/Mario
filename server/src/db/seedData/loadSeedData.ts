@@ -9,7 +9,7 @@ import * as db from '../BlueOceanSchema';
 const store = mongoDBSession(session)
 const Store = new store({
   // uri:'mongodb://localhost/AlleyOops',
-  uri:'mongodb://18.144.12.217/AlleyOops',
+  uri:'mongodb://Kobe:Bryant@18.144.12.217/AlleyOops',
   collection: 'mySessions'
 })
 

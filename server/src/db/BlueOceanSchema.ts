@@ -1,4 +1,4 @@
-import {Schema, model, connect, isObjectIdOrHexString } from 'mongoose';
+import {Schema, model, connect, isObjectIdOrHexString, Types } from 'mongoose';
 import * as I from '../Utilities/Interfaces/Schemas';
 import dotenv from 'dotenv';
 

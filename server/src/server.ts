@@ -54,7 +54,7 @@ app.use('/', router);
 
 const io = new Server(socketServer, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: '*',
     methods: ['GET', 'POST'],
   },
 }).listen(server);
