@@ -44,7 +44,7 @@ module.exports = {
 
   createGame: (body) => {
     return axios({
-      url: '/games',
+      url: '/game',
       method: 'post',
       baseURL: basePath,
       data: body
