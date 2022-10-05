@@ -2,6 +2,7 @@ import {Request, Response} from "express";
 import * as db from './db/BlueOceanSchema';  // db object has models as property
 import bcrypt from 'bcryptjs';
 const jwt = require('jsonwebtoken');
+import { resolveSoa } from "dns";
 
 export function register (req: Request, res: Response): void {
   const {email, username, password} = req.body;
@@ -203,12 +204,22 @@ export function getUserInfo (req: Request, res: Response) {
     .catch(err=>res.send(err));
 }
 
-export async function getFriends (req: Request, res: Response) {
-  try {
-    // search friends by array of IDs
-  } catch (error) {
+export async function getCurrentUser (req: Request, res: Response) {
+  db.User.findOne({_id: req.query.userId})
+  .then(result=>res.send(result))
+  .catch(err=>res.send(err))
+}
 
-  }
+export async function addFriend (req: Request, res: Response) {
+  db.User.updateOne({_id: req.query.userId}, {$push:{"friends":req.query.friendId}})
+  .then(result=>res.send(result))
+  .catch(err=>res.send(err))
+}
+
+export async function unFriend (req: Request, res: Response) {
+  db.User.updateOne({_id: req.query.userId}, {$pull:{"friends":req.query.friendId}})
+  .then(result=>res.send(result))
+  .catch(err=>res.send(err))
 }
 
 export async function getComments (req: Request, res: Response) {
