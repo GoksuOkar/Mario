@@ -7,11 +7,12 @@ import ProfilePage from "./components/ProfilePage/ProfilePage.js";
 import FindTeammates from "./components/FindTeammates/FindTeammates.jsx";
 // eslint-disable-next-line
 import axios from "axios";
-import { Map } from "./components/GamePage/Map.js";
+import please from "../src/requests";
 
 export default function App() {
   //const divRef = useRef(true);
   const [userId, setUserId] = useState("633ca1f73a3cb5d9bdc3bff5");
+  const [userObj, setUserObj] = useState({});
   const [page, setPage] = useState(null);
 
   const Axios = axios.create({
@@ -20,6 +21,11 @@ export default function App() {
 
   // checks if the user is already authenticated, sets the page to 'login' if not.
   useEffect(() => {
+    please
+      .getUserInfo(userId)
+      .then(({ data }) => setUserObj(data))
+      .catch((err) => console.log(err));
+
     Axios.get("/auth", { withCredentials: true })
       .then((res) => {
         console.log(res);
@@ -33,16 +39,17 @@ export default function App() {
 
   return (
     <div className="App">
-      {/* <NavBar userId={userId} page={page} setPage={setPage} />
-      {page === 'login' ? (
+      {console.log(userObj)}
+      <NavBar userId={userId} page={page} setPage={setPage} />
+      {page === "login" ? (
         <LoginView setPage={setPage} setUserId={setUserId} userId={userId} />
       ) : null}
-      {page === 'games' ? <Dashboard /> : null}
-      {page === 'friends' ? <Dropdown /> : null}
-      {page === 'profile' || page === 'frnd' ? (
+      {page === "games" ? <Dashboard userId={userId} /> : null}
+      {page === "friends" ? <Dropdown /> : null}
+      {page === "profile" || page === "frnd" ? (
         <ProfilePage userId={userId} page={page} setPage={setPage} />
       ) : null}
-      {page === 'findTeam' ? <FindTeammates /> : null} */}
+      {page === "findTeam" ? <FindTeammates /> : null} */}
       <Map />
     </div>
   );
