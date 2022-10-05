@@ -8,6 +8,7 @@ export const router = Router();
 router.get('/auth', controllers.auth)
 router.post('/register', controllers.register)
 router.post('/login', controllers.login)
+router.post('/googleLogin', controllers.googleLogin);
 router.delete('/logout', controllers.logout);
 
 /***************GAMES*******************/

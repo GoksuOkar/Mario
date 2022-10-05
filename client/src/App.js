@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { LoginView } from "./Login/LoginView.js";
-import Dropdown from "../src/components/Messages/Messages.js";
-import NavBar from "./components/NavBar.js";
-import Dashboard from "./components/Dashboard/Dashboard.jsx";
-import ProfilePage from "./components/ProfilePage/ProfilePage.js";
-import FindTeammates from "./components/FindTeammates/FindTeammates.jsx";
-// eslint-disable-next-line
-import axios from "axios";
-import please from "../src/requests";
+
+import React, { useState, useEffect } from 'react';
+import { LoginView } from './Login/LoginView.js';
+import Dropdown from '../src/components/Messages/Messages.js';
+import NavBar from './components/NavBar.js';
+import Dashboard from './components/Dashboard/Dashboard.jsx';
+import ProfilePage from './components/ProfilePage/ProfilePage.js';
+import FindTeammates from './components/FindTeammates/FindTeammates.jsx';
+import Axios from '../src/requests';
 
 export default function App() {
   //const divRef = useRef(true);
@@ -15,31 +14,26 @@ export default function App() {
   const [userObj, setUserObj] = useState({});
   const [page, setPage] = useState(null);
 
-  const Axios = axios.create({
-    baseURL: "http://localhost:3001",
-  });
-
-  const updateUser = () => {
-    please
-      .getCurrentUser(userId)
-      .then(({ data }) => setUserObj(data))
-      .catch((err) => console.log(err));
-  };
-
   // checks if the user is already authenticated, sets the page to 'login' if not.
   useEffect(() => {
     updateUser();
 
-    Axios.get("/auth", { withCredentials: true })
-      .then((res) => {
-        console.log(res);
-        if (res.data.id !== null) {
-          setUserId(res.data.id);
-          setPage("games");
-        }
-      })
-      .catch(() => setPage("login"));
-  }, []);
+    Axios.authorize()
+    .then((res) => {
+      if (res.data.id !== null) {
+        setUserId(res.data.id);
+        setPage('games')
+      }
+    })
+    .catch(() => setPage('login'));
+  }, [])
+
+  const updateUser = () => {
+    Axios
+      .getCurrentUser(userId)
+      .then(({ data }) => setUserObj(data))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="App">
