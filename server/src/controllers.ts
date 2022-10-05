@@ -81,6 +81,7 @@ export function logout (req: Request, res: Response) {
 }
 
 export function auth (req: Request, res: Response) {
+  console.log('session', req.session);
   if (req.session.isAuth === true)  {
     res.send({id: req.session.user}).status(200)
   } else {

@@ -50,7 +50,6 @@ export interface Event {
   eventName: string,
   eventDescription: string,
   peopleAttending: Array<string>,
-  comments: Array<string>, //comment ids
   location: String,
   startTime: Date,
   endTime: Date,
@@ -58,6 +57,7 @@ export interface Event {
 }
 
 export interface Comment {
+  event_id: String,
   username: string,
   date: Date,
   body: string,
