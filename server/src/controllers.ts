@@ -92,7 +92,7 @@ export function auth (req: Request, res: Response) {
 
 /************************GAMES************************/
 export async function getGames (req: Request, res: Response) {
-  console.log('received request with these params:',req.query)
+  // console.log('received request with these params:',req.query)
   let { gameIds} = req.query;
   if (gameIds) {
     // case1 : get games based on array of ids

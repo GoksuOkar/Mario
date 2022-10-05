@@ -38,8 +38,8 @@ module.exports = {
       url: '/game/join',
       method: 'put',
       baseURL: basePath,
-      data: { userId, eventId }
-    })
+      data: { userId, eventId },
+    });
   },
 
   createGame: (body) => {
@@ -51,18 +51,6 @@ module.exports = {
     });
   },
 
-<<<<<<< HEAD
-  getGamesByIds: (gameIds) => {
-    return axios({
-      url: '/games',
-      method: 'get',
-      baseURL: basePath,
-      params: { gameIds },
-    });
-  },
-
-=======
->>>>>>> main
   // USERS
   getUserInfo: (userId) => {
     return axios({
