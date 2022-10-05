@@ -92,17 +92,9 @@ export function auth (req: Request, res: Response) {
 /************************GAMES************************/
 export async function getGames (req: Request, res: Response) {
   console.log('received request with these params:',req.query)
-  let { gameId, gameIds} = req.query;
-  if (gameId) {
-    // case1 : get one game based on id
-    try {
-      let result = await db.Event.findById(gameId);
-      res.send(result);
-    } catch (error) {
-      res.sendStatus(404);
-    }
-  } else if (gameIds) {
-    // case2 : get games based on array of ids
+  let { gameIds} = req.query;
+  if (gameIds) {
+    // case1 : get games based on array of ids
     let results = [];
     // this is not best practice but it works for now, the incoming array of gameIds should be in json
     gameIds = JSON.parse(gameIds);
@@ -117,29 +109,13 @@ export async function getGames (req: Request, res: Response) {
     }
     res.send(results);
   } else {
-    // case3 : get all games
+    // case2 : get all games
     try {
       let results = await db.Event.find({});
       res.send(results);
     } catch (error) {
       res.sendStatus(404);
     }
-  }
-}
-/************************USERS************************/
-export async function getUserInfo (req: Request, res: Response) {
-  try {
-    // search user by Id
-  } catch (error) {
-
-  }
-}
-
-export async function getFriends (req: Request, res: Response) {
-  try {
-    // search friends by array of IDs
-  } catch (error) {
-
   }
 }
 
@@ -150,16 +126,6 @@ export async function getGame (req:Request, res: Response) {
   } catch (err)  {
     console.log(err)
     res.sendStatus(404);
-  }
-}
-
-export async function getComments (req: Request, res: Response) {
-  try {
-    let comments = await db.Comment.find({event_id: req.query.eventId})
-    res.status(200).send(comments);
-  } catch (err) {
-    console.log(err)
-    res.sendStatus(404)
   }
 }
 
@@ -177,3 +143,31 @@ export async function joinGame (req:Request, res: Response) {
     res.sendStatus(404)
   }
 }
+
+/************************USERS************************/
+export async function getUserInfo (req: Request, res: Response) {
+  try {
+    // search user by Id
+  } catch (error) {
+
+  }
+}
+
+export async function getFriends (req: Request, res: Response) {
+  try {
+    // search friends by array of IDs
+  } catch (error) {
+
+  }
+}
+
+export async function getComments (req: Request, res: Response) {
+  try {
+    let comments = await db.Comment.find({event_id: req.query.eventId})
+    res.status(200).send(comments);
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(404)
+  }
+}
+

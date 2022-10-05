@@ -21,7 +21,6 @@ router.get('/comments', controllers.getComments)
 
 // // USERS
 router.get('/users', controllers.getUserInfo)
-router.put('/users', controllers.userJoinGame)
 router.get('/friends', controllers.getFriends)
 
 // // CONVERSATIONS
