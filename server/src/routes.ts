@@ -14,7 +14,7 @@ router.delete('/logout', controllers.logout);
 router.get('/games', controllers.getGames)
 router.get('/game', controllers.getGame)
 router.put('/game/join', controllers.joinGame)
-// router.post('./games', )
+router.post('/game', controllers.createGame)
 
 /***************COMMENTS*******************/
 router.get('/comments', controllers.getComments)
