@@ -6,7 +6,7 @@ import MakeGame from './MakeGame.jsx';
 import please from '../../requests.js';
 
 
-const Dashboard = () => {
+const Dashboard = ({ userId }) => {
   const [sortBy, setSortBy] = useState('upcoming');
   const [formOpen, setFormOpen] = useState(false);
   const [games, setGames] = useState([])
@@ -29,7 +29,7 @@ const Dashboard = () => {
             onClick={()=>setFormOpen(true)}>
             Make Game
           </Button>
-          {formOpen && <MakeGame setFormOpen={setFormOpen}/>}
+          {formOpen && <MakeGame setFormOpen={setFormOpen} userId={userId}/>}
         </Grid.Col>
         <Grid.Col span={8}>
           <p>Sort by:</p>
