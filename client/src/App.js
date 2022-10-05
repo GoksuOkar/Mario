@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { LoginView } from './Login/LoginView.js';
-import Dropdown from '../src/components/Messages/Messages.js';
+import { Messages } from '../src/components/Messages/Messages.js';
 
 import NavBar from './components/NavBar.js';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
@@ -9,7 +9,10 @@ import FindTeammates from './components/FindTeammates/FindTeammates.jsx';
 
 // eslint-disable-next-line
 import axios from 'axios';
+import io from 'socket.io-client'
 import please from '../src/requests';
+
+const socket = io.connect('http://localhost:3001')
 
 export default function App() {
   //const divRef = useRef(true);
@@ -48,12 +51,12 @@ export default function App() {
         <LoginView setPage={setPage} setUserId={setUserId} userId={userId} />
       ) : null}
       {page === 'games' ? <Dashboard /> : null}
-      {page === 'friends' ? <Dropdown /> : null}
+      {/* {page === 'friends' ? <Dropdown /> : null} */}
       {page === 'profile' || page === 'frnd' ? (
         <ProfilePage userId={userId} page={page} setPage={setPage} />
       ) : null}
       {page === 'findTeam' ? <FindTeammates /> : null}
-      {page === 'messages' ? <Messages username = {username}/> : null}
+      {page === 'messages' ? <Messages userObj = {userObj}/> : null}
     </div>
   );
 }

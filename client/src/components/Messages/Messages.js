@@ -4,13 +4,15 @@ import MessageRoom from './MessageRoom.js';
 import { MessageDisplay } from './MessageDisplay';
 import { user, join } from '../../Utilities/socket_listeners';
 
-// define connection
-
-export function Messages({ username }) {
+export function Messages({ userObj }) {
   const [mesRms, setMesRms] = useState([]);
   const [messagesList, setMessageList] = useState([]);
   const [friends, setFriends] = useState([]);
   const [selectedFriend, setSelectedFriend] = useState('');
+
+  const username = 'LukItsIvan' || userObj.username ;
+
+  console.log(username, 'username');
 
   socket.auth = { username };
 
