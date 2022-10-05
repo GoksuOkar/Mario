@@ -12,7 +12,7 @@ import axios from 'axios';
 import io from 'socket.io-client'
 import please from '../src/requests';
 
-const socket = io.connect('http://localhost:3001')
+const socket = io('http://localhost:3001', {autoConnect: false});
 
 export default function App() {
   //const divRef = useRef(true);
@@ -50,8 +50,8 @@ export default function App() {
       {page === 'login' ? (
         <LoginView setPage={setPage} setUserId={setUserId} userId={userId} />
       ) : null}
-      {page === 'games' ? <Dashboard /> : null}
       {/* {page === 'friends' ? <Dropdown /> : null} */}
+      {page === 'games' ? <Dashboard userId={userId}/> : null}
       {page === 'profile' || page === 'frnd' ? (
         <ProfilePage userId={userId} page={page} setPage={setPage} />
       ) : null}
