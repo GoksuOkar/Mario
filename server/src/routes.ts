@@ -16,6 +16,7 @@ router.get('/games', controllers.getGames)
 
 // // USERS
 router.get('/users', controllers.getUserInfo)
+router.put('/users', controllers.userJoinGame)
 router.get('/friends', controllers.getFriends)
 
 // // CONVERSATIONS

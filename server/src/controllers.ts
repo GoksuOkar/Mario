@@ -87,6 +87,7 @@ export function auth (req: Request, res: Response) {
   }
 }
 
+/************************GAMES************************/
 export async function getGames (req: Request, res: Response) {
   console.log('received request with these params:',req.query)
   let { gameId, gameIds} = req.query;
@@ -123,7 +124,7 @@ export async function getGames (req: Request, res: Response) {
     }
   }
 }
-
+/************************USERS************************/
 export async function getUserInfo (req: Request, res: Response) {
   try {
     // search user by Id
@@ -139,4 +140,25 @@ export async function getFriends (req: Request, res: Response) {
 
   }
 }
+
+export async function userJoinGame (req: Request, res: Response) {
+  const { userId, gameId } = req.query;
+  console.log('userId:', userId, 'gameId:', gameId);
+  try {
+    const user: any = await db.User.findById(userId);
+    console.log('found user');
+    if (!user.events.includes(gameId)) {
+      console.log('this is a new gameId')
+      user.events.push(gameId);
+      await user.save();
+      res.sendStatus(201);
+    } else {
+      res.sendStatus(200)
+    }
+  } catch (error) {
+    res.sendStatus(404);
+  }
+}
+
+
 
