@@ -29,7 +29,7 @@ const Dashboard = ({ userId }) => {
      .then(data => please.getGamesByIds(data.data.events))
      .then(data => setGames(data.data))
      .catch(error => console.log(error));
-  })
+  }, [])
 
   return (
     <>
@@ -44,7 +44,7 @@ const Dashboard = ({ userId }) => {
             onClick={()=>setFormOpen(true)}>
             Make Game
           </Button>
-          {formOpen && <MakeGame setFormOpen={setFormOpen}/>}
+          {formOpen && <MakeGame setFormOpen={setFormOpen} userId={userId}/>}
         </Grid.Col>
         <Grid.Col span={8}>
           <p>Sort by:</p>
