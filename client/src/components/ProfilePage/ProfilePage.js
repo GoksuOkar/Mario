@@ -7,13 +7,25 @@ import Friends from './Friends.js';
 // eslint-disable-next-line
 import ball from './ball.css';
 
-export default function ProfilePage({ userId, page, setPage }) {
+export default function ProfilePage({
+  updateUser,
+  userObj,
+  userId,
+  page,
+  setPage,
+}) {
   const [dispId, setDispId] = useState(userId);
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
     if (dispId === userId) setPage('profile');
-    if (page === 'profile') setDispId(userId);
+    if (page === 'profile') {
+      setDispId(userId);
+      please
+        .getUserInfo(userId)
+        .then(({ data }) => setProfile(data))
+        .catch((err) => console.log(err));
+    }
     if (dispId) {
       please
         .getUserInfo(dispId)
@@ -25,7 +37,12 @@ export default function ProfilePage({ userId, page, setPage }) {
   return (
     <Grid m='auto'>
       <div>
-        <Profile profile={profile} page={page} />
+        <Profile
+          profile={profile}
+          page={page}
+          userObj={userObj}
+          updateUser={updateUser}
+        />
         <Friends
           friends={profile.friends}
           setDispId={setDispId}

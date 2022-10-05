@@ -8,6 +8,7 @@ export const router = Router();
 router.get('/auth', controllers.auth)
 router.post('/register', controllers.register)
 router.post('/login', controllers.login)
+router.post('/googleLogin', controllers.googleLogin);
 router.delete('/logout', controllers.logout);
 
 /***************GAMES*******************/
@@ -21,6 +22,8 @@ router.get('/comments', controllers.getComments)
 
 /***************USERS*******************/
 router.get('/users', controllers.getUserInfo)
-router.get('/friends', controllers.getFriends)
+router.get('/currentUser', controllers.getCurrentUser)
+router.put('/addFriend', controllers.addFriend)
+router.put('/unFriend', controllers.unFriend)
 
 /***************CONVERSATIONS*******************/

@@ -1,6 +1,8 @@
 import {Request, Response} from "express";
 import * as db from './db/BlueOceanSchema';  // db object has models as property
 import bcrypt from 'bcryptjs';
+const jwt = require('jsonwebtoken');
+import { resolveSoa } from "dns";
 
 export function register (req: Request, res: Response): void {
   const {email, username, password} = req.body;
@@ -66,6 +68,28 @@ export function login (req: Request, res: Response): void {
     req.session.isAuth = false;
     console.log(err);
     res.sendStatus(401);
+  })
+}
+
+export function googleLogin (req: Request, res: Response): void {
+  const {clientId, credential} = req.body;
+  const {email, name} = jwt.decode(credential);
+  db.User.findOne({email: email})
+  .then((result) => {
+    if (result) {
+      const id = result._id.toString();
+      req.session.isAuth = true;
+      req.session.user = id;
+      res.status(201).send({id: result._id});
+    } else {
+      db.User.create({email: email, username: name})
+      .then((result) => {
+        const id = result._id.toString();
+        req.session.isAuth = true;
+        req.session.user = id;
+        res.status(201).send({id: result._id});
+      })
+    }
   })
 }
 
@@ -191,12 +215,22 @@ export function getUserInfo (req: Request, res: Response) {
     .catch(err=>res.send(err));
 }
 
-export async function getFriends (req: Request, res: Response) {
-  try {
-    // search friends by array of IDs
-  } catch (error) {
+export async function getCurrentUser (req: Request, res: Response) {
+  db.User.findOne({_id: req.query.userId})
+  .then(result=>res.send(result))
+  .catch(err=>res.send(err))
+}
 
-  }
+export async function addFriend (req: Request, res: Response) {
+  db.User.updateOne({_id: req.query.userId}, {$push:{"friends":req.query.friendId}})
+  .then(result=>res.send(result))
+  .catch(err=>res.send(err))
+}
+
+export async function unFriend (req: Request, res: Response) {
+  db.User.updateOne({_id: req.query.userId}, {$pull:{"friends":req.query.friendId}})
+  .then(result=>res.send(result))
+  .catch(err=>res.send(err))
 }
 
 export async function getComments (req: Request, res: Response) {
