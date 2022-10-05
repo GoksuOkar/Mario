@@ -1,4 +1,4 @@
-
+import * as jose from 'jose';
 import background from "../assets/images/basketballbg.png";
 import React, { useEffect, useRef, useState } from 'react';
 import { TextInput, Button, PasswordInput, Alert} from '@mantine/core';
@@ -6,6 +6,7 @@ import { useForm } from '@mantine/form';
 import RegisterForm from "./RegisterForm.js";
 import LoginAlert from "./LoginAlert.js";
 const Axios = require('../requests.js');
+const Config = require('../config.js');
 
 function LoginView({ setUserId, userId, setPage }) {
   const [alerted, setAlert] = useState(false);
@@ -15,7 +16,7 @@ function LoginView({ setUserId, userId, setPage }) {
   useEffect(() => {
     // eslint-disable-next-line no-undef
     window.google.accounts.id.initialize({
-      client_id: '143714965385-rruq4eamet32hpn61alm2913qgbfed0o.apps.googleusercontent.com',
+      client_id: Config.OAUTH_KEY,
       callback: handleCredentialResponse,
       auto_select: true,
     });
@@ -31,6 +32,8 @@ function LoginView({ setUserId, userId, setPage }) {
 
   // handles sign in with google on the backend
   const handleCredentialResponse = (response) => {
+    // console.log(response);
+    // const { payload, protectedHeader } = await jose.jwtDecrypt
     setPage('games');
   }
 
