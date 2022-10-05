@@ -3,7 +3,6 @@ import * as db from './db/BlueOceanSchema';  // db object has models as property
 import bcrypt from 'bcryptjs';
 const jwt = require('jsonwebtoken');
 
-
 export function register (req: Request, res: Response): void {
   const {email, username, password} = req.body;
   db.User.findOne({email: email})
@@ -36,6 +35,7 @@ export function register (req: Request, res: Response): void {
 }
 
 export function login (req: Request, res: Response): void {
+  console.log(req.session);
   const {email, password} = req.body;
   db.User.findOne({email: email})
   .then ((result) => {
@@ -112,26 +112,96 @@ export function auth (req: Request, res: Response) {
   }
 }
 
+/************************GAMES************************/
 export async function getGames (req: Request, res: Response) {
-  console.log('received request to get all games')
-  console.log('',req.query)
-  // case1 : get all games
-  // case2 : get one game based on id
-  // case3 : get games based on array of ids
-  try {
-    let results = await db.Event.find({});
+  console.log('received request with these params:',req.query)
+  let { gameIds} = req.query;
+  if (gameIds) {
+    // case1 : get games based on array of ids
+    let results = [];
+    // this is not best practice but it works for now, the incoming array of gameIds should be in json
+    gameIds = JSON.parse(gameIds);
+    for (let gameId of gameIds) {
+      try {
+        let result = await db.Event.findById(gameId);
+        results.push(result);
+      } catch (error) {
+        // just don't push to results
+        console.log(error);
+      }
+    }
     res.send(results);
-  } catch (error) {
+  } else {
+    // case2 : get all games
+    try {
+      let results = await db.Event.find({});
+      res.send(results);
+    } catch (error) {
+      res.sendStatus(404);
+    }
+  }
+}
+
+export async function getGame (req:Request, res: Response) {
+  try {
+    let game = await db.Event.find({_id: req.query.id})
+    res.status(200).send(game[0])
+  } catch (err)  {
+    console.log(err)
     res.sendStatus(404);
   }
 }
 
-export async function getUserInfo (req: Request, res: Response) {
-  try {
-    // search user by Id
-  } catch (error) {
-
+export async function joinGame (req:Request, res: Response) {
+  let userId = req.body.userId;
+  let eventId = req.body.eventId;
+  console.log(userId, eventId)
+  try{
+    let user = await db.User.updateOne({_id: userId}, {$addToSet: {events: eventId}})
+    let event = await db.Event.updateOne({_id: eventId}, {$addToSet: {peopleAttending: userId}})
+    let result = {user: user, event: event}
+    res.status(200).send(result);
+  } catch(err) {
+    console.log(err)
+    res.sendStatus(404)
   }
+}
+
+/************************USERS************************/
+export function getUserInfo (req: Request, res: Response) {
+  let user: any = {};
+  let fPromArr: Array<any> = [];
+  let ePromArr: Array<any> = [];
+  db.User.findOne({_id: req.query.userId})
+    .then(result=>{
+      user = result;
+      result?.events.forEach(event=>ePromArr.push(db.Event.findOne({_id: event})));
+      result?.friends.forEach(friend=>fPromArr.push(db.User.findOne({_id: friend})));
+      return Promise.all(fPromArr).then(friendsArr=>friendsArr);
+    })
+    .then(friendsArr=>{
+      user.friends = friendsArr;
+      return Promise.all(ePromArr).then(eventsArr=>eventsArr);
+    })
+    .then(eventsArr=>{
+      user.events = eventsArr;
+    })
+    .then(()=>{
+      ePromArr.length = 0;
+      user.events.forEach((event)=>ePromArr.push(new Promise ((resolve)=>{
+        fPromArr.length = 0;
+        event.peopleAttending.forEach((person)=>
+        fPromArr.push(db.User.findOne({_id: person}))
+        )
+        resolve(Promise.all(fPromArr).then(persArr=>{
+          event.peopleAttending = persArr;
+        }));
+      })
+      ))
+      return Promise.all(ePromArr).then((arr)=>arr)
+    })
+    .then(()=>res.send(user))
+    .catch(err=>res.send(err));
 }
 
 export async function getFriends (req: Request, res: Response) {
@@ -139,6 +209,16 @@ export async function getFriends (req: Request, res: Response) {
     // search friends by array of IDs
   } catch (error) {
 
+  }
+}
+
+export async function getComments (req: Request, res: Response) {
+  try {
+    let comments = await db.Comment.find({event_id: req.query.eventId})
+    res.status(200).send(comments);
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(404)
   }
 }
 

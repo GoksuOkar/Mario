@@ -5,15 +5,21 @@ import NavBar from './components/NavBar.js';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import ProfilePage from './components/ProfilePage/ProfilePage.js';
 import FindTeammates from './components/FindTeammates/FindTeammates.jsx';
-const Axios = require('./requests.js');
+import Axios from '../src/requests';
 
 export default function App() {
   //const divRef = useRef(true);
-  const [userId, setUserId] = useState(true);
+  const [userId, setUserId] = useState('633ca1f73a3cb5d9bdc3bff5');
+  const [userObj, setUserObj] = useState({});
   const [page, setPage] = useState(null);
 
   // checks if the user is already authenticated, sets the page to 'login' if not.
   useEffect(() => {
+    Axios
+    .getUserInfo(userId)
+    .then(({ data }) => setUserObj(data))
+    .catch((err) => console.log(err));
+
     Axios.authorize()
     .then((res) => {
       if (res.data.id !== null) {
@@ -24,15 +30,20 @@ export default function App() {
     .catch(() => setPage('login'));
   }, [])
 
+
+
   return (
     <div className='App'>
+      {console.log(userObj)}
       <NavBar userId={userId} page={page} setPage={setPage} />
       {page === 'login' ? (
         <LoginView setPage={setPage} setUserId={setUserId} userId={userId} />
       ) : null}
-      {page === 'games' ? <Dashboard /> : null}
+      {page === 'games' ? <Dashboard userId={userId}/> : null}
       {page === 'friends' ? <Dropdown /> : null}
-      {page === 'profile' ? <ProfilePage /> : null}
+      {page === 'profile' || page === 'frnd' ? (
+        <ProfilePage userId={userId} page={page} setPage={setPage} />
+      ) : null}
       {page === 'findTeam' ? <FindTeammates /> : null}
     </div>
   );

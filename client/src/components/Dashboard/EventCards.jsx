@@ -3,18 +3,22 @@ import moment from 'moment';
 import { useState } from 'react';
 
 // later replace this with a prop
-const sampleEvents = require('./sampleData.js');
+// const sampleEvents = require('./sampleData.js');
 
-const EventCards = () => {
+const EventCards = ({ games, join }) => {
   // Later: somehow keep state for each chip?
   const [checked, setChecked] = useState(false);
+
 
   return (
     <>
     <Grid>
-      {sampleEvents.map(event =>
+      {games.map(event =>
         <Grid.Col key={event._id} span={3}>
-          <Card shadow='sm' p='lg' radius='md' >
+          <Card
+            shadow='sm'
+            p='lg'
+            radius='md'>
             <Text sx={{textAlign:'center'}}>
               <h3>{event.eventName}</h3>
             </Text>
@@ -39,7 +43,8 @@ const EventCards = () => {
               variant='filled'
               radius='md'
               // change color to #0d5f65'
-              color='teal'>
+              color='teal'
+              onClick={() => join(event._id)}>
               {checked ? 'Going' : 'Let\'s go!'}
             </Chip>
           </Card>

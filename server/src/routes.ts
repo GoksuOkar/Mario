@@ -4,19 +4,24 @@ import * as controllers from './controllers';
 
 
 export const router = Router();
-// AUTH
+/***************AUTH*******************/
 router.get('/auth', controllers.auth)
 router.post('/register', controllers.register)
 router.post('/login', controllers.login)
 router.post('/googleLogin', controllers.googleLogin);
 router.delete('/logout', controllers.logout);
 
-// // GAMES
+/***************GAMES*******************/
 router.get('/games', controllers.getGames)
+router.get('/game', controllers.getGame)
+router.put('/game/join', controllers.joinGame)
 // router.post('./games', )
 
-// // USERS
+/***************COMMENTS*******************/
+router.get('/comments', controllers.getComments)
+
+/***************USERS*******************/
 router.get('/users', controllers.getUserInfo)
 router.get('/friends', controllers.getFriends)
 
-// // CONVERSATIONS
+/***************CONVERSATIONS*******************/
