@@ -6,7 +6,7 @@ import MakeGame from './MakeGame.jsx';
 import please from '../../requests.js';
 
 
-const Dashboard = () => {
+const Dashboard = ({ userId }) => {
   const [sortBy, setSortBy] = useState('upcoming');
   const [formOpen, setFormOpen] = useState(false);
   const [games, setGames] = useState([])
@@ -15,6 +15,13 @@ const Dashboard = () => {
     please.getAllGames()
       .then(data => setGames(data.data))
   }, [])
+
+  useEffect(() => {
+    please.getUserInfo(userId)
+     .then(data => please.getGamesByIds(data.data.events))
+     .then(data => setGames(data.data))
+     .catch(error => console.log(error));
+  })
 
   return (
     <>
