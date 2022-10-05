@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SegmentedControl, Button, Grid } from '@mantine/core';
 import EventCards from './EventCards.jsx';
 import UpcomingGames from './UpcomingGames.jsx';
 import MakeGame from './MakeGame.jsx';
+import please from '../../requests.js';
 
 
 const Dashboard = () => {
   const [sortBy, setSortBy] = useState('upcoming');
   const [formOpen, setFormOpen] = useState(false);
+  const [games, setGames] = useState([])
+
+  useEffect(() => {
+    please.getAllGames()
+      .then(data => setGames(data.data))
+  }, [])
+
   return (
     <>
       <Grid>
@@ -34,7 +42,7 @@ const Dashboard = () => {
             value={sortBy}
             onChange={setSortBy}
             />
-          <EventCards sortBy={sortBy} setSortBy={setSortBy}/>
+          <EventCards sortBy={sortBy} setSortBy={setSortBy} games={games}/>
         </Grid.Col>
       </Grid>
     </>

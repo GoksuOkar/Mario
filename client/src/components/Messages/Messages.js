@@ -31,9 +31,7 @@ export function Messages({ username }) {
   }
 
   function handleNewMessage () {
-    socket.emit(user.newMessage, {
-
-    })
+    socket.emit(user.newMessage, )
   }
 
   function formatNewMessage (user, toUser, message) {
