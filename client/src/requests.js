@@ -3,7 +3,7 @@ const basePath = 'http://localhost:3001';
 const axios = require('axios');
 
 module.exports = {
-  // GAMES
+  /***************GAMES*******************/
   getAllGames: (city, state, sort='upcoming') => {
     return axios({
       url: '/games',
@@ -15,7 +15,7 @@ module.exports = {
 
   getOneGame: (gameId) => {
     return axios({
-      url: '/games',
+      url: '/game',
       method: 'get',
       baseURL: basePath,
       params: { gameId }
@@ -23,12 +23,22 @@ module.exports = {
   },
 
   getGamesByIds: (gameIds) => {
+    // I think there's a params serializer we can use instead
     gameIds = JSON.stringify(gameIds);
     return axios({
       url: '/games',
       method: 'get',
       baseURL: basePath,
       params: { gameIds }
+    })
+  },
+
+  joinGame: (userId, eventId) => {
+    return axios({
+      url: '/game/join',
+      method: 'put',
+      baseURL: basePath,
+      data: { userId, eventId }
     })
   },
 
@@ -48,15 +58,6 @@ module.exports = {
       method: 'get',
       baseURL: basePath,
       params: { userId }
-    })
-  },
-
-  joinGame: (userId, gameId) => {
-    return axios({
-      url: '/users',
-      method: 'put',
-      baseURL: basePath,
-      params: { userId, gameId }
     })
   },
 
