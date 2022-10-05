@@ -50,7 +50,6 @@ export default function App() {
         <ProfilePage userId={userId} page={page} setPage={setPage} />
       ) : null}
       {page === "findTeam" ? <FindTeammates /> : null} */}
-      <Map />
     </div>
   );
 }

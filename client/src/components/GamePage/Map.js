@@ -1,7 +1,7 @@
 import React from "react";
 import { API_KEY } from "../../config";
 
-export const Map = ({ address }) => {
+export const EventMap = ({ address }) => {
   //get address in correct format "City Hall, New York, NY" to City+Hall,New+York,NY,
   address = address || "5020 Mindora Dr, Torrance, Ca, United States";
   address = address.split(",");
@@ -20,16 +20,14 @@ export const Map = ({ address }) => {
   paramAddress = `q=${paramAddress}`;
   const src = `https://www.google.com/maps/embed/v1/place?key=${API_KEY}&${paramAddress}`;
 
-  return (
-    <iframe
-      title="map"
-      width="450"
-      height="250"
-      frameborder="0"
-      style={{ border: 0 }}
-      referrerpolicy="no-referrer-when-downgrade"
-      src={src}
-      allowfullscreen
-    ></iframe>
-  );
+  return (<iframe
+    title="map"
+    width="450"
+    height="250"
+    frameborder="0"
+    style={{ border: 0 }}
+    referrerpolicy="no-referrer-when-downgrade"
+    src={src}
+    allowfullscreen
+  ></iframe>)();
 };
