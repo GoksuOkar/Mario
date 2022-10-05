@@ -139,3 +139,18 @@ export async function getComments (req: Request, res: Response) {
     res.sendStatus(404)
   }
 }
+
+export async function joinGame (req:Request, res: Response) {
+  let userId = req.body.userId;
+  let eventId = req.body.eventId;
+  console.log(userId, eventId)
+  try{
+    let user = await db.User.updateOne({_id: userId}, {$addToSet: {events: eventId}})
+    let event = await db.Event.updateOne({_id: eventId}, {$addToSet: {peopleAttending: userId}})
+    let result = {user: user, event: event}
+    res.status(200).send(result);
+  } catch(err) {
+    console.log(err)
+    res.sendStatus(404)
+  }
+}
