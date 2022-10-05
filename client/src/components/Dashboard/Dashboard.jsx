@@ -37,7 +37,7 @@ const Dashboard = ({ userId }) => {
     <>
       <Grid>
         <Grid.Col span={2}>
-          <UpcomingGames />
+          <UpcomingGames myGames={myGames}/>
           {/* later: turn this into a basketball */}
           {/* link this to open up modal form */}
           <Button
