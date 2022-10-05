@@ -26,8 +26,7 @@ const EventCards = ({ games, join }) => {
                 {/* later: click avatar to go to friend's page */}
                 {/* later: add default initials if user has no photo */}
                 {/* later: use Indicator to point out which are your friends, maybe move them to the top */}
-                {event.peopleAttending.map(people =>
-                  {people && <Avatar key={people._id} src={people.photo} alt='small picture of person attending' radius='xl'></Avatar>}
+                {event.peopleAttending.map(people => people ? <Avatar key={people._id} src={people.photo} alt='small picture of person attending' radius='xl'></Avatar> : null
                 )}
             </SimpleGrid>
             <Text>{event.location}</Text>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SegmentedControl, Button, Grid } from '@mantine/core';
+import { SegmentedControl, Button, Grid, SimpleGrid } from '@mantine/core';
 import EventCards from './EventCards.jsx';
 import UpcomingGames from './UpcomingGames.jsx';
 import MakeGame from './MakeGame.jsx';
@@ -35,8 +35,8 @@ const Dashboard = ({ userId }) => {
 
   return (
     <>
-      <Grid>
-        <Grid.Col span={2}>
+      <Grid grow>
+        <Grid.Col span={1}>
           <UpcomingGames myGames={myGames}/>
           {/* later: turn this into a basketball */}
           {/* link this to open up modal form */}
@@ -48,17 +48,18 @@ const Dashboard = ({ userId }) => {
           </Button>
           {formOpen && <MakeGame setFormOpen={setFormOpen} userId={userId}/>}
         </Grid.Col>
-        <Grid.Col span={8}>
-          <p>Sort by:</p>
-          <SegmentedControl
-            data={[
-              {label: 'upcoming', value: 'upcoming'},
-              {label: 'distance', value: 'distance'},
-              {label: 'friends', value: 'friends'}
-            ]}
-            value={sortBy}
-            onChange={setSortBy}
-            />
+        <Grid.Col span={9}>
+          <SimpleGrid>
+            <SegmentedControl
+              data={[
+                {label: 'upcoming', value: 'upcoming'},
+                {label: 'nearest to me', value: 'distance'},
+                {label: 'with friends attending', value: 'friends'}
+              ]}
+              value={sortBy}
+              onChange={setSortBy}
+              />
+          </SimpleGrid>
           {games && <EventCards sortBy={sortBy} setSortBy={setSortBy} games={games} join={join}/>}
         </Grid.Col>
       </Grid>
