@@ -50,12 +50,13 @@ module.exports = {
       params: { userId }
     })
   },
-  joinGame: (gameId) => {
+
+  joinGame: (userId, gameId) => {
     return axios({
       url: '/users',
       method: 'put',
       baseURL: basePath,
-      params: { gameId }
+      params: { userId, gameId }
     })
   },
 
