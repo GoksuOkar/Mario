@@ -19,7 +19,6 @@ export default function Profile({ updateUser, userObj, profile, page }) {
   };
 
   const unFriend = () => {
-    console.log(profile._id);
     please
       .unFriend(userObj._id, profile._id)
       .then(() => updateUser())
@@ -36,9 +35,7 @@ export default function Profile({ updateUser, userObj, profile, page }) {
           <Text>State: {profile.state}</Text>
           <Text>Games Attended: 43</Text>
           <Text>Prefered Role: Guard</Text>
-          {console.log('userObj', userObj)}
           <Text>Height: 6'6"</Text>
-          {console.log('profile', profile)}
           {page === 'profile' ? (
             <Button>Edit Profile</Button>
           ) : userObj.friends.includes(profile._id) ? (
