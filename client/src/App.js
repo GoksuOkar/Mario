@@ -5,6 +5,7 @@ import NavBar from './components/NavBar.js';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import ProfilePage from './components/ProfilePage/ProfilePage.js';
 import FindTeammates from './components/FindTeammates/FindTeammates.jsx';
+import GamePage from './components/GamePage/GamePage.js';
 
 export default function App() {
   //const divRef = useRef(true);

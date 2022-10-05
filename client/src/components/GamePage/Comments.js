@@ -1,26 +1,29 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
-const Comments = ({ list }) => {
+const Comments = ({ name, eventID }) => {
   //get comments
   // display comments
   // add comment form
     //on submit, adds the comment to the list of comments in db.
 
-    const [comment, setComment] = useState({
-      // *** get username from session? ask about this *** \\
+    const [newComment, setNewComment] = useState({
+
+      event_id: '',
       userName: '',
       body: '',
       date: new Date()
     })
 
   useEffect(() => {
-    //reload widget when a new comment is added to the list
-    comment();
-  }, [list])
+    axios.get('/comments').then((data) => {
+      console.log('data', data.data);
+    })
 
-  const comment = () => {
-    list.map((com) => {
+  }, [newComment])
+
+  const renderComments = (data) => {
+    data.map((com) => {
       return <div className="comment">
         <p>{com.userName}: {com.body}</p>
         <p>{com.date}</p>
@@ -29,10 +32,10 @@ const Comments = ({ list }) => {
   }
 
   const handleComSubmit = () => {
-      axios.post('/events/comments', {
-        userName: comment.userName,
-        body: comment.body,
-        date: comment.date
+      axios.post('/comments', {
+        userName: newComment.username,
+        body: newComment.body,
+        date: newComment.date
       })
       .then(function (response) {
         console.log(response);
@@ -43,26 +46,26 @@ const Comments = ({ list }) => {
   }
 
 
-  return(
-    <div>
-      <div className="com-form">
-        <form>
-          <label>
-            add a comment:
-            <input
-              type="text"
-              name="comment"
-              value={comment.body}
-              onChange={e => setComment(prev => prev.body = e.target.value)}/>
-          </label>
-          <input type="submit" value="Submit" onSubmit={handleComSubmit}/>
-        </form>
+    return(
+      <div>
+        <div className="com-form">
+          <form>
+            <label>
+              add a comment:
+              <input
+                type="text"
+                name="comment"
+                value={newComment.body}
+                onChange={e => setNewComment(prev => prev.body = e.target.value)}/>
+            </label>
+            <input type="submit" value="Submit" onSubmit={handleComSubmit}/>
+          </form>
+        </div>
+        <div className="com-container">
+        {renderComments}
+        </div>
       </div>
-      <div className="com-container">
-      {comment}
-      </div>
-    </div>
-  )
+    )
 
 }
 

@@ -1,50 +1,42 @@
-import { setState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 // import GMap from './GMap.js';
 import Info from './Info';
 import Comments from './Comments.js';
 
-const Game:
-	{
-    _id: 1,
-    eventName: "Crash the Net",
-    createdBy: "Blake",
-    peopleAttending: [{user_id: 2 },{user_id: 3 }, {user_id: 6 } ],
-    location: "1801-1899 Fell St, San Francisco, CA 94117, United States"
-    startTime: "January 2, 2pm",
-    endTime: "4pm",
-    description: "This is the showdown between two rival teams: The Monstars and The San Jose Toonz! Don’t be late to this epic match!"
-    Comments: [ {
-        body: "This place is ok"
-        userName: "Pedro"
-        date: "December 12, 2:45am"
-      }
-    ]
-  },
+//<GamePage gameid={event_id} userid={userId} set={setPage}/>
 
 
-
-
-const GamePage = () => {
+const GamePage = ({ gameid, userid, set }) => {
+  const [game, setGame] = useState([]);
 
   useEffect(() => {
-    //get game info here
+    //query game info here using the gameid
+    axios.get('/event', {params: {event_id: gameid}}).then((data) => {
+      console.log(data.data);
+      setGame(data.data);
+    })
   }, [])
 
 
   return(
     // <GMap />
-    <Info
-      name={Game.eventName}
-      createdBy={Game.createdBy}
-      attending={Game.peopleAttending}
-      location={Game.location}
-      start={Game.startTime}
-      end={Game.endTime}
-      description={Game.description}
-    />
-    <Comments
-      list={Game.comments}
-    />
+    <div>
+      <Info
+        name={game.eventName}
+        createdBy={game.creator}
+        attending={game.peopleAttending}
+        location={game.location}
+        start={game.startTime}
+        end={game.endTime}
+        description={game.eventDescription}
+        set={set}
+        />
+      <Comments
+        name={userid}
+        eventID={}
+      />
+    </div>
   )
 }
 
