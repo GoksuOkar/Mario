@@ -44,7 +44,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(express.json());
 
 // session middleware for obtaining cookies

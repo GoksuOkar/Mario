@@ -45,12 +45,15 @@ export async function updateConversation (message: I.Message): Promise<I.Convers
   }
 }
 
-export async function postNewMessage (newMessage: I.NewMessage): Promise<I.Conversation | null | undefined> {
+export async function postNewMessage (newMessage: I.NewMessage): Promise<any> {
   try {
-    return mongo.Conversation.create({
+    await mongo.Conversation.create({
       users: [newMessage.username, newMessage.toUser]
     })
-    .then(convo => {
+    .then((convo) => {
+      mongo.User.updateMany({username: { $in: convo.users }}, {
+        $push: { conversations: convo._id.toString() }
+      }).exec()
       const message: I.Message = {
         conversationId: convo._id.toString(),
         username: newMessage.username,
@@ -61,8 +64,9 @@ export async function postNewMessage (newMessage: I.NewMessage): Promise<I.Conve
         $push: {
           messages: message
         }
-      })
+      }).exec()
     })
+    .catch(err => console.error(err));
   } catch (err) {
     console.error(err);
   }

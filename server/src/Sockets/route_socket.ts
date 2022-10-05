@@ -25,16 +25,6 @@ export async function onConnection (socket: Socket | any) {
 
   socket.join(username);
 
-  socket.on('test', (data: any) => {
-    console.log(data);
-    // post to data base
-    // socket.on('receive_message
-      // socket.emit
-    // )
-    socket.emit('test', 'hi')
-    io.sockets.in(socket.id).emit('test1', 'hi1');
-  })
-
   // On connection, retrieves all conversations of user from db and sends to client
   // Joins socket to all conversation rooms
   await getConversationIDsFor(username)
@@ -46,7 +36,7 @@ export async function onConnection (socket: Socket | any) {
       return getConversationsFrom(user.conversations);
     })
     .then((conversationList) => {
-      io.sockets.in(socket.id).emit(user.getConversations, conversationList)
+      io.sockets.in(username).emit(user.getConversations, conversationList)
     })
     .catch((err) => console.error(`Error retrieving messages server side: ${err}`));
 
@@ -64,9 +54,10 @@ export async function onConnection (socket: Socket | any) {
 
   socket.on(user.newMessage, (newMessage: ISchema.NewMessage) => {
     postNewMessage(newMessage)
-    .then((conversation) =>
+    .then((conversation) => {
+      console.log(conversation);
       io.sockets.emit(user.newMessage, conversation)
-    )
+    })
     .catch((err) => console.error(err));
   })
 

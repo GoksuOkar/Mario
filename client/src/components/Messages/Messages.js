@@ -10,37 +10,39 @@ export function Messages({ userObj }) {
   const [friends, setFriends] = useState([]);
   const [selectedFriend, setSelectedFriend] = useState('');
 
-  const username = 'LukItsIvan' || userObj.username ;
+  const username = 'MakeOrBlake' || userObj.username ;
 
   console.log(username, 'username');
 
   socket.auth = { username };
-
+  socket.connect();
   socket.on(user.getConversations, (convo) => {
+    console.log(convo);
     setMessageList(convo);
   });
 
   socket.on(user.getFriends, (friends) => {
-    console.log(friends);
     setFriends(friends);
   })
 
-  socket.on()
+  socket.on(user.newMessage, (convo) => {
+    console.log(convo);
+
+  })
 
   function handleInput (e) {
-    console.log(e.target.value);
     setSelectedFriend(e.target.value);
   }
 
   function handleNewMessage () {
-    socket.emit(user.newMessage, )
+    socket.emit(user.newMessage, formatNewMessage(username, selectedFriend))
   }
 
-  function formatNewMessage (user, toUser, message) {
+  function formatNewMessage (user, toUser) {
     return {
       username: user,
       toUser: toUser,
-      text: message,
+      text: 'hi',
       time: new Date()
     }
   }
