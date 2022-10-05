@@ -128,7 +128,6 @@ export async function getGame (req:Request, res: Response) {
     res.sendStatus(404);
   }
 }
-}
 
 export async function joinGame (req:Request, res: Response) {
   let userId = req.body.userId;
