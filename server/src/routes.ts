@@ -15,6 +15,9 @@ router.get('/games', controllers.getGames)
 router.get('/game', controllers.getGame)
 // router.post('./games', )
 
+// COMMENTS
+router.get('/comments', controllers.getComments)
+
 // // USERS
 router.get('/users', controllers.getUserInfo)
 router.get('/friends', controllers.getFriends)

@@ -121,13 +121,21 @@ export async function getFriends (req: Request, res: Response) {
 }
 
 export async function getGame (req:Request, res: Response) {
-  console.log(req.query.id)
   try {
     let game = await db.Event.find({_id: req.query.id})
-    res.status(200).send(game)
+    res.status(200).send(game[0])
   } catch (err)  {
     console.log(err)
     res.sendStatus(404);
   }
 }
 
+export async function getComments (req: Request, res: Response) {
+  try {
+    let comments = await db.Comment.find({event_id: req.query.eventId})
+    res.status(200).send(comments);
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(404)
+  }
+}
