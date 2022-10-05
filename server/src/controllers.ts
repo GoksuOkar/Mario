@@ -35,6 +35,7 @@ export function register (req: Request, res: Response): void {
 }
 
 export function login (req: Request, res: Response): void {
+  console.log(req.session);
   const {email, password} = req.body;
   db.User.findOne({email: email})
   .then ((result) => {
@@ -119,3 +120,37 @@ export async function getFriends (req: Request, res: Response) {
   }
 }
 
+export async function getGame (req:Request, res: Response) {
+  try {
+    let game = await db.Event.find({_id: req.query.id})
+    res.status(200).send(game[0])
+  } catch (err)  {
+    console.log(err)
+    res.sendStatus(404);
+  }
+}
+
+export async function getComments (req: Request, res: Response) {
+  try {
+    let comments = await db.Comment.find({event_id: req.query.eventId})
+    res.status(200).send(comments);
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(404)
+  }
+}
+
+export async function joinGame (req:Request, res: Response) {
+  let userId = req.body.userId;
+  let eventId = req.body.eventId;
+  console.log(userId, eventId)
+  try{
+    let user = await db.User.updateOne({_id: userId}, {$addToSet: {events: eventId}})
+    let event = await db.Event.updateOne({_id: eventId}, {$addToSet: {peopleAttending: userId}})
+    let result = {user: user, event: event}
+    res.status(200).send(result);
+  } catch(err) {
+    console.log(err)
+    res.sendStatus(404)
+  }
+}
