@@ -27,6 +27,8 @@ const Dashboard = ({ userId }) => {
   useEffect(() => {
     please.getUserInfo(userId)
      .then(data => setGames(data.data.events))
+    //  map events into an array of event ids
+    // get events based on that array of ids
      .catch(error => console.log(error));
   }, [])
 
@@ -56,7 +58,7 @@ const Dashboard = ({ userId }) => {
             value={sortBy}
             onChange={setSortBy}
             />
-          <EventCards sortBy={sortBy} setSortBy={setSortBy} games={games} join={join}/>
+          {games && <EventCards sortBy={sortBy} setSortBy={setSortBy} games={games} join={join}/>}
         </Grid.Col>
       </Grid>
     </>
