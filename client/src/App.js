@@ -9,10 +9,6 @@ import axios from 'axios';
 
 export default function App() {
   //const divRef = useRef(true);
-<<<<<<< HEAD
-  const [userId, setUserId] = useState(false);
-  const [page, setPage] = useState('login');
-=======
   const [userId, setUserId] = useState(true);
   const [page, setPage] = useState(null);
 
@@ -33,7 +29,6 @@ export default function App() {
     })
     .catch(() => setPage('login'));
   }, [])
->>>>>>> main
 
   return (
     <div className='App'>
