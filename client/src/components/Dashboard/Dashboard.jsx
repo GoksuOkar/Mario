@@ -10,6 +10,7 @@ const Dashboard = ({ userId }) => {
   const [sortBy, setSortBy] = useState('upcoming');
   const [formOpen, setFormOpen] = useState(false);
   const [games, setGames] = useState([])
+  const [myGames, setMyGames] = useState([]);
 
   const join = (gameId) => {
     console.log('sending request to join game')
@@ -26,7 +27,7 @@ const Dashboard = ({ userId }) => {
   // I shouldn't have to make a request for user info, that request should be made earlier and passed down as a prop
   useEffect(() => {
     please.getUserInfo(userId)
-     .then(data => setGames(data.data.events))
+     .then(data => setMyGames(data.data.events))
     //  map events into an array of event ids
     // get events based on that array of ids
      .catch(error => console.log(error));
