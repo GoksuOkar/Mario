@@ -7,7 +7,7 @@ export const router = Router();
 // AUTH
 router.get('/auth', controllers.auth)
 router.post('/register', controllers.register)
-router.get('/login', controllers.login)
+router.post('/login', controllers.login)
 router.delete('/logout', controllers.logout);
 
 // // GAMES

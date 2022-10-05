@@ -1,9 +1,9 @@
-import { SimpleGrid, Grid, Avatar, Text } from '@mantine/core';
+import { SimpleGrid, Grid, Avatar, Text, Button } from '@mantine/core';
 import bbimg from '../../assets/images/basketballicon.png';
 // eslint-disable-next-line
 import ball from './ball.css';
 
-export default function Profile({ profile }) {
+export default function Profile({ profile, page }) {
   const { dribbling, dunking, passing, shooting } = profile.stats || 0;
   const bbSty = {
     width: '25px',
@@ -20,6 +20,11 @@ export default function Profile({ profile }) {
           <Text>Games Attended: 43</Text>
           <Text>Prefered Role: Guard</Text>
           <Text>Height: 6'6"</Text>
+          {page === 'frnd' ? (
+            <Button>Add/Remove Friend</Button>
+          ) : (
+            <Button>Edit Profile</Button>
+          )}
         </div>
       </Grid>
       <SimpleGrid m='5%'>

@@ -4,29 +4,33 @@ import please from '../../requests';
 import Profile from './Profile.js';
 import Game from './Game.js';
 import Friends from './Friends.js';
-// import sampleEvents from '../Dashboard/sampleData.js';
 // eslint-disable-next-line
 import ball from './ball.css';
 
-export default function ProfilePage({ userId }) {
+export default function ProfilePage({ userId, page, setPage }) {
+  const [dispId, setDispId] = useState(userId);
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
-    if (userId) {
+    if (dispId === userId) setPage('profile');
+    if (page === 'profile') setDispId(userId);
+    if (dispId) {
       please
-        .getUserInfo(userId)
-        .then(({ data }) => {
-          setProfile(data);
-        })
+        .getUserInfo(dispId)
+        .then(({ data }) => setProfile(data))
         .catch((err) => console.log(err));
     }
-  }, [userId]);
+  }, [setPage, userId, page, dispId]);
 
   return (
     <Grid m='auto'>
       <div>
-        <Profile profile={profile} />
-        <Friends friends={profile.friends} />
+        <Profile profile={profile} page={page} />
+        <Friends
+          friends={profile.friends}
+          setDispId={setDispId}
+          setPage={setPage}
+        />
       </div>
       <SimpleGrid m='auto'>
         <Text size={25} weight='bolder'>
@@ -35,7 +39,12 @@ export default function ProfilePage({ userId }) {
         <div className='events'>
           {profile.events
             ? profile.events.map((event) => (
-                <Game key={event._id} event={event} />
+                <Game
+                  key={event._id}
+                  event={event}
+                  setPage={setPage}
+                  setDispId={setDispId}
+                />
               ))
             : null}
         </div>

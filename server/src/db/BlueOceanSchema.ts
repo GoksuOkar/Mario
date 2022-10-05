@@ -42,7 +42,6 @@ const eventSchema = new Schema<I.Event>({
   eventName: String,
   eventDescription: String,
   peopleAttending: Array, //array of objectids
-  comments: Array,
   location: String, // ???
   startTime: Date,
   endTime: Date,
@@ -50,6 +49,7 @@ const eventSchema = new Schema<I.Event>({
 });
 
 const commentSchema = new Schema<I.Comment>({
+  event_id: String,
   username: String,
   date: Date,
   body: String,

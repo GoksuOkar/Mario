@@ -1,6 +1,6 @@
 import { Avatar, Grid, SimpleGrid, Text, Card } from '@mantine/core';
 
-export default function Game({ event }) {
+export default function Game({ event, setPage, setDispId }) {
   return (
     <Card>
       <Grid sx={{ border: '1px solid lightgray' }}>
@@ -13,6 +13,10 @@ export default function Game({ event }) {
                   src={player.photo}
                   radius={100}
                   m='auto'
+                  onClick={() => {
+                    setDispId(player._id);
+                    setPage('frnd');
+                  }}
                 />
               ) : null
             )}
@@ -25,12 +29,16 @@ export default function Game({ event }) {
                   src={player.photo}
                   radius={100}
                   m='auto'
+                  onClick={() => {
+                    setDispId(player._id);
+                    setPage('frnd');
+                  }}
                 />
               ) : null
             )}
           </Grid>
         </SimpleGrid>
-        <SimpleGrid m='xs'>
+        <SimpleGrid m='xs' onClick={() => console.log(event)}>
           <Text weight='bolder'>{event.eventName}</Text>
           <Text>{event.location}</Text>
           <Text>{event.startTime}</Text>
