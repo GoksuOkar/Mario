@@ -19,12 +19,16 @@ export default function App() {
     baseURL: 'http://localhost:3001',
   });
 
-  // checks if the user is already authenticated, sets the page to 'login' if not.
-  useEffect(() => {
+  const updateUser = () => {
     please
-      .getUserInfo(userId)
+      .getCurrentUser(userId)
       .then(({ data }) => setUserObj(data))
       .catch((err) => console.log(err));
+  };
+
+  // checks if the user is already authenticated, sets the page to 'login' if not.
+  useEffect(() => {
+    updateUser();
 
     Axios.get('/auth', { withCredentials: true })
       .then((res) => {
@@ -39,7 +43,6 @@ export default function App() {
 
   return (
     <div className='App'>
-      {console.log(userObj)}
       <NavBar userId={userId} page={page} setPage={setPage} />
       {page === 'login' ? (
         <LoginView setPage={setPage} setUserId={setUserId} userId={userId} />
@@ -47,7 +50,13 @@ export default function App() {
       {page === 'games' ? <Dashboard /> : null}
       {page === 'friends' ? <Dropdown /> : null}
       {page === 'profile' || page === 'frnd' ? (
-        <ProfilePage userId={userId} page={page} setPage={setPage} />
+        <ProfilePage
+          userObj={userObj}
+          updateUser={updateUser}
+          userId={userId}
+          page={page}
+          setPage={setPage}
+        />
       ) : null}
       {page === 'findTeam' ? <FindTeammates /> : null}
     </div>

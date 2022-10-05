@@ -21,6 +21,8 @@ router.get('/comments', controllers.getComments)
 
 // // USERS
 router.get('/users', controllers.getUserInfo)
-router.get('/friends', controllers.getFriends)
+router.get('/currentUser', controllers.getCurrentUser)
+router.put('/addFriend', controllers.addFriend)
+router.put('/unFriend', controllers.unFriend)
 
 // // CONVERSATIONS

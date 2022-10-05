@@ -4,13 +4,13 @@ const axios = require('axios');
 
 module.exports = {
   // GAMES
-  getAllGames: (city, state, sort='upcoming') => {
+  getAllGames: (city, state, sort = 'upcoming') => {
     return axios({
       url: '/games',
       method: 'get',
       baseURL: basePath,
-      params: { city, state, sort }
-    })
+      params: { city, state, sort },
+    });
   },
 
   getOneGame: (gameId) => {
@@ -18,8 +18,8 @@ module.exports = {
       url: '/games',
       method: 'get',
       baseURL: basePath,
-      params: { gameId }
-    })
+      params: { gameId },
+    });
   },
 
   createGame: (body) => {
@@ -27,8 +27,8 @@ module.exports = {
       url: '/games',
       method: 'post',
       baseURL: basePath,
-      data: body
-    })
+      data: body,
+    });
   },
 
   getGamesByIds: (gameIds) => {
@@ -36,8 +36,8 @@ module.exports = {
       url: '/games',
       method: 'get',
       baseURL: basePath,
-      params: { gameIds }
-    })
+      params: { gameIds },
+    });
   },
 
   // USERS
@@ -46,25 +46,42 @@ module.exports = {
       url: '/users',
       method: 'get',
       baseURL: basePath,
-      params: { userId }
-    })
+      params: { userId },
+    });
   },
   joinGame: (gameId) => {
     return axios({
       url: '/users',
       method: 'put',
       baseURL: basePath,
-      params: { gameId }
-    })
+      params: { gameId },
+    });
   },
 
-  // friendIds should be an array
-  getFriendInfo: (friendIds) => {
+  getCurrentUser: (userId) => {
     return axios({
-      url: '/friends',
+      url: '/currentUser',
       method: 'get',
       baseURL: basePath,
-      params: { friendIds }
-    })
+      params: { userId },
+    });
   },
-}
+
+  addFriend: (userId, friendId) => {
+    return axios({
+      url: '/addFriend',
+      method: 'put',
+      baseURL: basePath,
+      params: { userId, friendId },
+    });
+  },
+
+  unFriend: (userId, friendId) => {
+    return axios({
+      url: '/unFriend',
+      method: 'put',
+      baseURL: basePath,
+      params: { userId, friendId },
+    });
+  },
+};
