@@ -26,11 +26,7 @@ const Dashboard = ({ userId }) => {
   // I shouldn't have to make a request for user info, that request should be made earlier and passed down as a prop
   useEffect(() => {
     please.getUserInfo(userId)
-     .then(data => {
-       let eventIds = data.data.events.map(event => event._id)
-      return please.getGamesByIds(eventIds)
-     })
-     .then(data => setGames(data.data))
+     .then(data => setGames(data.data.events))
      .catch(error => console.log(error));
   }, [])
 
