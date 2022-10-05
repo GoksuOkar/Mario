@@ -1,14 +1,30 @@
 import { SimpleGrid, Grid, Avatar, Text, Button } from '@mantine/core';
 import bbimg from '../../assets/images/basketballicon.png';
+import please from '../../requests';
 // eslint-disable-next-line
 import ball from './ball.css';
 
-export default function Profile({ profile, page }) {
+export default function Profile({ updateUser, userObj, profile, page }) {
   const { dribbling, dunking, passing, shooting } = profile.stats || 0;
   const bbSty = {
     width: '25px',
     height: '25px',
   };
+
+  const addFriend = () => {
+    please
+      .addFriend(userObj._id, profile._id)
+      .then(() => updateUser())
+      .catch((err) => console.log(err));
+  };
+
+  const unFriend = () => {
+    please
+      .unFriend(userObj._id, profile._id)
+      .then(() => updateUser())
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div>
       <Grid m='5%'>
@@ -20,10 +36,12 @@ export default function Profile({ profile, page }) {
           <Text>Games Attended: 43</Text>
           <Text>Prefered Role: Guard</Text>
           <Text>Height: 6'6"</Text>
-          {page === 'frnd' ? (
-            <Button>Add/Remove Friend</Button>
-          ) : (
+          {page === 'profile' ? (
             <Button>Edit Profile</Button>
+          ) : userObj.friends.includes(profile._id) ? (
+            <Button onClick={unFriend}>Unfriend</Button>
+          ) : (
+            <Button onClick={addFriend}>Add Friend</Button>
           )}
         </div>
       </Grid>
