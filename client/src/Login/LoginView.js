@@ -1,7 +1,6 @@
-import * as jose from 'jose';
 import background from "../assets/images/basketballbg.png";
 import React, { useEffect, useRef, useState } from 'react';
-import { TextInput, Button, PasswordInput, Alert} from '@mantine/core';
+import { TextInput, Button, PasswordInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import RegisterForm from "./RegisterForm.js";
 import LoginAlert from "./LoginAlert.js";
@@ -32,9 +31,12 @@ function LoginView({ setUserId, userId, setPage }) {
 
   // handles sign in with google on the backend
   const handleCredentialResponse = (response) => {
-    // console.log(response);
-    // const { payload, protectedHeader } = await jose.jwtDecrypt
-    setPage('games');
+    Axios
+    .googleLogin(response)
+    .then((res) => {
+      setUserId(res.data.id)
+      setPage('games');
+    })
   }
 
   // Sends login credentials to backend, alerts if wrong login

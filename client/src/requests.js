@@ -27,6 +27,13 @@ module.exports = {
     )
   },
 
+  googleLogin: (values) => {
+    return (
+      Axios
+      .post('/googleLogin', values)
+    )
+  },
+
   // GAMES
   getAllGames: (city, state, sort='upcoming') => {
     return axios({

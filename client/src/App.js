@@ -16,7 +16,6 @@ export default function App() {
   useEffect(() => {
     Axios.authorize()
     .then((res) => {
-      console.log(res);
       if (res.data.id !== null) {
         setUserId(res.data.id);
         setPage('games')
