@@ -2,7 +2,31 @@
 const basePath = 'http://localhost:3001';
 const axios = require('axios');
 
+const Axios = axios.create({
+  baseURL: basePath,
+  withCredentials: true,
+});
+
 module.exports = {
+  //AUTHORIZATION
+  authorize: () => {
+    return Axios.get('/auth');
+  },
+
+  registerUser: (values) => {
+    return (
+      Axios
+      .post('/register', values)
+    )
+  },
+
+  login: (values) => {
+    return (
+      Axios
+      .post('/login', values)
+    )
+  },
+
   // GAMES
   getAllGames: (city, state, sort='upcoming') => {
     return axios({

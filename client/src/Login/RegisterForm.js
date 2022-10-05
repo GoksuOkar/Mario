@@ -1,7 +1,6 @@
 import { Modal, TextInput, PasswordInput, Button } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import axios from 'axios';
-import { Axios } from './LoginView';
+const Axios = require('../requests.js');
 
 function RegisterForm({setOpened, opened}) {
 
@@ -17,9 +16,9 @@ function RegisterForm({setOpened, opened}) {
       },
     });
 
+  // sends entered values to backend to create a user, return back to log in page
   const register = (values) => {
-    Axios
-    .post('/register', values, {withCredentials: true})
+    Axios.registerUser(values)
     .then((res) => {
       console.log(res);
     })

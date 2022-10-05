@@ -5,21 +5,16 @@ import NavBar from './components/NavBar.js';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import ProfilePage from './components/ProfilePage/ProfilePage.js';
 import FindTeammates from './components/FindTeammates/FindTeammates.jsx';
-import axios from 'axios';
+const Axios = require('./requests.js');
 
 export default function App() {
   //const divRef = useRef(true);
   const [userId, setUserId] = useState(true);
   const [page, setPage] = useState(null);
 
-  const Axios = axios.create({
-    baseURL: 'http://localhost:3001',
-  });
-
   // checks if the user is already authenticated, sets the page to 'login' if not.
   useEffect(() => {
-    Axios
-    .get('/auth', {withCredentials: true})
+    Axios.authorize()
     .then((res) => {
       console.log(res);
       if (res.data.id !== null) {
