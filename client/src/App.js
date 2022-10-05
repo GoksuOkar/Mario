@@ -47,7 +47,7 @@ export default function App() {
       {page === 'login' ? (
         <LoginView setPage={setPage} setUserId={setUserId} userId={userId} />
       ) : null}
-      {page === 'games' ? <Dashboard /> : null}
+      {page === 'games' ? <Dashboard userId={userId}/> : null}
       {page === 'friends' ? <Dropdown /> : null}
       {page === 'profile' || page === 'frnd' ? (
         <ProfilePage

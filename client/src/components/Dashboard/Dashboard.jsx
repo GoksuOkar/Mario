@@ -6,15 +6,30 @@ import MakeGame from './MakeGame.jsx';
 import please from '../../requests.js';
 
 
-const Dashboard = () => {
+const Dashboard = ({ userId }) => {
   const [sortBy, setSortBy] = useState('upcoming');
   const [formOpen, setFormOpen] = useState(false);
   const [games, setGames] = useState([])
+
+  const join = (gameId) => {
+    console.log('sending request to join game')
+    please.joinGame(userId, gameId)
+     .then(() => please.getAllGames())
+     .then(data => setGames(data.data))
+  }
 
   useEffect(() => {
     please.getAllGames()
       .then(data => setGames(data.data))
   }, [])
+
+  // I shouldn't have to make a request for user info, that request should be made earlier and passed down as a prop
+  useEffect(() => {
+    please.getUserInfo(userId)
+     .then(data => please.getGamesByIds(data.data.events))
+     .then(data => setGames(data.data))
+     .catch(error => console.log(error));
+  })
 
   return (
     <>
@@ -42,7 +57,7 @@ const Dashboard = () => {
             value={sortBy}
             onChange={setSortBy}
             />
-          <EventCards sortBy={sortBy} setSortBy={setSortBy} games={games}/>
+          <EventCards sortBy={sortBy} setSortBy={setSortBy} games={games} join={join}/>
         </Grid.Col>
       </Grid>
     </>
