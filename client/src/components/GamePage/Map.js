@@ -20,14 +20,16 @@ export const EventMap = ({ address }) => {
   paramAddress = `q=${paramAddress}`;
   const src = `https://www.google.com/maps/embed/v1/place?key=${API_KEY}&${paramAddress}`;
 
-  return (<iframe
-    title="map"
-    width="450"
-    height="250"
-    frameborder="0"
-    style={{ border: 0 }}
-    referrerpolicy="no-referrer-when-downgrade"
-    src={src}
-    allowfullscreen
-  ></iframe>)();
+  return (
+    <iframe
+      title="map"
+      width="450"
+      height="250"
+      frameborder="0"
+      style={{ border: 0 }}
+      referrerpolicy="no-referrer-when-downgrade"
+      src={src}
+      allowfullscreen
+    ></iframe>
+  );
 };
