@@ -1,10 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import request from '../../requests.js';
 
 
 const Info = ({ name, createdBy, attending, location, start, end, description, set }) => {
+  const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
-    //make fetch or axios call to get the photo for each person attending
+    attending?.forEach((person) => {
+      request.getUserInfo(person).then((data) => {
+        console.log('person:', data.data);
+      }).catch((err) => {
+        console.log('this is a getUserInfo error!', err);
+      })
+    })
 
   }, [attending]);
 

@@ -5,6 +5,7 @@ import NavBar from './components/NavBar.js';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import ProfilePage from './components/ProfilePage/ProfilePage.js';
 import FindTeammates from './components/FindTeammates/FindTeammates.jsx';
+import GamePage from './components/GamePage/GamePage.js';
 // eslint-disable-next-line
 import axios from 'axios';
 
@@ -42,6 +43,9 @@ export default function App() {
         <ProfilePage userId={userId} page={page} setPage={setPage} />
       ) : null}
       {page === 'findTeam' ? <FindTeammates /> : null}
+      <GamePage
+        gameid={'633ca1f83a3cb5d9bdc3bffd'} userid={'633ca1f73a3cb5d9bdc3bff4'} set={setPage}
+      />
     </div>
   );
 }

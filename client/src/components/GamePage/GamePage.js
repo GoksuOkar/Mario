@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import request from '../../requests.js';
 // import GMap from './GMap.js';
 import Info from './Info';
 import Comments from './Comments.js';
@@ -11,11 +11,10 @@ const GamePage = ({ gameid, userid, set }) => {
   const [game, setGame] = useState([]);
 
   useEffect(() => {
-    //query game info here using the gameid
-    axios.get('/event', {params: {event_id: gameid}}).then((data) => {
-      console.log(data.data);
+    request.getOneGame('633ca1f83a3cb5d9bdc3bffd').then((data) => {
       setGame(data.data);
-    })
+    });
+
   }, [])
 
 
@@ -34,7 +33,7 @@ const GamePage = ({ gameid, userid, set }) => {
         />
       <Comments
         name={userid}
-        eventID={'633ca1f83a3cb5d9bdc3bffd'}
+        eventID={game._id}
       />
     </div>
   )

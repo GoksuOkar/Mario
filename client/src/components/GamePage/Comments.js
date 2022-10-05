@@ -16,9 +16,8 @@ const Comments = ({ name, eventID }) => {
     })
 
   useEffect(() => {
-    axios.get('/comments').then((data) => {
-      console.log('data', data.data);
-    })
+    // axios.get('/comments').then((data) => {
+    // })
 
   }, [newComment])
 

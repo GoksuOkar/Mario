@@ -13,12 +13,12 @@ module.exports = {
     })
   },
 
-  getOneGame: (gameId) => {
+  getOneGame: (id) => {
     return axios({
-      url: '/games',
+      url: '/game',
       method: 'get',
       baseURL: basePath,
-      params: { gameId }
+      params: { id }
     })
   },
 
@@ -39,6 +39,7 @@ module.exports = {
       params: { gameIds }
     })
   },
+
 
   // USERS
   getUserInfo: (userId) => {
@@ -65,6 +66,15 @@ module.exports = {
       method: 'get',
       baseURL: basePath,
       params: { friendIds }
+    })
+  },
+
+  getComments: (eventId) => {
+    return axios({
+      url: '/comments',
+      method: 'get',
+      baseURL: basePath,
+      params: { eventId }
     })
   },
 }
