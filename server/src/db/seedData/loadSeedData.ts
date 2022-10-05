@@ -3,13 +3,15 @@ import { samplePlayers } from './samplePlayers';
 import session from 'express-session';
 import mongoDBSession from 'connect-mongodb-session';
 import * as db from '../BlueOceanSchema';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // compile this with npx tsc first and then run node <JS compiled file in dist>
 
 const store = mongoDBSession(session)
 const Store = new store({
-  // uri:'mongodb://localhost/AlleyOops',
-  uri:'mongodb://18.144.12.217/AlleyOops',
+  uri:`mongodb://${process.env.USERNAME}:${process.env.PASSWORD}@18.144.12.217/${process.env.DBNAME}`,
   collection: 'mySessions'
 })
 
@@ -17,15 +19,13 @@ const loadData = async () => {
   try {
     await db.User.insertMany(samplePlayers);
     let players = await db.User.find({});
-
-    // have one player create each event
-    for (let i = 0; i < players.length; i++) {
-      let player = players[i];
+    for (let i = 0; i < sampleEvents.length; i++) {
       let newEvent = sampleEvents[i];
-      newEvent.creator = player._id.toString(); //should creator be the name or id?
+      newEvent.creator = players[i]._id.toString()
       await db.Event.create(newEvent);
     }
-    // populate each event with all sample players
+
+    // populate each event with all current players
     let events = await db.Event.find({});
     for (let event of events) {
       players.forEach(player => event.peopleAttending.push(player._id.toString()));
@@ -42,6 +42,17 @@ const loadData = async () => {
     console.log(err);
   }
 }
+
+const deleteEverything = async () => {
+  try {
+    await db.User.deleteMany({});
+    await db.Event.deleteMany({});
+  } catch (error) {
+    console.log(error);
+  }
+}
+// turn this own to manually delete documents if we're unable to drop database
+// deleteEverything();
 
 loadData();
 

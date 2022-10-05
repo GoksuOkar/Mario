@@ -88,16 +88,61 @@ export function auth (req: Request, res: Response) {
   }
 }
 
-export function user (req: Request, res: Response) {
-  db.User.findOne({_id: req.params.userId})
-  .then(result=>res.send(result))
-  .catch(err=>res.send(err))
+export async function getGames (req: Request, res: Response) {
+  console.log('received request to get all games')
+  console.log('',req.query)
+  // case1 : get all games
+  // case2 : get one game based on id
+  // case3 : get games based on array of ids
+  try {
+    let results = await db.Event.find({});
+    res.send(results);
+  } catch (error) {
+    res.sendStatus(404);
+  }
 }
 
-export function users (req: Request, res: Response) {
-  console.log(req.params)
-  res.send('blah')
-  // db.User.findMany({_id: req.params.userId})
-  // .then(result=>res.send(result))
-  // .catch(err=>res.send(err))
+export function getUserInfo (req: Request, res: Response) {
+  let user: any = {};
+  let fPromArr: Array<any> = [];
+  let ePromArr: Array<any> = [];
+  db.User.findOne({_id: req.query.userId})
+    .then(result=>{
+      user = result;
+      result?.events.forEach(event=>ePromArr.push(db.Event.findOne({_id: event})));
+      result?.friends.forEach(friend=>fPromArr.push(db.User.findOne({_id: friend})));
+      return Promise.all(fPromArr).then(friendsArr=>friendsArr);
+    })
+    .then(friendsArr=>{
+      user.friends = friendsArr;
+      return Promise.all(ePromArr).then(eventsArr=>eventsArr);
+    })
+    .then(eventsArr=>{
+      user.events = eventsArr;
+    })
+    .then(()=>{
+      ePromArr.length = 0;
+      user.events.forEach((event)=>ePromArr.push(new Promise ((resolve)=>{
+        fPromArr.length = 0;
+        event.peopleAttending.forEach((person)=>
+        fPromArr.push(db.User.findOne({_id: person}))
+        )
+        resolve(Promise.all(fPromArr).then(persArr=>{
+          event.peopleAttending = persArr;
+        }));
+      })
+      ))
+      return Promise.all(ePromArr).then((arr)=>arr)
+    })
+    .then(()=>res.send(user))
+    .catch(err=>res.send(err));
 }
+
+export async function getFriends (req: Request, res: Response) {
+  try {
+    // search friends by array of IDs
+  } catch (error) {
+
+  }
+}
+

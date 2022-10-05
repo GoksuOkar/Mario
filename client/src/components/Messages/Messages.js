@@ -12,13 +12,20 @@ export default function Dropdown() {
   // start group message
   const joinRoom = async (e) => {
     e.preventDefault();
-    const arr = ['Brian', 'James', 'Alex', 'Mary', 'Alice'];
+    //     const arr = [
+    //     "Brian",
+    //     "James",
+    //     "Alex",
+    //     "Mary",
+    //     "Alice"
+    // ];
 
-    const room = e.target.elements.jr.value;
-    socket.emit(join.group, { conversationName: room, users: arr });
-    const rms = [...mesRms];
-    rms.push(room);
-    await setMesRms(rms);
+    //     const room = e.target.elements.jr.value;
+    //         socket.emit(join.group, {conversationName: room,
+    //   users: arr});
+    //     const rms = [...mesRms];
+    //     rms.push(room);
+    //     await setMesRms(rms);
   };
 
   // start direct message

@@ -1,10 +1,10 @@
 import { Grid, SimpleGrid, Text } from '@mantine/core';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import please from '../../requests';
 import Profile from './Profile.js';
 import Game from './Game.js';
 import Friends from './Friends.js';
-import sampleEvents from '../Dashboard/sampleData.js';
+// import sampleEvents from '../Dashboard/sampleData.js';
 // eslint-disable-next-line
 import ball from './ball.css';
 
@@ -13,9 +13,11 @@ export default function ProfilePage({ userId }) {
 
   useEffect(() => {
     if (userId) {
-      axios
-        .get(`/user/${userId}`)
-        .then(({ data }) => setProfile(data))
+      please
+        .getUserInfo(userId)
+        .then(({ data }) => {
+          setProfile(data);
+        })
         .catch((err) => console.log(err));
     }
   }, [userId]);
@@ -23,7 +25,6 @@ export default function ProfilePage({ userId }) {
   return (
     <Grid m='auto'>
       <div>
-        {console.log(profile)}
         <Profile profile={profile} />
         <Friends friends={profile.friends} />
       </div>
@@ -32,9 +33,11 @@ export default function ProfilePage({ userId }) {
           Your Games
         </Text>
         <div className='events'>
-          {sampleEvents.map((event) => (
-            <Game key={event._id} event={event} />
-          ))}
+          {profile.events
+            ? profile.events.map((event) => (
+                <Game key={event._id} event={event} />
+              ))
+            : null}
         </div>
       </SimpleGrid>
     </Grid>

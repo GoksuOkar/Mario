@@ -1,30 +1,33 @@
 import { Avatar, Grid, SimpleGrid, Text, Card } from '@mantine/core';
-import sampleTeammates from '../FindTeammates/sampleTeammates.js';
 
 export default function Game({ event }) {
   return (
     <Card>
       <Grid sx={{ border: '1px solid lightgray' }}>
-        <SimpleGrid m='auto'>
+        <SimpleGrid>
           <Grid m='xs'>
-            {sampleTeammates.map((player) => (
-              <Avatar
-                key={player._id}
-                src={player.photo}
-                radius={100}
-                m='auto'
-              />
-            ))}
+            {event.peopleAttending.map((player, i) =>
+              player && i % 2 === 0 ? (
+                <Avatar
+                  key={player._id}
+                  src={player.photo}
+                  radius={100}
+                  m='auto'
+                />
+              ) : null
+            )}
           </Grid>
           <Grid m='xs'>
-            {sampleTeammates.map((player) => (
-              <Avatar
-                key={player._id}
-                src={player.photo}
-                radius={100}
-                m='auto'
-              />
-            ))}
+            {event.peopleAttending.map((player, i) =>
+              player && i % 2 === 1 ? (
+                <Avatar
+                  key={player._id}
+                  src={player.photo}
+                  radius={100}
+                  m='auto'
+                />
+              ) : null
+            )}
           </Grid>
         </SimpleGrid>
         <SimpleGrid m='xs'>
