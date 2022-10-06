@@ -61,7 +61,7 @@ export default function NavBar({ userId, page, setPage }) {
             <Tabs.Tab
               sx={sty}
               style={sty}
-              value='profile'
+              value='messages'
               onClick={() => setPage('messages')}>
               Messages
             </Tabs.Tab>
