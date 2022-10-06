@@ -10,6 +10,7 @@ const Dashboard = ({ userId }) => {
   const [sortBy, setSortBy] = useState('upcoming');
   const [formOpen, setFormOpen] = useState(false);
   const [games, setGames] = useState([])
+  const [myGames, setMyGames] = useState([]);
 
   const join = (gameId) => {
     console.log('sending request to join game')
@@ -26,8 +27,9 @@ const Dashboard = ({ userId }) => {
   // I shouldn't have to make a request for user info, that request should be made earlier and passed down as a prop
   useEffect(() => {
     please.getUserInfo(userId)
-     .then(data => please.getGamesByIds(data.data.events))
-     .then(data => setGames(data.data))
+     .then(data => setMyGames(data.data.events))
+    //  map events into an array of event ids
+    // get events based on that array of ids
      .catch(error => console.log(error));
   }, [])
 
@@ -35,7 +37,7 @@ const Dashboard = ({ userId }) => {
     <>
       <Grid>
         <Grid.Col span={2}>
-          <UpcomingGames />
+          <UpcomingGames myGames={myGames}/>
           {/* later: turn this into a basketball */}
           {/* link this to open up modal form */}
           <Button
@@ -57,7 +59,7 @@ const Dashboard = ({ userId }) => {
             value={sortBy}
             onChange={setSortBy}
             />
-          <EventCards sortBy={sortBy} setSortBy={setSortBy} games={games} join={join}/>
+          {games && <EventCards sortBy={sortBy} setSortBy={setSortBy} games={games} join={join}/>}
         </Grid.Col>
       </Grid>
     </>

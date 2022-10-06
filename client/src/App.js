@@ -37,7 +37,6 @@ export default function App() {
 
   return (
     <div className="App">
-      {console.log(userObj)}
       <NavBar userId={userId} page={page} setPage={setPage} />
       {page === "login" ? (
         <LoginView setPage={setPage} setUserId={setUserId} userId={userId} />
@@ -53,7 +52,7 @@ export default function App() {
           setPage={setPage}
         />
       ) : null}
-      {page === "findTeam" ? <FindTeammates /> : null} */}
+      {page === "findTeam" ? <FindTeammates /> : null}
     </div>
   );
 }
