@@ -4,6 +4,7 @@ import EventCard from './EventCard.jsx';
 import UpcomingGames from './UpcomingGames.jsx';
 import MakeGame from './MakeGame.jsx';
 import please from '../../requests.js';
+import { BigStyledButton } from '../../styledComponents/StyledButtons.js';
 
 const Dashboard = ({ userId, setPage, setDispId }) => {
   const [sortBy, setSortBy] = useState('upcoming');
@@ -47,9 +48,7 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
           <UpcomingGames myGames={myGames} />
           {/* later: turn this into a basketball */}
           {/* link this to open up modal form */}
-          <Button radius='xl' size='md' onClick={() => setFormOpen(true)}>
-            Make Game
-          </Button>
+          <BigStyledButton string={'Make Game'} onClick={() => setFormOpen(true)}/>
           {formOpen && <MakeGame setFormOpen={setFormOpen} userId={userId} />}
         </Grid.Col>
         <Grid.Col span={9}>
