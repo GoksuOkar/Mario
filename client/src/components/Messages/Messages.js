@@ -6,13 +6,17 @@ import { MessageDisplay } from './MessageDisplay';
 import { user, join } from '../../Utilities/socket_listeners';
 
 export function Messages({ userObj }) {
-  const [mesRms, setMesRms] = useState([]);
   const [convoList, setConvoList] = useState([]);
   const [friends, setFriends] = useState([]);
   const [selectedFriend, setSelectedFriend] = useState('');
   const [displayChat, setDisplayChat] = useState(convoList[0]);
 
   const username = userObj.username ;
+
+  useEffect(() => {
+    socket.emit(user.getConversations);
+    socket.emit(user.getFriends);
+  }, [])
 
   useEffect(()=>{
     setDisplayChat(convoList[0])
