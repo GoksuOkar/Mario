@@ -58,7 +58,7 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
             <SegmentedControl
               data={[
                 {label: 'upcoming', value: 'upcoming'},
-                {label: 'nearest to me', value: 'distance'},
+                // {label: 'nearest to me', value: 'distance'},
                 {label: 'with friends attending', value: 'friends'}
               ]}
               value={sortBy}
