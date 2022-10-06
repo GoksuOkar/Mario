@@ -1,13 +1,28 @@
 import { Card, Text, Grid, SimpleGrid, Avatar, Chip } from '@mantine/core';
 import moment from 'moment';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import please from '../../requests.js';
 
-// later replace this with a prop
-// const sampleEvents = require('./sampleData.js');
+const EventCard = ({ event, myGameIds, userId, updateUserInfo }) => {
+  // not sure about the best way to keep track of this state, whether the user is already going to the event
+  // const [checked, setChecked] = useState(myGameIds.includes(event._id))
 
-const EventCard = ({ event, join, myGameIds }) => {
-  const [checked, setChecked] = useState(myGameIds.includes(event._id))
+  const join = () => {
+    console.log('sending request to join game')
+    console.log('userid', userId, 'gameid', event._id);
+    please.joinGame(userId, event._id)
+     .then(() => updateUserInfo())
+     .catch(error => console.log(error));
+  }
 
+  const leaveGame = (gameId) => {
+    console.log('sending request to leave game')
+  }
+
+  // useEffect(() => {
+  //   setChecked(myGameIds.includes(event._id))
+  // }, [])
+  // make a join/leave function here that updates the checked status
   return (
     <>
       <Grid.Col key={event._id} span={3}>
@@ -33,12 +48,12 @@ const EventCard = ({ event, join, myGameIds }) => {
           {/* instead of storing state, have this depend on property from the returned data */}
           {/* later: change and flip color of the chip */}
           <Chip
-            checked={checked}
+            checked={myGameIds.includes(event._id)}
             variant='filled'
             radius='md'
             // change color to #0d5f65'
             color='teal'
-            onClick={() => join(event._id)}>
+            onClick={() => join()}>
             {myGameIds.includes(event._id) ? 'Going' : 'Let\'s go!'}
           </Chip>
         </Card>

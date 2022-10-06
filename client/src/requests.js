@@ -92,14 +92,6 @@ module.exports = {
       params: { userId },
     });
   },
-  joinGame: (gameId) => {
-    return axios({
-      url: '/users',
-      method: 'put',
-      baseURL: basePath,
-      params: { gameId },
-    });
-  },
 
   getCurrentUser: (userId) => {
     return axios({

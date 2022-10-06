@@ -13,16 +13,15 @@ const Dashboard = ({ userId }) => {
   const [myGames, setMyGames] = useState([]);
   const [myGameIds, setMyGameIds] = useState([]);
 
-  const join = (gameId) => {
-    console.log('sending request to join game')
-    please.joinGame(userId, gameId)
-     .then(() => please.getAllGames())
-     .then(data => setGames(data.data))
-     .catch(error => console.log(error));
-  }
-
-  const leaveGame = (gameId) => {
-    console.log('sending request to leave game')
+  const updateUserInfo = () => {
+    please.getUserInfo(userId)
+    .then(data => {
+     let events = data.data.events
+     let eventIds = events.map(event => event._id)
+     setMyGames(events);
+     setMyGameIds(eventIds);
+   })
+    .catch(error => console.log(error));
   }
 
   useEffect(() => {
@@ -30,16 +29,8 @@ const Dashboard = ({ userId }) => {
       .then(data => setGames(data.data))
   }, [])
 
-  // I shouldn't have to make a request for user info, that request should be made earlier and passed down as a prop
   useEffect(() => {
-    please.getUserInfo(userId)
-     .then(data => {
-      let events = data.data.events
-      let eventIds = events.map(event => event._id)
-      setMyGames(events);
-      setMyGameIds(eventIds);
-    })
-     .catch(error => console.log(error));
+    updateUserInfo();
   }, [])
 
   return (
@@ -77,7 +68,11 @@ const Dashboard = ({ userId }) => {
             games
             ?
             <Grid>
-              {games.map(event => <EventCard event={event} join={join} myGameIds={myGameIds}/>)}
+              {games.map(event => <EventCard
+              event={event}
+              userId={userId}
+              myGameIds={myGameIds}
+              updateUserInfo={updateUserInfo}/>)}
             </Grid>
             :
             null
