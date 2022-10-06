@@ -1,6 +1,6 @@
 // later repace with deployed server IP
-const basePath = "http://localhost:3001";
-const axios = require("axios");
+const basePath = 'http://localhost:3001';
+const axios = require('axios');
 
 const Axios = axios.create({
   baseURL: basePath,
@@ -10,27 +10,29 @@ const Axios = axios.create({
 module.exports = {
   //AUTHORIZATION
   authorize: () => {
-    return Axios.get("/auth");
+    return Axios.get('/auth');
   },
 
   registerUser: (values) => {
-    return Axios.post("/register", values);
+    return Axios.post('/register', values);
   },
 
   login: (values) => {
-    return Axios.post("/login", values);
+    return Axios.post('/login', values);
   },
 
   googleLogin: (values) => {
-    return Axios.post("/googleLogin", values);
+    return Axios.post('/googleLogin', values);
   },
 
   // GAMES
   /***************GAMES*******************/
-  getAllGames: (city, state, sort = "upcoming", userId) => {
+
+  getAllGames: (city, state, sort = 'upcoming', userId) => {
+
     return axios({
-      url: "/games",
-      method: "get",
+      url: '/games',
+      method: 'get',
       baseURL: basePath,
       params: { city, state, sort, userId },
     });
@@ -38,8 +40,8 @@ module.exports = {
 
   getOneGame: (id) => {
     return axios({
-      url: "/game",
-      method: "get",
+      url: '/game',
+      method: 'get',
       baseURL: basePath,
       params: { id },
     });
@@ -47,8 +49,8 @@ module.exports = {
 
   getGamesByIds: (gameIds) => {
     return axios({
-      url: "/games",
-      method: "get",
+      url: '/games',
+      method: 'get',
       baseURL: basePath,
       params: { gameIds },
     });
@@ -56,8 +58,8 @@ module.exports = {
 
   joinGame: (userId, eventId) => {
     return axios({
-      url: "/game/join",
-      method: "put",
+      url: '/game/join',
+      method: 'put',
       baseURL: basePath,
       data: { userId, eventId },
     });
@@ -74,8 +76,8 @@ module.exports = {
 
   createGame: (body) => {
     return axios({
-      url: "/game",
-      method: "post",
+      url: '/game',
+      method: 'post',
       baseURL: basePath,
       data: body,
     });
@@ -84,8 +86,8 @@ module.exports = {
   // USERS
   getUserInfo: (userId) => {
     return axios({
-      url: "/users",
-      method: "get",
+      url: '/users',
+      method: 'get',
       baseURL: basePath,
       params: { userId },
     });
@@ -93,8 +95,8 @@ module.exports = {
 
   getCurrentUser: (userId) => {
     return axios({
-      url: "/currentUser",
-      method: "get",
+      url: '/currentUser',
+      method: 'get',
       baseURL: basePath,
       params: { userId },
     });
@@ -111,8 +113,8 @@ module.exports = {
 
   addFriend: (userId, friendId) => {
     return axios({
-      url: "/addFriend",
-      method: "put",
+      url: '/addFriend',
+      method: 'put',
       baseURL: basePath,
       params: { userId, friendId },
     });
@@ -120,8 +122,8 @@ module.exports = {
 
   unFriend: (userId, friendId) => {
     return axios({
-      url: "/unFriend",
-      method: "put",
+      url: '/unFriend',
+      method: 'put',
       baseURL: basePath,
       params: { userId, friendId },
     });
@@ -148,8 +150,8 @@ module.exports = {
 
   updateUser: (userInfo, id) => {
     return axios({
-      url: "/updateUser",
-      method: "put",
+      url: '/updateUser',
+      method: 'put',
       baseURL: basePath,
       data: { userInfo, id },
     });
