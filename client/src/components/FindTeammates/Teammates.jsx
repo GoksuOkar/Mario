@@ -1,21 +1,23 @@
 import {
   SegmentedControl,
-  Button,
   Avatar,
   SimpleGrid,
   Grid,
   Text,
   Card,
   Divider,
-  Group
+  Group,
+  createStyles
 } from '@mantine/core';
+
+import { StyledButton } from '../../styledComponents/Button.js';
 
 // later: replace this with prop
 
 export default function Teammates({players}) {
   return (
     <>
-      <Grid>
+      <Grid gutter="lg">
         {players.map((player) => (
           <Card key={player._id} shadow='sm' p='lg' radius='md'>
             <Grid>
@@ -32,12 +34,8 @@ export default function Teammates({players}) {
               </Grid.Col>
             </Grid>
             <Grid>
-              <Button variant='light' size='xs'>
-                Add to group
-              </Button>
-              <Button variant='light' size='xs'>
-                Add to friends
-              </Button>
+              <StyledButton string={'add to group'}/>
+              <StyledButton string={'add to friends'}/>
             </Grid>
           </Card>
         ))}

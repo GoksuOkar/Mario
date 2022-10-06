@@ -24,7 +24,11 @@ export default function FindTeammates({user}) {
         </Grid.Col>
         <Grid.Col span={8}>
           <p>Sort by:</p>
-          <SegmentedControl
+          <SegmentedControl styles={(theme) => ({
+            root: {
+              marginBottom: 30,
+            }
+          })}
             data={[
               { label: 'location', value: 'location' },
               { label: 'skill level', value: 'skill level' },
