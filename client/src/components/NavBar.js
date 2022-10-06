@@ -25,7 +25,7 @@ export default function NavBar({ userId, page, setPage }) {
     >
       <Tabs.List>
         <img src={img} alt="IMG NOT FOUND" />
-        {page === "login" && !userId ? (
+        {page === "login" ? (
           <Text m="auto" sx={headSty}>
             Login
           </Text>
