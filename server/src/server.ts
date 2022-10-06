@@ -44,7 +44,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(express.json());
 
 // session middleware for obtaining cookies
@@ -59,7 +59,7 @@ app.use('/', router);
 
 const io = new Server(socketServer, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: '*',
     methods: ['GET', 'POST'],
   },
 }).listen(server);
