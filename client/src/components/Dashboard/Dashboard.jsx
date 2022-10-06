@@ -6,7 +6,7 @@ import MakeGame from './MakeGame.jsx';
 import please from '../../requests.js';
 
 
-const Dashboard = ({ userId }) => {
+const Dashboard = ({ userId, setPage, setDispId }) => {
   const [sortBy, setSortBy] = useState('upcoming');
   const [formOpen, setFormOpen] = useState(false);
   const [games, setGames] = useState([])
@@ -73,7 +73,10 @@ const Dashboard = ({ userId }) => {
               event={event}
               userId={userId}
               myGameIds={myGameIds}
-              updateUserInfo={updateUserInfo}/>)}
+              updateUserInfo={updateUserInfo}
+              setDispId={setDispId}
+              setPage={setPage}
+              />)}
             </Grid>
             :
             null

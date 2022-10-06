@@ -3,7 +3,7 @@ import moment from 'moment';
 import { useState, useEffect } from 'react';
 import please from '../../requests.js';
 
-const EventCard = ({ event, myGameIds, userId, updateUserInfo }) => {
+const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPage }) => {
   const join = () => {
     console.log('sending request to join game')
     console.log('userid', userId, 'gameid', event._id);
@@ -42,7 +42,15 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo }) => {
               ?
               // current data that we're getting back does not have person's name
               <Tooltip label={people.username}>
-                <Avatar key={people._id} src={people.photo} alt='small picture of person attending' radius='xl'></Avatar>
+                <Avatar
+                key={people._id}
+                src={people.photo}
+                alt='small picture of person attending'
+                radius='xl'
+                onClick={() => {
+                  setDispId(people);
+                  setPage('frnd');
+                }}></Avatar>
               </Tooltip>
               :
               null

@@ -16,6 +16,7 @@ export default function App() {
   const [userId, setUserId] = useState("633ca1f73a3cb5d9bdc3bff5");
   const [userObj, setUserObj] = useState({});
   const [page, setPage] = useState(null);
+  const [dispId, setDispId] = useState(userId);
 
   // checks if the user is already authenticated, sets the page to 'login' if not.
   useEffect(() => {
@@ -47,7 +48,13 @@ export default function App() {
       {page === "login" ? (
         <LoginView setPage={setPage} setUserId={setUserId} userId={userId} />
       ) : null}
-      {page === "games" ? <Dashboard userId={userId} /> : null}
+      {page === "games"
+      ?
+      <Dashboard
+      userId={userId}
+      setPage={setPage}
+      setDispId={setDispId} />
+      : null}
       {page === "profile" || page === "frnd" ? (
         <ProfilePage
           userObj={userObj}
@@ -55,6 +62,8 @@ export default function App() {
           userId={userId}
           page={page}
           setPage={setPage}
+          dispId={dispId}
+          setDispId={setDispId}
         />
       ) : null}
       {page === 'findTeam' ? <FindTeammates /> : null}
