@@ -3,7 +3,7 @@ import { Modal, Button, Group, Input, Grid, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { updateUser } from "../../requests";
 
-export default function EditStats() {
+export default function EditStats({ id }) {
   const [opened, setOpened] = useState(false);
   const form = useForm({
     initialValues: {
@@ -17,9 +17,16 @@ export default function EditStats() {
       picture: "",
     },
   });
+  console.log(id);
 
   const submit = (values) => {
-    updateUser(values);
+    updateUser(values, id)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

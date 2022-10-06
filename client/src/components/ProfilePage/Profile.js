@@ -3,7 +3,7 @@ import bbimg from "../../assets/images/basketballicon.png";
 import please from "../../requests";
 // eslint-disable-next-line
 import ball from "./ball.css";
-import EditStats from "./Modal";
+import EditStats from "./EditStats";
 
 export default function Profile({ updateUser, userObj, profile, page }) {
   const { dribbling, dunking, passing, shooting } = profile.stats || 0;
@@ -38,7 +38,7 @@ export default function Profile({ updateUser, userObj, profile, page }) {
           <Text>Prefered Role: Guard</Text>
           <Text>Height: 6'6"</Text>
           {page === "profile" ? (
-            <EditStats />
+            <EditStats id={userObj._id} />
           ) : userObj.friends.includes(profile._id) ? (
             <Button onClick={unFriend}>Unfriend</Button>
           ) : (

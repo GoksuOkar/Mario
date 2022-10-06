@@ -119,13 +119,12 @@ module.exports = {
     });
   },
 
-  updateUser: (userInfo) => {
-    console.log(userInfo);
+  updateUser: (userInfo, id) => {
     return axios({
       url: "/updateUser",
       method: "put",
       baseURL: basePath,
-      params: { userinfo },
+      data: { userInfo, id },
     });
   },
 };

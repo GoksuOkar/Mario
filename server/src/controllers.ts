@@ -47,6 +47,7 @@ export function login (req: Request, res: Response): void {
       if (isMatch) {
         // change new user id to a string to add to session
         const id = result._id.toString();
+        console.log(id)
 
         // set the session to be authorized and have user id
         req.session.isAuth = true;
@@ -228,6 +229,21 @@ export async function getComments (req: Request, res: Response) {
     res.status(200).send(comments);
   } catch (err) {
     console.log(err)
+    res.sendStatus(404)
+  }
+}
+
+export async function updateUser (req: Request, res: Response) {
+  let id = req.body.id
+  let userInfo = req.body.userInfo;
+  // have to parse to json be
+  let {dribbling, dunking, passing, shooting, city, state, picture, overallSkill} = (userInfo);
+  let stats = {dribbling, dunking, passing, shooting}
+  console.log(id)
+  try {
+    let result = await db.User.updateOne({_id: id}, {stats: stats})
+    res.status(200).send(result)
+  } catch(err) {
     res.sendStatus(404)
   }
 }
