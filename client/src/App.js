@@ -53,7 +53,7 @@ export default function App() {
         />
 
       ) : null}
-      {page === "findTeam" ? <FindTeammates /> : null} */}
+      {page === "findTeam" ? <FindTeammates /> : null}
     </div>
   );
 }

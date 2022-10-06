@@ -34,9 +34,11 @@ function LoginView({ setUserId, userId, setPage }) {
     Axios
     .googleLogin(response)
     .then((res) => {
+      console.log(res)
       setUserId(res.data.id)
       setPage('games');
     })
+    .catch(error => console.log(error))
   }
 
   // Sends login credentials to backend, alerts if wrong login

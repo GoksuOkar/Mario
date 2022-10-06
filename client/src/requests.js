@@ -57,8 +57,6 @@ module.exports = {
   },
 
   getGamesByIds: (gameIds) => {
-    // I think there's a params serializer we can use instead
-    gameIds = JSON.stringify(gameIds);
     return axios({
       url: '/games',
       method: 'get',

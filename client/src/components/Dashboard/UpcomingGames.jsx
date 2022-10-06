@@ -1,9 +1,7 @@
 import { Card, Text, Divider } from '@mantine/core';
 import moment from 'moment';
 
-// later replace this with a prop
-const myGames = require('./sampleData.js');
-const UpcomingGames = () => {
+const UpcomingGames = ({myGames}) => {
   return (
     // later: put this in a grid and size it
     <Card shadow='sm' p='xs' radius='md'>

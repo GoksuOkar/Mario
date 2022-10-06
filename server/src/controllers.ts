@@ -114,13 +114,13 @@ export function auth (req: Request, res: Response) {
 }
 
 /************************GAMES************************/
+
 export async function getGames (req: Request, res: Response) {
-  let { gameIds} = req.query;
+  console.log('received request with these params:',req.query)
+  let gameIds = req.query.gameIds;
   if (gameIds) {
     // case1 : get games based on array of ids
-    let results = [];
-    // this is not best practice but it works for now, the incoming array of gameIds should be in json
-    gameIds = JSON.parse(gameIds);
+    let results:string[] = [];
     for (let gameId of gameIds) {
       try {
         let result = await db.Event.findById(gameId);
@@ -164,6 +164,17 @@ export async function joinGame (req:Request, res: Response) {
   } catch(err) {
     console.log(err)
     res.sendStatus(404)
+  }
+}
+
+export async function createGame (req: Request, res: Response) {
+  try {
+    console.log('body of request', req.body);
+    await db.Event.create(req.body);
+    res.sendStatus(201);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400)
   }
 }
 
