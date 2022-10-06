@@ -27,8 +27,7 @@ module.exports = {
 
   // GAMES
   /***************GAMES*******************/
-  getAllGames: (city, state, sort = 'upcoming', userId) => {
-
+  getAllGames: (city, state, sort = "upcoming", userId) => {
     return axios({
       url: "/games",
       method: "get",
@@ -42,8 +41,8 @@ module.exports = {
       url: "/game",
       method: "get",
       baseURL: basePath,
-      params: { id }
-    })
+      params: { id },
+    });
   },
 
   getGamesByIds: (gameIds) => {
@@ -66,8 +65,8 @@ module.exports = {
 
   leaveGame: (userId, eventId) => {
     return axios({
-      url: '/game/leave',
-      method: 'put',
+      url: "/game/leave",
+      method: "put",
       baseURL: basePath,
       data: { userId, eventId },
     });
@@ -81,7 +80,6 @@ module.exports = {
       data: body,
     });
   },
-
 
   // USERS
   getUserInfo: (userId) => {
@@ -104,8 +102,8 @@ module.exports = {
 
   getUserPhotos: (userIds) => {
     return axios({
-      url: '/user',
-      method: 'get',
+      url: "/user",
+      method: "get",
       baseURL: basePath,
       params: { userIds },
     });
@@ -131,22 +129,22 @@ module.exports = {
 
   getComments: (eventId) => {
     return axios({
-      url: '/comments',
-      method: 'get',
+      url: "/comments",
+      method: "get",
       baseURL: basePath,
-      params: { eventId }
-    })
+      params: { eventId },
+    });
   },
 
   addComment: (gameId, comment) => {
     return axios({
-      url: '/comments',
-      method: 'post',
+      url: "/comments",
+      method: "post",
       baseURL: basePath,
       params: { gameId },
-      data: comment
+      data: comment,
     });
-  }
+  },
 
   updateUser: (userInfo, id) => {
     return axios({
@@ -156,5 +154,4 @@ module.exports = {
       data: { userInfo, id },
     });
   },
-
 };
