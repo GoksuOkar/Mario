@@ -13,8 +13,10 @@ export default function ProfilePage({
   userId,
   page,
   setPage,
+  dispId,
+  setDispId,
 }) {
-  const [dispId, setDispId] = useState(userId);
+
   const [profile, setProfile] = useState({});
 
   useEffect(() => {

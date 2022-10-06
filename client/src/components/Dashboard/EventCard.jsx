@@ -2,8 +2,9 @@ import { Card, Text, Grid, SimpleGrid, Avatar, Chip, Tooltip } from '@mantine/co
 import moment from 'moment';
 import { useState, useEffect } from 'react';
 import please from '../../requests.js';
+import UserAvatar from './UserAvatar.jsx';
 
-const EventCard = ({ event, myGameIds, userId, updateUserInfo }) => {
+const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPage }) => {
   const join = () => {
     console.log('sending request to join game')
     console.log('userid', userId, 'gameid', event._id);
@@ -38,12 +39,13 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo }) => {
             <h3>{event.eventName}</h3>
           </Text>
           <SimpleGrid cols={6} spacing='sm' verticalSpacing='sm'>
-              {event.peopleAttending.map(people => people
+              {event.peopleAttending.map(playerId => playerId
               ?
-              // current data that we're getting back does not have person's name
-              <Tooltip label={people.name}>
-                <Avatar key={people._id} src={people.photo} alt='small picture of person attending' radius='xl'></Avatar>
-              </Tooltip>
+              <UserAvatar
+              key={playerId}
+              playerId={playerId}
+              setDispId={setDispId}
+              setPage={setPage}/>
               :
               null
               )}

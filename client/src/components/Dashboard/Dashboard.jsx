@@ -6,7 +6,7 @@ import MakeGame from './MakeGame.jsx';
 import please from '../../requests.js';
 
 
-const Dashboard = ({ userId }) => {
+const Dashboard = ({ userId, setPage, setDispId }) => {
   const [sortBy, setSortBy] = useState('upcoming');
   const [formOpen, setFormOpen] = useState(false);
   const [games, setGames] = useState([])
@@ -58,7 +58,7 @@ const Dashboard = ({ userId }) => {
             <SegmentedControl
               data={[
                 {label: 'upcoming', value: 'upcoming'},
-                {label: 'nearest to me', value: 'distance'},
+                // {label: 'nearest to me', value: 'distance'},
                 {label: 'with friends attending', value: 'friends'}
               ]}
               value={sortBy}
@@ -70,10 +70,14 @@ const Dashboard = ({ userId }) => {
             ?
             <Grid>
               {games.map(event => <EventCard
+              key={event._id}
               event={event}
               userId={userId}
               myGameIds={myGameIds}
-              updateUserInfo={updateUserInfo}/>)}
+              updateUserInfo={updateUserInfo}
+              setDispId={setDispId}
+              setPage={setPage}
+              />)}
             </Grid>
             :
             null

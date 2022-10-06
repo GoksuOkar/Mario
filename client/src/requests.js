@@ -37,13 +37,13 @@ module.exports = {
     });
   },
 
-  getOneGame: (gameId) => {
+  getOneGame: (id) => {
     return axios({
       url: "/game",
       method: "get",
       baseURL: basePath,
-      params: { gameId },
-    });
+      params: { id }
+    })
   },
 
   getGamesByIds: (gameIds) => {
@@ -82,6 +82,7 @@ module.exports = {
     });
   },
 
+
   // USERS
   getUserInfo: (userId) => {
     return axios({
@@ -98,6 +99,15 @@ module.exports = {
       method: "get",
       baseURL: basePath,
       params: { userId },
+    });
+  },
+
+  getUserPhotos: (userIds) => {
+    return axios({
+      url: '/user',
+      method: 'get',
+      baseURL: basePath,
+      params: { userIds },
     });
   },
 
@@ -119,6 +129,25 @@ module.exports = {
     });
   },
 
+  getComments: (eventId) => {
+    return axios({
+      url: '/comments',
+      method: 'get',
+      baseURL: basePath,
+      params: { eventId }
+    })
+  },
+
+  addComment: (gameId, comment) => {
+    return axios({
+      url: '/comments',
+      method: 'post',
+      baseURL: basePath,
+      params: { gameId },
+      data: comment
+    });
+  }
+
   updateUser: (userInfo, id) => {
     return axios({
       url: "/updateUser",
@@ -127,4 +156,5 @@ module.exports = {
       data: { userInfo, id },
     });
   },
+
 };
