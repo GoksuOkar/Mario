@@ -12,18 +12,31 @@ const UserAvatar = ({playerId, setDispId, setPage}) => {
   })
   return (
       // current data that we're getting back does not have person's name
-    <Tooltip label={playerInfo.username}>
-      <Avatar
-      key={playerId}
-      src={playerInfo.picture}
-      alt='small picture of person attending'
-      radius='xl'
-      sx={{cursor: 'pointer'}}
-      onClick={() => {
-        setDispId(playerId);
-        setPage('frnd');
-      }}></Avatar>
-    </Tooltip>
+    <>
+      {
+        playerInfo.username
+        ?
+        <Tooltip label={playerInfo.username}>
+          <Avatar
+          key={playerId}
+          src={playerInfo.picture}
+          alt='small picture of person attending'
+          radius='xl'
+          sx={{cursor: 'pointer'}}
+          onClick={() => {
+            setDispId(playerId);
+            setPage('frnd');
+          }}></Avatar>
+        </Tooltip>
+        :
+        <Avatar
+        key={playerId}
+        src={playerInfo.picture}
+        alt='small picture of person attending'
+        radius='xl'
+        ></Avatar>
+      }
+    </>
   )
 }
 

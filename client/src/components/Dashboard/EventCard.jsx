@@ -59,7 +59,7 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
           </Tooltip>
           }
           {/* italicise and insert calculated distance */}
-          <Text>Miles from you</Text>
+          {/* <Text>Miles from you</Text> */}
           <Text>Date: {moment(event.startTime).format('ll')}</Text>
           <Text>Time: {moment(event.startTime).format('LT')} - {moment(event.endTime).format('LT')}</Text>
           <Chip
