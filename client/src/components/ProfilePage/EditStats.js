@@ -17,7 +17,6 @@ export default function EditStats({ id }) {
       picture: "",
     },
   });
-  console.log(id);
 
   const submit = (values) => {
     updateUser(values, id)

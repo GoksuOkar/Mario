@@ -34,7 +34,6 @@ export default function App() {
       .then(({ data }) => setUserObj(data))
       .catch((err) => console.log(err));
   };
-  console.log("user id", userId);
 
   return (
     <div className="App">
