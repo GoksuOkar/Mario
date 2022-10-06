@@ -25,7 +25,6 @@ export default function Profile({ updateUser, userObj, profile, page }) {
       .then(() => updateUser())
       .catch((err) => console.log(err));
   };
-
   return (
     <div>
       <Grid m="5%">
@@ -38,7 +37,7 @@ export default function Profile({ updateUser, userObj, profile, page }) {
           <Text>Prefered Role: Guard</Text>
           <Text>Height: 6'6"</Text>
           {page === "profile" ? (
-            <EditStats id={userObj._id} />
+            <EditStats id={profile._id} />
           ) : userObj.friends.includes(profile._id) ? (
             <Button onClick={unFriend}>Unfriend</Button>
           ) : (

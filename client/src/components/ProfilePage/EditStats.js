@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, Button, Group, Input, Grid, TextInput } from "@mantine/core";
+import { Modal, Button, Group, Grid, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { updateUser } from "../../requests";
 
@@ -26,6 +26,7 @@ export default function EditStats({ id }) {
       .catch((err) => {
         console.log(err);
       });
+    setOpened(false);
   };
 
   return (
