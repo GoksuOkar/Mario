@@ -37,8 +37,6 @@ export default function App() {
 
   return (
     <div className="App">
-      {console.log(userObj)}
-
       <NavBar userId={userId} page={page} setPage={setPage} />
       {page === "login" ? (
         <LoginView setPage={setPage} setUserId={setUserId} userId={userId} />
