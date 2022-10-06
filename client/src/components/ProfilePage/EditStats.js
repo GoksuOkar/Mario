@@ -3,25 +3,38 @@ import { Modal, Button, Group, Grid, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { updateUser } from "../../requests";
 
-export default function EditStats({ id }) {
+export default function EditStats({
+  id,
+  updateUserApp,
+  dribbling,
+  dunking,
+  passing,
+  shooting,
+  state,
+  city,
+  overallSkill,
+  picture,
+}) {
   const [opened, setOpened] = useState(false);
   const form = useForm({
     initialValues: {
-      city: "",
-      state: "",
-      dribbling: "",
-      passing: "",
-      shooting: "",
-      dunking: "",
-      overallSkill: "",
-      picture: "",
+      city: city,
+      state: state,
+      dribbling: dribbling,
+      passing: passing,
+      shooting: shooting,
+      dunking: dunking,
+      overallSkill: overallSkill,
+      picture: picture,
     },
   });
 
   const submit = (values) => {
+    console.log(values);
     updateUser(values, id)
       .then((result) => {
         console.log(result);
+        updateUserApp();
       })
       .catch((err) => {
         console.log(err);
@@ -60,7 +73,7 @@ export default function EditStats({ id }) {
                 label="Dribbling"
                 placeholder="1-5"
                 onChange={(e) =>
-                  form.setFieldValue("dribbling", e.target.value)
+                  form.setFieldValue("dribbling", Number(e.target.value))
                 }
               />
             </Grid.Col>
@@ -69,7 +82,9 @@ export default function EditStats({ id }) {
                 mt="xs"
                 label="Passing"
                 placeholder="1-5"
-                onChange={(e) => form.setFieldValue("passing", e.target.value)}
+                onChange={(e) =>
+                  form.setFieldValue("passing", Number(e.target.value))
+                }
               />
             </Grid.Col>
             <Grid.Col xs={6} lg={3}>
@@ -77,7 +92,9 @@ export default function EditStats({ id }) {
                 mt="xs"
                 label="Shooting"
                 placeholder="1-5"
-                onChange={(e) => form.setFieldValue("shooting", e.target.value)}
+                onChange={(e) =>
+                  form.setFieldValue("shooting", Number(e.target.value))
+                }
               />
             </Grid.Col>
             <Grid.Col xs={6} lg={3}>
@@ -85,7 +102,9 @@ export default function EditStats({ id }) {
                 mt="xs"
                 label="Dunking"
                 placeholder="1-5"
-                onChange={(e) => form.setFieldValue("dunking", e.target.value)}
+                onChange={(e) =>
+                  form.setFieldValue("dunking", Number(e.target.value))
+                }
               />
             </Grid.Col>
           </Grid>

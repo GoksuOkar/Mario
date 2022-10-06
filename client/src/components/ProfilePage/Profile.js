@@ -37,7 +37,15 @@ export default function Profile({ updateUser, userObj, profile, page }) {
           <Text>Prefered Role: Guard</Text>
           <Text>Height: 6'6"</Text>
           {page === "profile" ? (
-            <EditStats id={userObj._id} />
+            <EditStats
+              stats={profile.stats}
+              city={profile.city}
+              state={profile.state}
+              overallSkill={profile.overallSkill}
+              picture={profile.picture}
+              updateUserApp={updateUser}
+              id={userObj._id}
+            />
           ) : userObj.friends.includes(profile._id) ? (
             <Button onClick={unFriend}>Unfriend</Button>
           ) : (
@@ -60,18 +68,6 @@ export default function Profile({ updateUser, userObj, profile, page }) {
         <Grid ml="xs">
           <Text sx={{ width: "85px" }}>Dunkability</Text>
           {[...Array(dunking)].map((num, i) => (
-            <img
-              src={bbimg}
-              alt="bbimg"
-              style={bbSty}
-              className={`roll${i}`}
-              key={i}
-            />
-          ))}
-        </Grid>
-        <Grid ml="xs">
-          <Text sx={{ width: "85px" }}>Defense</Text>
-          {[...Array(5)].map((num, i) => (
             <img
               src={bbimg}
               alt="bbimg"
