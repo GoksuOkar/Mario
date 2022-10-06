@@ -29,7 +29,7 @@ const Dashboard = ({ userId }) => {
      .then(data => please.getGamesByIds(data.data.events))
      .then(data => setGames(data.data))
      .catch(error => console.log(error));
-  })
+  }, [])
 
   return (
     <>

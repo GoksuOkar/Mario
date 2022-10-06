@@ -1,4 +1,4 @@
-import axios from 'axios';
+import request from '../../requests.js';
 import { useState, useEffect } from 'react';
 
 const Comments = ({ name, eventID }) => {
@@ -8,41 +8,55 @@ const Comments = ({ name, eventID }) => {
     //on submit, adds the comment to the list of comments in db.
 
     const [newComment, setNewComment] = useState({
-
       event_id: '',
-      userName: '',
+      username: '',
       body: '',
       date: new Date()
     })
+    const [comBody, setComBody] = useState("");
+    const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    // axios.get('/comments').then((data) => {
-    // })
-
-  }, [newComment])
+    if ( eventID ) {
+      request.getComments(eventID)
+        .then(({ data }) => {
+          data.map((comm) => {
+            if (comm) {
+              setComments(comments => comments.concat(comm));
+            }
+          })
+        })
+        .catch((err) => {
+          console.log("this is a getComments error!", err);
+        });
+    }
+  }, [newComment, eventID])
 
   const renderComments = (data) => {
     data.map((com) => {
       return <div className="comment">
-        <p>{com.userName}: {com.body}</p>
+        <p>{com.username}: {com.body}</p>
         <p>{com.date}</p>
       </div>
     })
   }
 
   const handleComSubmit = () => {
-      axios.post('/comments', {
-        userName: newComment.username,
-        body: newComment.body,
-        date: newComment.date
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      request.addComment(eventID, newComment)
+        .then((data) => {
+          console.log('addComment success!')
+        })
+        .catch((err) => {
+          console.log('this is a handleComSubmit error!', err);
+        })
   }
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setComBody(prev => prev = e.target.value)
+  }
+
+  console.log('comments', comments);
 
 
     return(
@@ -50,18 +64,18 @@ const Comments = ({ name, eventID }) => {
         <div className="com-form">
           <form>
             <label>
-              add a comment:
               <input
                 type="text"
                 name="comment"
-                value={newComment.body}
-                onChange={e => setNewComment(prev => prev.body = e.target.value)}/>
+                placeholder="Add a comment..."
+                value={comBody}
+                onChange={handleChange}/>
             </label>
             <input type="submit" value="Submit" onSubmit={handleComSubmit}/>
           </form>
         </div>
         <div className="com-container">
-        {renderComments}
+        {comments ? renderComments(comments) : null}
         </div>
       </div>
     )

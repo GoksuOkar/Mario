@@ -79,6 +79,15 @@ module.exports = {
     });
   },
 
+  getUserPhotos: (userIds) => {
+    return axios({
+      url: '/user',
+      method: 'get',
+      baseURL: basePath,
+      params: { userIds },
+    });
+  },
+
   addFriend: (userId, friendId) => {
     return axios({
       url: '/addFriend',
@@ -105,4 +114,14 @@ module.exports = {
       params: { eventId }
     })
   },
+
+  addComment: (gameId, comment) => {
+    return axios({
+      url: '/comments',
+      method: 'post',
+      baseURL: basePath,
+      params: { gameId },
+      data: comment
+    });
+  }
 };

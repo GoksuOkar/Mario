@@ -11,8 +11,10 @@ const GamePage = ({ gameid, userid, set }) => {
   const [game, setGame] = useState([]);
 
   useEffect(() => {
-    request.getOneGame('633ca1f83a3cb5d9bdc3bffd').then((data) => {
+    request.getOneGame('633ca1f83a3cb5d9bdc3bfff').then((data) => {
       setGame(data.data);
+    }).catch((err) => {
+      console.log('this is a getOneGame error!', err);
     });
 
   }, [])

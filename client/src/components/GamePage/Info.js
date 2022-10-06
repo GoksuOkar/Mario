@@ -6,22 +6,33 @@ const Info = ({ name, createdBy, attending, location, start, end, description, s
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
-    attending?.forEach((person) => {
-      request.getUserInfo(person).then((data) => {
-        console.log('person:', data.data);
-      }).catch((err) => {
-        console.log('this is a getUserInfo error!', err);
-      })
-    })
-
+    if ( attending ) {
+      request.getUserPhotos(attending)
+        .then(({ data }) => {
+          data.forEach((person) => {
+            if (person !== null) {
+              const attendee = {}
+              attendee.id = person._id;
+              attendee.photo = person.picture;
+              setPhotos(photos => photos.concat(attendee));
+            }
+          });
+        })
+        .catch(err=>console.log('this is a getUserPhotos error!', err));
+    }
   }, [attending]);
+
 
   const getPlayers = () => {
     // for each player in players,
       // show their photo as a clickable item
-    attending.map((player) => {
-      return <img src={player.photo} alt={player.id} onClick={handlePlayerClick}></img>
-    })
+      if (photos) {
+        return photos.map((player) => {
+          if (player.photo) {
+            return <img src={player.photo} alt={player.id} onClick={handlePlayerClick}></img>
+          }
+        })
+      }
 
   }
 
@@ -42,7 +53,7 @@ const Info = ({ name, createdBy, attending, location, start, end, description, s
       <p>{description}</p>
       <p>see who's playing...</p>
       <div>
-        {getPlayers}
+        {getPlayers()}
       </div>
     </div>
   )

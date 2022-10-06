@@ -97,7 +97,7 @@ export async function getGames (req: Request, res: Response) {
   if (gameIds) {
     // case1 : get games based on array of ids
     let results = [];
-    // this is not best practice but it works for now, the incoming array of gameIds should be in json
+    this is not best practice but it works for now, the incoming array of gameIds should be in json
     gameIds = JSON.parse(gameIds);
     for (let gameId of gameIds) {
       try {
@@ -188,6 +188,24 @@ export async function getCurrentUser (req: Request, res: Response) {
   .catch(err=>res.send(err))
 }
 
+export async function getUserPhotos (req: Request, res: Response) {
+  // create a copy of people attending ids
+  const attending: Array<any> = req.query.userIds;
+  // create a promise array
+  const prom: Array<any> = [];
+  // loop through req.(peopleAttedingIds)
+  attending.forEach((person) => {
+    // push the db.(promise) to promise array
+    prom.push(db.User.findOne({_id: person}))
+  })
+  //  Promise.all resolves all the promises
+  Promise.all(prom).then(peeps => {
+    console.log(peeps)
+    // .then res.send(array of people attending objects)
+    res.send(peeps)
+  })
+}
+
 export async function addFriend (req: Request, res: Response) {
   db.User.updateOne({_id: req.query.userId}, {$push:{"friends":req.query.friendId}})
   .then(result=>res.send(result))
@@ -208,5 +226,17 @@ export async function getComments (req: Request, res: Response) {
     console.log(err)
     res.sendStatus(404)
   }
+}
+
+export async function addComment (req: Request, res: Response) {
+  const {username, body, date, event_id} = req.body;
+  await db.Comment.create(req.body)
+    .then((result) => {
+      res.status(201);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(404);
+    })
 }
 
