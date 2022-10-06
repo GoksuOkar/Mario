@@ -240,8 +240,8 @@ export async function updateUser (req: Request, res: Response) {
   let stats = {dribbling, dunking, passing, shooting}
   console.log(id)
   try {
-    let result = await db.User.updateOne({_id: id}, {stats: stats})
-    res.status(200).send(result)
+    let updateStats = await db.User.updateOne({_id: id}, {stats: stats, city: city, state: state, picture: picture, overallSkill: overallSkill})
+    res.status(200).send(updateStats)
   } catch(err) {
     res.sendStatus(404)
   }
