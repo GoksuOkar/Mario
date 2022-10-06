@@ -27,7 +27,9 @@ module.exports = {
 
   // GAMES
   /***************GAMES*******************/
+
   getAllGames: (city, state, sort = 'upcoming', userId) => {
+
     return axios({
       url: '/games',
       method: 'get',
@@ -65,8 +67,8 @@ module.exports = {
 
   leaveGame: (userId, eventId) => {
     return axios({
-      url: '/game/leave',
-      method: 'put',
+      url: "/game/leave",
+      method: "put",
       baseURL: basePath,
       data: { userId, eventId },
     });
@@ -102,8 +104,8 @@ module.exports = {
 
   getUserPhotos: (userIds) => {
     return axios({
-      url: '/user',
-      method: 'get',
+      url: "/user",
+      method: "get",
       baseURL: basePath,
       params: { userIds },
     });
@@ -129,8 +131,8 @@ module.exports = {
 
   getComments: (eventId) => {
     return axios({
-      url: '/comments',
-      method: 'get',
+      url: "/comments",
+      method: "get",
       baseURL: basePath,
       params: { eventId },
     });
@@ -138,8 +140,8 @@ module.exports = {
 
   addComment: (gameId, comment) => {
     return axios({
-      url: '/comments',
-      method: 'post',
+      url: "/comments",
+      method: "post",
       baseURL: basePath,
       params: { gameId },
       data: comment,
