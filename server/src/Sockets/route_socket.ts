@@ -4,6 +4,7 @@ import { user, join } from '../Utilities/socket_listeners';
 import {
   getConversationIDsFor,
   getConversationsFrom,
+  getFriends,
   updateConversation,
   createGroupConversation,
   postNewMessage
@@ -17,43 +18,47 @@ import io from '../server';
 import { Types } from 'mongoose';
 
 export async function onConnection (socket: Socket | any) {
-  console.log(`User ${socket.id} connected`)
 
-  socket.join(socket.id);
+  const username = socket.handshake.auth.username;
 
-  socket.on('test', (data: any) => {
-    console.log(data);
-    // post to data base
-    // socket.on('receive_message
-      // socket.emit
-    // )
-    socket.emit('test', 'hi')
-    io.sockets.in(socket.id).emit('test1', 'hi1');
-  })
+  console.log(`User ${username} connected`)
+
+  socket.join(username);
 
   // On connection, retrieves all conversations of user from db and sends to client
   // Joins socket to all conversation rooms
-  socket.username ? await getConversationIDsFor(socket.username)
+  await getConversationIDsFor(username)
     .then((user) =>  {
-      console.log(user)
-      user.conversations.forEach((convoID: Types.ObjectId) => socket.join(String(convoID)))
+      console.log(user.conversations)
+      user.conversations.forEach((convoID: String) => socket.join(convoID))
       return getConversationsFrom(user.conversations);
     })
-    .then((conversationList) =>
-      io.sockets.in(socket.username).emit(user.getConversations, conversationList)
-    )
-    .catch((err) => console.log(`Error retrieving messages server side: ${err}`))
-  : null
+    .then((conversationList) => {
+      io.sockets.in(username).emit(user.getConversations, conversationList)
+    })
+    .catch((err) => console.error(`Error retrieving messages server side: ${err}`));
+
+  await getFriends(username)
+    .then((friends) => io.sockets.in(username).emit(user.getFriends, friends))
+    .catch(err => console.error(err));
 
   socket.on(user.directMessage, (message: ISchema.Message) => {
+    console.log(message);
     updateConversation(message)
-    .then()
-    io.sockets.in(String(message.conversationId)).emit(user.directMessage, message)
+    .then((updatedMessages) => {
+      io.sockets.in(message.conversationId).emit(user.directMessage, updatedMessages)
+  })
+    .catch(err => console.error(err));
   })
 
-  socket.on(user.newMessage, (newMessage: ISchema.NewMessage) => {
-    postNewMessage(newMessage);
-  })
+  // socket.on(user.newMessage, (newMessage: ISchema.NewMessage) => {
+  //   postNewMessage(newMessage)
+  //   .then((conversation) => {
+  //     console.log(conversation);
+  //     io.sockets.emit(user.newMessage, conversation)
+  //   })
+  //   .catch((err) => console.error(err));
+  // })
 
   socket.on(join.room, (joinroom: ISchema.JoinRoom) => {
     socket.join(joinroom.conversationId);
@@ -62,7 +67,7 @@ export async function onConnection (socket: Socket | any) {
   socket.on(join.group, (joingroup: ISchema.JoinGroup) => {
     createGroupConversation(joingroup)
     .then((conversation) =>
-      socket.broadcast.emit(join.group, conversation)
+      io.sockets.emit(join.room, conversation)
     )
     .catch(err => console.error(err))
   })

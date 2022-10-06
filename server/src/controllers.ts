@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import * as db from './db/BlueOceanSchema';  // db object has models as property
 import bcrypt from 'bcryptjs';
+const jwt = require('jsonwebtoken');
 import { resolveSoa } from "dns";
 
 export function register (req: Request, res: Response): void {
@@ -70,6 +71,28 @@ export function login (req: Request, res: Response): void {
   })
 }
 
+export function googleLogin (req: Request, res: Response): void {
+  const {clientId, credential} = req.body;
+  const {email, name} = jwt.decode(credential);
+  db.User.findOne({email: email})
+  .then((result) => {
+    if (result) {
+      const id = result._id.toString();
+      req.session.isAuth = true;
+      req.session.user = id;
+      res.status(201).send({id: result._id});
+    } else {
+      db.User.create({email: email, username: name})
+      .then((result) => {
+        const id = result._id.toString();
+        req.session.isAuth = true;
+        req.session.user = id;
+        res.status(201).send({id: result._id});
+      })
+    }
+  })
+}
+
 export function logout (req: Request, res: Response) {
   req.session.destroy((err) => {
     if (err) {
@@ -91,14 +114,13 @@ export function auth (req: Request, res: Response) {
 }
 
 /************************GAMES************************/
+
 export async function getGames (req: Request, res: Response) {
-  // console.log('received request with these params:',req.query)
-  let { gameIds} = req.query;
+  console.log('received request with these params:',req.query)
+  let gameIds = req.query.gameIds;
   if (gameIds) {
     // case1 : get games based on array of ids
-    let results = [];
-    this is not best practice but it works for now, the incoming array of gameIds should be in json
-    gameIds = JSON.parse(gameIds);
+    let results:string[] = [];
     for (let gameId of gameIds) {
       try {
         let result = await db.Event.findById(gameId);
@@ -110,12 +132,35 @@ export async function getGames (req: Request, res: Response) {
     }
     res.send(results);
   } else {
-    // case2 : get all games
-    try {
-      let results = await db.Event.find({});
-      res.send(results);
-    } catch (error) {
-      res.sendStatus(404);
+    let {sort, userId} = req.query;
+    console.log('sorting results by:', sort);
+    // case2 : get all games and apply sort criterion
+    if (sort === 'distance') {
+      // implement later
+      res.sendStatus(404)
+    } else if (sort === 'friends') {
+      let friendEventIds = new Set();
+      let user = await db.User.findById(userId);
+      let friendIds = user?.friends || [];
+      for (let id of friendIds) {
+        let friend = await db.User.findById(id);
+        friend?.events.forEach(eventId => friendEventIds.add(eventId))
+      }
+      let friendEvents = [];
+      for (let eventId of Array.from(friendEventIds)) {
+        let event = await db.Event.findById(eventId);
+        friendEvents.push(event);
+      }
+      res.send(friendEvents);
+
+    } else {
+      // upcoming by default
+      try {
+        let results = await db.Event.find({}).sort({startTime: 'asc'});
+        res.send(results);
+      } catch (error) {
+        res.sendStatus(404);
+      }
     }
   }
 }
@@ -142,6 +187,32 @@ export async function joinGame (req:Request, res: Response) {
   } catch(err) {
     console.log(err)
     res.sendStatus(404)
+  }
+}
+
+export async function leaveGame (req: Request, res: Response) {
+  let userId = req.body.userId;
+  let eventId = req.body.eventId;
+  console.log(userId, eventId)
+  try{
+    let user = await db.User.updateOne({_id: userId}, {$pull: {events: eventId}})
+    let event = await db.Event.updateOne({_id: eventId}, {$pull: {peopleAttending: userId}})
+    let result = {user: user, event: event}
+    res.status(200).send(result);
+  } catch(err) {
+    console.log(err)
+    res.sendStatus(404)
+  }
+}
+
+export async function createGame (req: Request, res: Response) {
+  try {
+    console.log('body of request', req.body);
+    await db.Event.create(req.body);
+    res.sendStatus(201);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400)
   }
 }
 
@@ -238,5 +309,20 @@ export async function addComment (req: Request, res: Response) {
       console.log(err);
       res.sendStatus(404);
     })
+
+export async function updateUser (req: Request, res: Response) {
+  let id = req.body.id
+  let userInfo = req.body.userInfo;
+  // have to parse to json be
+  let {dribbling, dunking, passing, shooting, city, state, picture, overallSkill} = (userInfo);
+  let stats = {dribbling, dunking, passing, shooting}
+  console.log(id)
+  try {
+    let updateStats = await db.User.updateOne({_id: id}, {stats: stats, city: city, state: state, picture: picture, overallSkill: overallSkill})
+    res.status(200).send(updateStats)
+  } catch(err) {
+    res.sendStatus(404)
+  }
+
 }
 
