@@ -2,7 +2,7 @@ export const samplePlayers = [
   {
     username: 'takattack', // username, gmail or email, password
     email: 'tak@gmail.com',
-    password: 'ballislife',
+    password: '$2a$10$vmad45mnh6LVeLgsrXdxX.EJ/h2LedpCL2rB/.QfDKaLqgA1AF.Hy',
     overallSkill: 'beginner',
     city: 'San Jose',
     state: 'CA',
@@ -20,7 +20,7 @@ export const samplePlayers = [
   {
     username: 'MakeOrBlake', // username, gmail or email, password
     email: 'blake@gmail.com',
-    password: 'ballislife',
+    password: '$2a$10$vmad45mnh6LVeLgsrXdxX.EJ/h2LedpCL2rB/.QfDKaLqgA1AF.Hy',
     overallSkill: 'pro',
     city: 'San Jose',
     state: 'CA',
@@ -38,7 +38,7 @@ export const samplePlayers = [
   {
     username: 'LukItsIvan', // username, gmail or email, password
     email: 'ivan@gmail.com',
-    password: 'ballislife',
+    password: '$2a$10$vmad45mnh6LVeLgsrXdxX.EJ/h2LedpCL2rB/.QfDKaLqgA1AF.Hy',
     overallSkill: 'intermediate',
     city: 'Sunnyvale',
     state: 'CA',
@@ -56,7 +56,7 @@ export const samplePlayers = [
   {
     username: 'LynnFTWynn', // username, gmail or email, password
     email: 'lynn@gmail.com',
-    password: 'ballislife',
+    password: '$2a$10$vmad45mnh6LVeLgsrXdxX.EJ/h2LedpCL2rB/.QfDKaLqgA1AF.Hy',
     overallSkill: 'pro',
     city: 'Sunnyvale',
     state: 'CA',
@@ -74,7 +74,7 @@ export const samplePlayers = [
   {
     username: 'Goksu9000', // username, gmail or email, password
     email: 'goksu@gmail.com',
-    password: 'ballislife',
+    password: '$2a$10$vmad45mnh6LVeLgsrXdxX.EJ/h2LedpCL2rB/.QfDKaLqgA1AF.Hy',
     overallSkill: 'intermediate',
     city: 'San Jose',
     state: 'CA',
@@ -92,7 +92,7 @@ export const samplePlayers = [
   {
     username: 'TJ Dribblz', // username, gmail or email, password
     email: 'tim@gmail.com',
-    password: 'ballislife',
+    password: '$2a$10$vmad45mnh6LVeLgsrXdxX.EJ/h2LedpCL2rB/.QfDKaLqgA1AF.Hy',
     overallSkill: 'pro',
     city: 'Sunnyvale',
     state: 'CA',

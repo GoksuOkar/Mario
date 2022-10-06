@@ -1,34 +1,44 @@
-import { useEffect, setState } from 'react';
-import axios from 'axios';
-const Info = ({ name, createdBy, attending, location, start, end, description }) => {
-  const [players, setPlayers] = setState([]);
+import { useEffect, useState } from 'react';
+import request from '../../requests.js';
+
+
+const Info = ({ name, createdBy, attending, location, start, end, description, set }) => {
+  const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
-    //make fetch or axios call to get the photo for each person attending
-    attending.map((user) => {
-      axios.get('/users').then((data) => {
-        let player = {};
-        player.id = data.id;
-        player.photo = data.picture;
-        setPlayers(prevPlayers => prevPlayers, player);
-      }).catch((err) => {
-        console.log('this is a GET error in GamePage/Info', err);
-      });
-    });
-  }, [attending, players, setPlayers]);
+    if ( attending ) {
+      request.getUserPhotos(attending)
+        .then(({ data }) => {
+          data.forEach((person) => {
+            if (person !== null) {
+              const attendee = {}
+              attendee.id = person._id;
+              attendee.photo = person.picture;
+              setPhotos(photos => photos.concat(attendee));
+            }
+          });
+        })
+        .catch(err=>console.log('this is a getUserPhotos error!', err));
+    }
+  }, [attending]);
+
 
   const getPlayers = () => {
     // for each player in players,
       // show their photo as a clickable item
-    players.map((player) => {
-      return <img src={player.photo} alt={player.id} onClick={handlePlayerClick}></img>
-    })
+      if (photos) {
+        return photos.map((player) => {
+          if (player.photo) {
+            return <img src={player.photo} alt={player.id} onClick={handlePlayerClick}></img>
+          }
+        })
+      }
 
   }
 
   const handlePlayerClick = () => {
     //when a user clicks on a player's image, it takes them to the player's profile.
-
+    //send player.id to tell the page which profile page to load
 
   }
 
@@ -43,7 +53,7 @@ const Info = ({ name, createdBy, attending, location, start, end, description })
       <p>{description}</p>
       <p>see who's playing...</p>
       <div>
-        {getPlayers}
+        {getPlayers()}
       </div>
     </div>
   )

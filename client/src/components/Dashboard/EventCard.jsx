@@ -2,9 +2,9 @@ import { Card, Text, Grid, SimpleGrid, Avatar, Chip, Tooltip } from '@mantine/co
 import moment from 'moment';
 import { useState, useEffect } from 'react';
 import please from '../../requests.js';
+import UserAvatar from './UserAvatar.jsx';
 
-const EventCard = ({ event, myGameIds, userId, updateUserInfo }) => {
-  console.log('EVENT', event)
+const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPage }) => {
   const join = () => {
     console.log('sending request to join game')
     console.log('userid', userId, 'gameid', event._id);
@@ -39,15 +39,13 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo }) => {
             <h3>{event.eventName}</h3>
           </Text>
           <SimpleGrid cols={6} spacing='sm' verticalSpacing='sm'>
-              {/* later: click avatar to go to friend's page */}
-              {/* later: add default initials if user has no photo */}
-              {/* later: use Indicator to point out which are your friends, maybe move them to the top */}
-              {event.peopleAttending.map(people => people
+              {event.peopleAttending.map(playerId => playerId
               ?
-              // current data that we're getting back does not have person's name
-              <Tooltip label={people.name}>
-                <Avatar key={people._id} src={people.photo} alt='small picture of person attending' radius='xl'></Avatar>
-              </Tooltip>
+              <UserAvatar
+              key={playerId}
+              playerId={playerId}
+              setDispId={setDispId}
+              setPage={setPage}/>
               :
               null
               )}
@@ -57,13 +55,10 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo }) => {
           <Text>Miles from you</Text>
           <Text>Date: {moment(event.startTime).format('ll')}</Text>
           <Text>Time: {moment(event.startTime).format('LT')} - {moment(event.endTime).format('LT')}</Text>
-          {/* instead of storing state, have this depend on property from the returned data */}
-          {/* later: change and flip color of the chip */}
           <Chip
             checked={myGameIds.includes(event._id)}
             variant='filled'
             radius='md'
-            // change color to #0d5f65'
             color='teal'
             onClick={() => toggleJoinLeave()}>
             {myGameIds.includes(event._id) ? 'Going' : 'Let\'s go!'}

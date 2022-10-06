@@ -25,7 +25,6 @@ export default function Profile({ updateUser, userObj, profile, page }) {
       .then(() => updateUser())
       .catch((err) => console.log(err));
   };
-
   return (
     <Card shadow='sm' p='lg' radius='md'>
       <Grid ml='lg'>
@@ -35,10 +34,23 @@ export default function Profile({ updateUser, userObj, profile, page }) {
           <Text>City: {profile.city}</Text>
           <Text>State: {profile.state}</Text>
           <Text>Games Attended: 43</Text>
-          <Text>Prefered Role: Guard</Text>
-          <Text>Height: 6'6"</Text>
+          <Text>Prefered Role: {profile.preferedRole}</Text>
+          <Text>Height: {profile.height}</Text>
           {page === 'profile' ? (
-            <EditStats id={userObj._id} />
+            <EditStats
+              dunking={dunking}
+              passing={passing}
+              dribbling={dribbling}
+              shooting={shooting}
+              city={profile.city}
+              state={profile.state}
+              overallSkill={profile.overallSkill}
+              picture={profile.picture}
+              updateUserApp={updateUser}
+              preferedRole={profile.preferedRole}
+              height={profile.height}
+              id={userObj._id}
+            />
           ) : userObj.friends.includes(profile._id) ? (
             <Button onClick={unFriend}>Unfriend</Button>
           ) : (
