@@ -41,7 +41,7 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo }) => {
               {event.peopleAttending.map(people => people
               ?
               // current data that we're getting back does not have person's name
-              <Tooltip label={people.name}>
+              <Tooltip label={people.username}>
                 <Avatar key={people._id} src={people.photo} alt='small picture of person attending' radius='xl'></Avatar>
               </Tooltip>
               :
