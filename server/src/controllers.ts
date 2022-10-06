@@ -309,14 +309,14 @@ export async function addComment (req: Request, res: Response) {
       console.log(err);
       res.sendStatus(404);
     })
+  }
 
 export async function updateUser (req: Request, res: Response) {
   let id = req.body.id
   let userInfo = req.body.userInfo;
   // have to parse to json be
-  let {dribbling, dunking, passing, shooting, city, state, picture, overallSkill, preferedRole, height} = (userInfo);
+  let {dribbling, dunking, passing, shooting, city, state, picture, overallSkill, preferedRole, height} = userInfo;
   let stats = {dribbling, dunking, passing, shooting}
-  console.log(stats)
   try {
     let updateStats = await db.User.updateOne({_id: id}, {stats: stats, city: city, state: state, picture: picture, overallSkill: overallSkill, preferedRole: preferedRole, height:height})
     res.status(200).send(updateStats)
