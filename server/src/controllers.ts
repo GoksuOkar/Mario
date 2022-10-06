@@ -47,7 +47,6 @@ export function login (req: Request, res: Response): void {
       if (isMatch) {
         // change new user id to a string to add to session
         const id = result._id.toString();
-        console.log(id)
 
         // set the session to be authorized and have user id
         req.session.isAuth = true;
