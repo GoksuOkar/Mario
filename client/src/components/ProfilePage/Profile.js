@@ -47,7 +47,7 @@ export default function Profile({ updateUser, userObj, profile, page }) {
               overallSkill={profile.overallSkill}
               picture={profile.picture}
               updateUserApp={updateUser}
-              preferredRole={profile.preferedRole}
+              preferedRole={profile.preferedRole}
               height={profile.height}
               id={userObj._id}
             />
