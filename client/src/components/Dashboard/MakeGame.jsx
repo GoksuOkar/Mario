@@ -9,14 +9,25 @@ import please from '../../requests.js'
 
 // add animation for forms to slide out on closing
 const MakeGame = ({ setFormOpen, userId }) => {
-  const [date, setDate] = useState(new Date('Oct 15, 2022'))
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
+  const [date, setDate] = useState(new Date())
+  const [startTime, setStartTime] = useState(new Date('Thu Oct 06 2022 18:00:00 GMT-0700 (Pacific Daylight Time)'));
+  const [endTime, setEndTime] = useState(new Date('Thu Oct 06 2022 21:00:00 GMT-0700 (Pacific Daylight Time)'));
 
+  function combineDateAndTime (date, time) {
+    let timeString = time.getHours() + ':' + time.getMinutes() + ':00';
+
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1; // Jan is 0, dec is 11
+    var day = date.getDate();
+    var dateString = '' + year + '-' + month + '-' + day;
+    var combined = new Date(dateString + ' ' + timeString);
+    return combined;
+  };
   const handleSubmit = () => {
     // this extracts day from date picker and add hours and minutes from the end and start time
-    let computedStartTime = moment(date).add(moment(startTime).hour(), 'h').add(moment(startTime).minute(), 'm').format();
-    let computedEndTime = moment(date).add(moment(endTime).hour(), 'h').add(moment(endTime).minute(), 'm').format();
+    let computedStartTime = combineDateAndTime(date, startTime);
+    let computedEndTime = combineDateAndTime(date, endTime);
+
     let body = {
       eventName: document.getElementById('game-name').value,
       eventDescription: document.getElementById('game-description').value,
@@ -45,7 +56,7 @@ const MakeGame = ({ setFormOpen, userId }) => {
             placeholder='name of the game'
             label='Game Name:'
             id='game-name'
-            value='Capitol Park'
+            defaultValue='Capitol Park Courts'
             // withAsterisk
           />
           {/* can we integrate google maps here? */}
@@ -53,7 +64,7 @@ const MakeGame = ({ setFormOpen, userId }) => {
             placeholder='address'
             label='Location:'
             id='location'
-            value='800 Peter Pan Ave, San Jose, CA 95116'
+            defaultValue='800 Peter Pan Ave, San Jose, CA 95116'
           />
           <DatePicker
             placeholder="Pick a date"
@@ -86,6 +97,7 @@ const MakeGame = ({ setFormOpen, userId }) => {
             placeholder='add some description'
             label='Description'
             id='game-description'
+            defaultValue='Come play some basketball! Beginners are welcome.'
           />
           <Button
           //later: change color

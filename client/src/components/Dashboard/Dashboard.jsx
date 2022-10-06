@@ -32,7 +32,7 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
 
   useEffect(() => {
     getGames();
-  }, [sortBy])
+  }, [sortBy, formOpen])
 
   useEffect(() => {
     updateUserInfo();
