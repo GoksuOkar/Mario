@@ -33,7 +33,6 @@ export default function Profile({ updateUser, userObj, profile, page }) {
           <Text weight='bolder'>{profile.username}</Text>
           <Text>City: {profile.city}</Text>
           <Text>State: {profile.state}</Text>
-          <Text>Games Attended: 43</Text>
           <Text>Prefered Role: {profile.preferedRole}</Text>
           <Text>Height: {profile.height}</Text>
           {page === 'profile' ? (
