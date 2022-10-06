@@ -10,11 +10,19 @@ import {
   createStyles
 } from '@mantine/core';
 
-import { StyledButton } from '../../styledComponents/Button.js';
+import { StyledButton } from '../../styledComponents/StyledButtons.js';
 
-// later: replace this with prop
+// add the clicked team mate to group
+export default function Teammates({players, user, setGroup, group}) {
+  const addToGroup = (player) => {
+    let name = player.username;
+    if (!(group[name])) {
+      let copy = {...group};
+      copy[name] = player;
+      setGroup(copy);
+    }
+  };
 
-export default function Teammates({players, user}) {
   return (
     <>
       <SimpleGrid cols={2} spacing="lg" verticalSpacing="lg">
@@ -25,23 +33,24 @@ export default function Teammates({players, user}) {
                 <Grid>
                   <Grid.Col span={1}>
                     <Avatar
-                      src={player.photo}
+                      src={player.picture}
                       alt='profile photo of player'
                       radius='xl'></Avatar>
+                      <Text>{player.username}</Text>
                   </Grid.Col>
                   <Grid.Col>
-                    <Text>{player.username}</Text>
-                    <Text>{player.city}</Text>
-                    <Text>{player.overallSkill}</Text>
+                    <Text>Location: {player.city}</Text>
+                    <Text>Level: {player.overallSkill}</Text>
                   </Grid.Col>
                 </Grid>
                 <Grid>
-                  <StyledButton string={'add to group'}/>
+                  <StyledButton string={'add to group'} onClick={() => addToGroup(player)}/>
                   <StyledButton string={'add to friends'}/>
                 </Grid>
               </Card>
             )
           }
+          return null;
         })}
       </SimpleGrid>
     </>
