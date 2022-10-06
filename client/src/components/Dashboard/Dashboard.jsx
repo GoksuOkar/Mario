@@ -1,9 +1,11 @@
+import './button.css'
 import React, { useState, useEffect } from 'react';
 import { SegmentedControl, Button, Grid, SimpleGrid } from '@mantine/core';
 import EventCard from './EventCard.jsx';
 import UpcomingGames from './UpcomingGames.jsx';
 import MakeGame from './MakeGame.jsx';
 import please from '../../requests.js';
+import basketballOutline from '../../assets/images/basketballOutline.png';
 
 const Dashboard = ({ userId, setPage, setDispId }) => {
   const [sortBy, setSortBy] = useState('upcoming');
@@ -47,9 +49,10 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
           <UpcomingGames myGames={myGames} />
           {/* later: turn this into a basketball */}
           {/* link this to open up modal form */}
-          <Button radius='xl' size='md' onClick={() => setFormOpen(true)}>
-            Make Game
-          </Button>
+          <div id='button-ctn'>
+            <img id='basketball-outline' src={basketballOutline}/>
+            <button type='button' onClick={() => setFormOpen(true)}>Make Game</button>
+          </div>
           {formOpen && <MakeGame setFormOpen={setFormOpen} userId={userId} />}
         </Grid.Col>
         <Grid.Col span={9}>

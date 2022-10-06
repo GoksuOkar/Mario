@@ -36,12 +36,11 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
 
   return (
     <>
-      <Grid.Col key={event._id} span={3}>
+      <Grid.Col key={event._id} span={3} style={{width: '300px'}}>
         <Card
           shadow='sm'
           p='lg'
-          radius='md'
-          style={{width: '300px'}}>
+          radius='md'>
           <Text sx={{textAlign:'center'}}>
             <h3>{event.eventName}</h3>
           </Text>
