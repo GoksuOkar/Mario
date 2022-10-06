@@ -13,7 +13,7 @@ router.post('/googleLogin', controllers.googleLogin);
 router.delete('/logout', controllers.logout);
 
 /***************GAMES*******************/
-router.get('/games', controllers.getGames)
+// router.get('/games', controllers.getGames)
 router.get('/game', controllers.getGame)
 router.put('/game/join', controllers.joinGame)
 router.put('/game/leave', controllers.leaveGame)
@@ -21,6 +21,7 @@ router.post('/game', controllers.createGame)
 
 /***************COMMENTS*******************/
 router.get('/comments', controllers.getComments)
+router.post('/comments', controllers.addComment)
 
 /***************USERS*******************/
 router.get('/users', controllers.getUserInfo)
