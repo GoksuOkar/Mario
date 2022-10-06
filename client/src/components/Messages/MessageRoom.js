@@ -1,40 +1,13 @@
-import { useState, useEffect } from 'react';
+import {Card, Grid, Avatar, Text} from '@mantine/core';
 
-export default function MessageRoom({ rm, socket }) {
-  const [mes, setMes] = useState([]);
-
-  useEffect(() => {
-    socket.on('receive_message', (data) => {
-      if (data.room === rm) {
-        const temp = [...mes];
-        temp.unshift(data);
-        setMes(temp);
-      }
-    });
-  }, [mes, socket]);
-
-  const sendMessage = (e) => {
-    e.preventDefault();
-    // const t = { room: rm, message: e.target.elements.input.value };
-    // socket.to().emit('direct_message', t);
-  };
-
-  const sty2 = {
-    backgroundColor: 'lightblue',
-    border: '1px solid lightgray',
-    borderRadius: '10px',
-  };
+export default function MessageRoom({ setDisplayChat, convo, socket }) {
 
   return (
-    <div style={sty2}>
-      <h3>{rm}</h3>
-      {mes.map((m, ind) => (
-        <div key={`${m.message}${ind}`}>{m.message}</div>
-      ))}
-      <form onSubmit={sendMessage}>
-        <input name='input' placeholder='Type here' />
-        <button>Send</button>
-      </form>
-    </div>
+    <Card onClick={()=>setDisplayChat(convo)}sx={{border: '1px solid lightgray'}}>
+      <Grid>
+        <Avatar />
+        <Text>{convo.users[1]}</Text>
+      </Grid>
+    </Card>
   );
 }
