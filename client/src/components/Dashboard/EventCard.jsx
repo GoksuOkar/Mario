@@ -27,6 +27,12 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
       join();
     }
   }
+  let attendees = event.peopleAttending;
+  let fakeKey = 0;
+  while (attendees.length < 12) {
+    attendees.push(fakeKey)
+    fakeKey++;
+  }
 
   return (
     <>
@@ -34,21 +40,28 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
         <Card
           shadow='sm'
           p='lg'
-          radius='md'>
+          radius='md'
+          style={{width: '300px'}}>
           <Text sx={{textAlign:'center'}}>
             <h3>{event.eventName}</h3>
           </Text>
           <SimpleGrid cols={6} spacing='sm' verticalSpacing='sm'>
-              {event.peopleAttending.map(playerId => playerId
-              ?
-              <UserAvatar
-              key={playerId}
-              playerId={playerId}
-              setDispId={setDispId}
-              setPage={setPage}/>
-              :
-              null
-              )}
+          {attendees.map(playerId =>
+          typeof playerId === 'string'
+          ?
+          <UserAvatar
+          key={playerId}
+          playerId={playerId}
+          setDispId={setDispId}
+          setPage={setPage}/>
+          :
+          <Avatar
+          key={playerId}
+          src={null}
+          alt='small picture of person attending'
+          radius='xl'>
+          </Avatar>
+          )}
           </SimpleGrid>
           {event.location.length < 30
           ?
