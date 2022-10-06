@@ -27,7 +27,7 @@ export default function EditStats({
       shooting: shooting,
       dunking: dunking,
       overallSkill: overallSkill,
-      picture: picture,
+      picture: picture,e
       preferedRole: preferedRole,
       height: height,
     },
