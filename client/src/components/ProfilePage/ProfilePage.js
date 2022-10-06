@@ -1,11 +1,11 @@
-import { Grid, SimpleGrid, Text } from '@mantine/core';
-import { useState, useEffect } from 'react';
-import please from '../../requests';
-import Profile from './Profile.js';
-import Game from './Game.js';
-import Friends from './Friends.js';
+import { Grid, SimpleGrid, Text } from "@mantine/core";
+import { useState, useEffect } from "react";
+import please from "../../requests";
+import Profile from "./Profile.js";
+import Game from "./Game.js";
+import Friends from "./Friends.js";
 // eslint-disable-next-line
-import ball from './ball.css';
+import ball from "./ball.css";
 
 export default function ProfilePage({
   updateUser,
@@ -13,13 +13,15 @@ export default function ProfilePage({
   userId,
   page,
   setPage,
+  dispId,
+  setDispId,
 }) {
-  const [dispId, setDispId] = useState(userId);
+
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
-    if (dispId === userId) setPage('profile');
-    if (page === 'profile') {
+    if (dispId === userId) setPage("profile");
+    if (page === "profile") {
       setDispId(userId);
       please
         .getUserInfo(userId)
@@ -32,10 +34,10 @@ export default function ProfilePage({
         .then(({ data }) => setProfile(data))
         .catch((err) => console.log(err));
     }
-  }, [setPage, userId, page, dispId]);
+  }, [setPage, userId, page, dispId, userObj]);
 
   return (
-    <Grid m='auto'>
+    <Grid m="auto">
       <div>
         <Profile
           profile={profile}
@@ -49,11 +51,11 @@ export default function ProfilePage({
           setPage={setPage}
         />
       </div>
-      <SimpleGrid m='auto'>
-        <Text size={25} weight='bolder'>
+      <SimpleGrid m="auto">
+        <Text size={25} weight="bolder">
           Your Games
         </Text>
-        <div className='events'>
+        <div className="events">
           {profile.events
             ? profile.events.map((event) => (
                 <Game

@@ -11,6 +11,8 @@ const userSchema = new Schema<I.User>({
   city: String,
   state: String,
   overallSkill: String,
+  preferedRole: String,
+  height: String,
   stats: Object, // dribbling, passing, shooting, dunking,
   friends: Array, // of [ids]
   events: Array, // of [ids]

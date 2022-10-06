@@ -5,79 +5,84 @@ import UpcomingGames from './UpcomingGames.jsx';
 import MakeGame from './MakeGame.jsx';
 import please from '../../requests.js';
 
-
-const Dashboard = ({ userId }) => {
+const Dashboard = ({ userId, setPage, setDispId }) => {
   const [sortBy, setSortBy] = useState('upcoming');
   const [formOpen, setFormOpen] = useState(false);
-  const [games, setGames] = useState([])
+  const [games, setGames] = useState([]);
   const [myGames, setMyGames] = useState([]);
   const [myGameIds, setMyGameIds] = useState([]);
 
   const updateUserInfo = () => {
-    please.getUserInfo(userId)
-    .then(data => {
-     let events = data.data.events
-     let eventIds = events.map(event => event._id)
-     setMyGames(events);
-     setMyGameIds(eventIds);
-   })
-    .catch(error => console.log(error));
-  }
+    please
+      .getUserInfo(userId)
+      .then((data) => {
+        let events = data.data.events;
+        let eventIds = events.map((event) => event._id);
+        setMyGames(events);
+        setMyGameIds(eventIds);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const getGames = () => {
+    console.log('sort crit is', sortBy, 'userid', userId);
+    please
+      .getAllGames('San Jose', 'CA', sortBy, userId)
+      .then((data) => setGames(data.data))
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
-    please.getAllGames()
-      .then(data => setGames(data.data))
-  }, [])
+    getGames();
+  }, [sortBy]);
 
   useEffect(() => {
     updateUserInfo();
-  }, [])
+  }, []);
 
   return (
-    <div style={{margin: '40px'}}>
+    <div style={{ margin: '40px' }}>
       <Grid grow>
         <Grid.Col span={1}>
-          <UpcomingGames myGames={myGames}/>
+          <UpcomingGames myGames={myGames} />
           {/* later: turn this into a basketball */}
           {/* link this to open up modal form */}
-          <Button
-            radius='xl'
-            size='md'
-            onClick={()=>setFormOpen(true)}>
+          <Button radius='xl' size='md' onClick={() => setFormOpen(true)}>
             Make Game
           </Button>
-          {formOpen && <MakeGame setFormOpen={setFormOpen} userId={userId}/>}
+          {formOpen && <MakeGame setFormOpen={setFormOpen} userId={userId} />}
         </Grid.Col>
         <Grid.Col span={9}>
           <SimpleGrid>
             <SegmentedControl
               data={[
-                {label: 'upcoming', value: 'upcoming'},
-                {label: 'nearest to me', value: 'distance'},
-                {label: 'with friends attending', value: 'friends'}
+                { label: 'upcoming', value: 'upcoming' },
+                // {label: 'nearest to me', value: 'distance'},
+                { label: 'with friends attending', value: 'friends' },
               ]}
               value={sortBy}
               onChange={setSortBy}
-              />
+            />
           </SimpleGrid>
-          {
-            games
-            ?
+          {games ? (
             <Grid>
-              {games.map(event => <EventCard
-              event={event}
-              userId={userId}
-              myGameIds={myGameIds}
-              updateUserInfo={updateUserInfo}/>)}
+              {games.map((event) => (
+                <EventCard
+                  key={event._id}
+                  event={event}
+                  userId={userId}
+                  myGameIds={myGameIds}
+                  updateUserInfo={updateUserInfo}
+                  setDispId={setDispId}
+                  setPage={setPage}
+                />
+              ))}
             </Grid>
-            :
-            null
-          }
+          ) : null}
         </Grid.Col>
       </Grid>
     </div>
-  )
-
-}
+  );
+};
 
 export default Dashboard;

@@ -25,23 +25,28 @@ module.exports = {
     return Axios.post("/googleLogin", values);
   },
 
+  logOut: () => {
+    return Axios.delete("/logout");
+  },
+
   // GAMES
   /***************GAMES*******************/
-  getAllGames: (city, state, sort = "upcoming") => {
+
+  getAllGames: (city, state, sort = "upcoming", userId) => {
     return axios({
       url: "/games",
       method: "get",
       baseURL: basePath,
-      params: { city, state, sort },
+      params: { city, state, sort, userId },
     });
   },
 
-  getOneGame: (gameId) => {
+  getOneGame: (id) => {
     return axios({
       url: "/game",
       method: "get",
       baseURL: basePath,
-      params: { gameId },
+      params: { id },
     });
   },
 
@@ -65,8 +70,8 @@ module.exports = {
 
   leaveGame: (userId, eventId) => {
     return axios({
-      url: '/game/leave',
-      method: 'put',
+      url: "/game/leave",
+      method: "put",
       baseURL: basePath,
       data: { userId, eventId },
     });
@@ -100,6 +105,15 @@ module.exports = {
     });
   },
 
+  getUserPhotos: (userIds) => {
+    return axios({
+      url: "/user",
+      method: "get",
+      baseURL: basePath,
+      params: { userIds },
+    });
+  },
+
   addFriend: (userId, friendId) => {
     return axios({
       url: "/addFriend",
@@ -118,6 +132,25 @@ module.exports = {
     });
   },
 
+  getComments: (eventId) => {
+    return axios({
+      url: "/comments",
+      method: "get",
+      baseURL: basePath,
+      params: { eventId },
+    });
+  },
+
+  addComment: (gameId, comment) => {
+    return axios({
+      url: "/comments",
+      method: "post",
+      baseURL: basePath,
+      params: { gameId },
+      data: comment,
+    });
+  },
+
   updateUser: (userInfo, id) => {
     return axios({
       url: "/updateUser",
@@ -126,4 +159,11 @@ module.exports = {
       data: { userInfo, id },
     });
   },
+
+  //FINDING TEAMMATES//
+  getUsersInSameCity: (cityString) => {
+    // city params must be an object in the form of {city: 'your city'}
+    let path = '/users/' + cityString
+    return Axios.get(path);
+  }
 };

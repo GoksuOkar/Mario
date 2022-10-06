@@ -132,12 +132,35 @@ export async function getGames (req: Request, res: Response) {
     }
     res.send(results);
   } else {
-    // case2 : get all games
-    try {
-      let results = await db.Event.find({});
-      res.send(results);
-    } catch (error) {
-      res.sendStatus(404);
+    let {sort, userId} = req.query;
+    console.log('sorting results by:', sort);
+    // case2 : get all games and apply sort criterion
+    if (sort === 'distance') {
+      // implement later
+      res.sendStatus(404)
+    } else if (sort === 'friends') {
+      let friendEventIds = new Set();
+      let user = await db.User.findById(userId);
+      let friendIds = user?.friends || [];
+      for (let id of friendIds) {
+        let friend = await db.User.findById(id);
+        friend?.events.forEach(eventId => friendEventIds.add(eventId))
+      }
+      let friendEvents = [];
+      for (let eventId of Array.from(friendEventIds)) {
+        let event = await db.Event.findById(eventId);
+        friendEvents.push(event);
+      }
+      res.send(friendEvents);
+
+    } else {
+      // upcoming by default
+      try {
+        let results = await db.Event.find({}).sort({startTime: 'asc'});
+        res.send(results);
+      } catch (error) {
+        res.sendStatus(404);
+      }
     }
   }
 }
@@ -230,10 +253,34 @@ export function getUserInfo (req: Request, res: Response) {
     .catch(err=>res.send(err));
 }
 
+export async function getUsersInCity (req: Request, res: Response) {
+  const { city } = req.params;
+  db.User.find({ city })
+  .then((result) => res.send(result));
+}
+
 export async function getCurrentUser (req: Request, res: Response) {
   db.User.findOne({_id: req.query.userId})
   .then(result=>res.send(result))
   .catch(err=>res.send(err))
+}
+
+export async function getUserPhotos (req: Request, res: Response) {
+  // create a copy of people attending ids
+  const attending: Array<any> = req.query.userIds;
+  // create a promise array
+  const prom: Array<any> = [];
+  // loop through req.(peopleAttedingIds)
+  attending.forEach((person) => {
+    // push the db.(promise) to promise array
+    prom.push(db.User.findOne({_id: person}))
+  })
+  //  Promise.all resolves all the promises
+  Promise.all(prom).then(peeps => {
+    console.log(peeps)
+    // .then res.send(array of people attending objects)
+    res.send(peeps)
+  })
 }
 
 export async function addFriend (req: Request, res: Response) {
@@ -258,18 +305,30 @@ export async function getComments (req: Request, res: Response) {
   }
 }
 
+export async function addComment (req: Request, res: Response) {
+  const {username, body, date, event_id} = req.body;
+  await db.Comment.create(req.body)
+    .then((result) => {
+      res.status(201);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(404);
+    })
+  }
+
 export async function updateUser (req: Request, res: Response) {
   let id = req.body.id
   let userInfo = req.body.userInfo;
   // have to parse to json be
-  let {dribbling, dunking, passing, shooting, city, state, picture, overallSkill} = (userInfo);
+  let {dribbling, dunking, passing, shooting, city, state, picture, overallSkill, preferedRole, height} = userInfo;
   let stats = {dribbling, dunking, passing, shooting}
-  console.log(id)
   try {
-    let updateStats = await db.User.updateOne({_id: id}, {stats: stats, city: city, state: state, picture: picture, overallSkill: overallSkill})
+    let updateStats = await db.User.updateOne({_id: id}, {stats: stats, city: city, state: state, picture: picture, overallSkill: overallSkill, preferedRole: preferedRole, height:height})
     res.status(200).send(updateStats)
   } catch(err) {
     res.sendStatus(404)
   }
+
 }
 
