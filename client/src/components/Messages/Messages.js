@@ -12,7 +12,7 @@ export function Messages({ userObj }) {
   const [selectedFriend, setSelectedFriend] = useState('');
   const [displayChat, setDisplayChat] = useState(convoList[0]);
 
-  const username = 'MakeOrBlake' || userObj.username ;
+  const username = userObj.username ;
 
   useEffect(()=>{
     setDisplayChat(convoList[0])
@@ -27,11 +27,6 @@ export function Messages({ userObj }) {
   socket.on(user.getFriends, (friends) => {
     setFriends(friends);
   })
-
-  // socket.on(user.newMessage, (convo) => {
-  //   console.log(convo);
-
-  // })
 
   socket.on(join.room, (convo) => {
     // if convo users includes my username, then add that convo to convo list
@@ -49,30 +44,23 @@ export function Messages({ userObj }) {
   }
 
   function handleNewMessage () {
-    socket.emit(join.group, {
-      conversationName: null,
-      users: [username, selectedFriend]
-    })
+    let chatExists = false;
+
+    for (let i = 0; i < convoList.length; i++) {
+      if (convoList[i].users.includes(selectedFriend) && convoList[i].users.length === 2) {
+        setDisplayChat(convoList[i]);
+        chatExists = true;
+        break;
+      }
+    }
+
+    if (!chatExists) {
+      socket.emit(join.group, {
+        conversationName: null,
+        users: [username, selectedFriend]
+      })
+    }
   }
-
-  // start group message
-//   const joinRoom = async (e) => {
-//     e.preventDefault();
-//     const arr = [
-//     "Brian",
-//     "James",
-//     "Alex",
-//     "Mary",
-//     "Alice"
-// ];
-
-//     const room = e.target.elements.jr.value;
-//         socket.emit(join.group, {conversationName: room,
-//   users: arr});
-//     const rms = [...mesRms];
-//     rms.push(room);
-//     await setMesRms(rms);
-//   };
 
   return (
     <div>

@@ -5,6 +5,7 @@ const sampleMes = ['Hey', 'Let\'s ball!', 'I\'m down!'];
 
 export function MessageDisplay ({socket, displayChat, userObj}) {
   const [messages, setMessages] = useState(sampleMes);
+  const [text, setText] = useState('');
 
   function scrollToBottom() {
     const bottom = document.querySelector('#id').scrollHeight;
@@ -29,14 +30,18 @@ export function MessageDisplay ({socket, displayChat, userObj}) {
   // start direct message
   const messageUser = async (e) => {
     e.preventDefault();
-    const message = e.target.elements.message.value;
     socket.emit(user.directMessage, {
       conversationId: displayChat._id,
       username: userObj.username,
-      text: message,
+      text: text,
       time: new Date()
     });
+    setText('');
   };
+
+  const handleInput = (e) => {
+    setText(e.target.value);
+  }
 
   const sty = {
     border: '1px solid lightgray',
@@ -59,7 +64,7 @@ export function MessageDisplay ({socket, displayChat, userObj}) {
         </div>
       <form onSubmit={messageUser}>
         <Grid m='auto'>
-        <input style={{width: '70%', marginLeft: '1%'}} name='message' placeholder='message' />
+        <input style={{width: '70%', marginLeft: '1%'}} name='message' placeholder='message' onChange={handleInput} value={text}/>
         <Button>Send</Button>
         </Grid>
       </form>
