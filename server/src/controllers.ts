@@ -285,7 +285,7 @@ export async function updateUser (req: Request, res: Response) {
   let id = req.body.id
   let userInfo = req.body.userInfo;
   // have to parse to json be
-  let {dribbling, dunking, passing, shooting, city, state, picture, overallSkill, preferedRole, height} = (userInfo);
+  let {dribbling, dunking, passing, shooting, city, state, picture, overallSkill, preferedRole, height} = userInfo;
   let stats = {dribbling, dunking, passing, shooting}
   console.log(stats)
   try {
