@@ -17,7 +17,7 @@ import { StyledButton } from '../../styledComponents/Button.js';
 export default function Teammates({players}) {
   return (
     <>
-      <Grid gutter="lg">
+      <SimpleGrid cols={2} spacing="lg" verticalSpacing="lg">
         {players.map((player) => (
           <Card key={player._id} shadow='sm' p='lg' radius='md'>
             <Grid>
@@ -39,7 +39,7 @@ export default function Teammates({players}) {
             </Grid>
           </Card>
         ))}
-      </Grid>
+      </SimpleGrid>
     </>
   );
 }
