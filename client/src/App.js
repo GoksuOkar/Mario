@@ -39,10 +39,10 @@ export default function App() {
       .catch((err) => console.log(err));
   };
 
+  console.log(userObj)
 
   return (
     <div className="App">
-      {console.log(userObj)}
 
       <NavBar userId={userId} page={page} setPage={setPage} />
       {page === "login" ? (

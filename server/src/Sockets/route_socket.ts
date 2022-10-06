@@ -29,9 +29,7 @@ export async function onConnection (socket: Socket | any) {
   // Joins socket to all conversation rooms
   await getConversationIDsFor(username)
     .then((user) =>  {
-      if (!user.conversations) {
-        user.conversations = [];
-      }
+      console.log(user.conversations)
       user.conversations.forEach((convoID: String) => socket.join(convoID))
       return getConversationsFrom(user.conversations);
     })
@@ -45,21 +43,22 @@ export async function onConnection (socket: Socket | any) {
     .catch(err => console.error(err));
 
   socket.on(user.directMessage, (message: ISchema.Message) => {
+    console.log(message);
     updateConversation(message)
-    .then(() =>
-      io.sockets.in(message.conversationId).emit(user.directMessage, message)
-    )
+    .then((updatedMessages) => {
+      io.sockets.in(message.conversationId).emit(user.directMessage, updatedMessages)
+  })
     .catch(err => console.error(err));
   })
 
-  socket.on(user.newMessage, (newMessage: ISchema.NewMessage) => {
-    postNewMessage(newMessage)
-    .then((conversation) => {
-      console.log(conversation);
-      io.sockets.emit(user.newMessage, conversation)
-    })
-    .catch((err) => console.error(err));
-  })
+  // socket.on(user.newMessage, (newMessage: ISchema.NewMessage) => {
+  //   postNewMessage(newMessage)
+  //   .then((conversation) => {
+  //     console.log(conversation);
+  //     io.sockets.emit(user.newMessage, conversation)
+  //   })
+  //   .catch((err) => console.error(err));
+  // })
 
   socket.on(join.room, (joinroom: ISchema.JoinRoom) => {
     socket.join(joinroom.conversationId);
@@ -68,7 +67,7 @@ export async function onConnection (socket: Socket | any) {
   socket.on(join.group, (joingroup: ISchema.JoinGroup) => {
     createGroupConversation(joingroup)
     .then((conversation) =>
-      socket.broadcast.emit(join.group, conversation)
+      io.sockets.emit(join.room, conversation)
     )
     .catch(err => console.error(err))
   })
