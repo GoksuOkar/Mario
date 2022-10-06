@@ -22,12 +22,17 @@ const Dashboard = ({ userId }) => {
      setMyGameIds(eventIds);
    })
     .catch(error => console.log(error));
+  };
+
+  const getGames = () => {
+    console.log('sort crit is', sortBy, 'userid', userId)
+    please.getAllGames('San Jose', 'CA', sortBy, userId)
+    .then(data => setGames(data.data))
   }
 
   useEffect(() => {
-    please.getAllGames()
-      .then(data => setGames(data.data))
-  }, [])
+    getGames();
+  }, [sortBy])
 
   useEffect(() => {
     updateUserInfo();

@@ -37,13 +37,13 @@ module.exports = {
 
   // GAMES
   /***************GAMES*******************/
-  getAllGames: (city, state, sort = 'upcoming') => {
+  getAllGames: (city, state, sort = 'upcoming', userId) => {
 
     return axios({
       url: '/games',
       method: 'get',
       baseURL: basePath,
-      params: { city, state, sort },
+      params: { city, state, sort, userId },
     });
   },
 
