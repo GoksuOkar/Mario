@@ -7,6 +7,7 @@ import {
   Text,
   Card,
   Divider,
+  Group
 } from '@mantine/core';
 
 // later: replace this with prop
@@ -24,10 +25,10 @@ export default function Teammates({players}) {
                   alt='profile photo of player'
                   radius='xl'></Avatar>
               </Grid.Col>
-              <Grid.Col span={5}>
-                <Text>{player.name}</Text>
+              <Grid.Col>
+                <Text>{player.username}</Text>
                 <Text>{player.city}</Text>
-                <Text>{player.skillLevel}</Text>
+                <Text>{player.overallSkill}</Text>
               </Grid.Col>
             </Grid>
             <Grid>
