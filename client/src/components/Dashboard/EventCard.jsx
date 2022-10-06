@@ -17,6 +17,17 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo }) => {
 
   const leaveGame = (gameId) => {
     console.log('sending request to leave game')
+    please.leaveGame(userId, event._id)
+      .then(() => updateUserInfo())
+      .catch(error => console.log(error))
+  }
+
+  const toggleJoinLeave = () => {
+    if (myGameIds.includes(event._id)) {
+      leaveGame()
+    } else {
+      join();
+    }
   }
 
   // useEffect(() => {
@@ -53,7 +64,7 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo }) => {
             radius='md'
             // change color to #0d5f65'
             color='teal'
-            onClick={() => join()}>
+            onClick={() => toggleJoinLeave()}>
             {myGameIds.includes(event._id) ? 'Going' : 'Let\'s go!'}
           </Chip>
         </Card>
