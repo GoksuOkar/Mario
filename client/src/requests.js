@@ -27,6 +27,7 @@ module.exports = {
 
   // GAMES
   /***************GAMES*******************/
+
   getAllGames: (city, state, sort = 'upcoming', userId) => {
     return axios({
       url: '/games',
