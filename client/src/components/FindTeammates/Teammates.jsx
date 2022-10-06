@@ -33,14 +33,14 @@ export default function Teammates({players, user, setGroup, group}) {
                 <Grid>
                   <Grid.Col span={1}>
                     <Avatar
-                      src={player.photo}
+                      src={player.picture}
                       alt='profile photo of player'
                       radius='xl'></Avatar>
+                      <Text>{player.username}</Text>
                   </Grid.Col>
                   <Grid.Col>
-                    <Text>{player.username}</Text>
-                    <Text>{player.city}</Text>
-                    <Text>{player.overallSkill}</Text>
+                    <Text>Location: {player.city}</Text>
+                    <Text>Level: {player.overallSkill}</Text>
                   </Grid.Col>
                 </Grid>
                 <Grid>
