@@ -8,6 +8,8 @@ export interface User {
   city: string,
   state: string,
   overallSkill: string,
+  preferedRole: string,
+  height: string,
   stats: Object,
   friends: Array<String>,
   events: Array<String>,
