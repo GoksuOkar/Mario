@@ -132,9 +132,18 @@ export async function getGames (req: Request, res: Response) {
     }
     res.send(results);
   } else {
-    // case2 : get all games
+    let sort = req.query.sort;
+    console.log('sorting results by:', sort);
+    // case2 : get all games and apply sort criterion
+    if (sort === 'nearest to me') {
+
+    } else if (sort === 'with friends attending') {
+
+    } else {
+      // upcoming by default
+    }
     try {
-      let results = await db.Event.find({});
+      let results = await db.Event.find({}).sort({startTime: 'asc'});
       res.send(results);
     } catch (error) {
       res.sendStatus(404);
