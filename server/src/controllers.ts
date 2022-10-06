@@ -132,12 +132,35 @@ export async function getGames (req: Request, res: Response) {
     }
     res.send(results);
   } else {
-    // case2 : get all games
-    try {
-      let results = await db.Event.find({});
-      res.send(results);
-    } catch (error) {
-      res.sendStatus(404);
+    let {sort, userId} = req.query;
+    console.log('sorting results by:', sort);
+    // case2 : get all games and apply sort criterion
+    if (sort === 'distance') {
+      // implement later
+      res.sendStatus(404)
+    } else if (sort === 'friends') {
+      let friendEventIds = new Set();
+      let user = await db.User.findById(userId);
+      let friendIds = user?.friends || [];
+      for (let id of friendIds) {
+        let friend = await db.User.findById(id);
+        friend?.events.forEach(eventId => friendEventIds.add(eventId))
+      }
+      let friendEvents = [];
+      for (let eventId of Array.from(friendEventIds)) {
+        let event = await db.Event.findById(eventId);
+        friendEvents.push(event);
+      }
+      res.send(friendEvents);
+
+    } else {
+      // upcoming by default
+      try {
+        let results = await db.Event.find({}).sort({startTime: 'asc'});
+        res.send(results);
+      } catch (error) {
+        res.sendStatus(404);
+      }
     }
   }
 }
