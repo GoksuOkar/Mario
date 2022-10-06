@@ -10,15 +10,15 @@ import {
   createStyles
 } from '@mantine/core';
 
-import { StyledButton } from '../../styledComponents/Button.js';
+import { StyledButton } from '../../styledComponents/StyledButtons.js';
 
 // add the clicked team mate to group
 export default function Teammates({players, user, setGroup, group}) {
   const addToGroup = (player) => {
-    let id = player._id;
-    if (!(group[id])) {
+    let name = player.username;
+    if (!(group[name])) {
       let copy = {...group};
-      copy[id] = player;
+      copy[name] = player;
       setGroup(copy);
     }
   };

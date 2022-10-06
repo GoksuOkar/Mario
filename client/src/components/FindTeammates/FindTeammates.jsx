@@ -19,7 +19,7 @@ export default function FindTeammates({user}) {
 
   return (
     <>
-      <Grid>
+      <Grid gutter={40}>
         <Grid.Col span={3}>
           <YourGroup group={group}/>
         </Grid.Col>
