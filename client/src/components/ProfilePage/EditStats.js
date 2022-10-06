@@ -6,14 +6,16 @@ import { updateUser } from "../../requests";
 export default function EditStats({
   id,
   updateUserApp,
+  shooting,
+  passing,
   dribbling,
   dunking,
-  passing,
-  shooting,
   state,
   city,
   overallSkill,
   picture,
+  preferedRole,
+  height,
 }) {
   const [opened, setOpened] = useState(false);
   const form = useForm({
@@ -26,9 +28,10 @@ export default function EditStats({
       dunking: dunking,
       overallSkill: overallSkill,
       picture: picture,
+      preferedRole: preferedRole,
+      height: height,
     },
   });
-
   const submit = (values) => {
     console.log(values);
     updateUser(values, id)
@@ -64,6 +67,12 @@ export default function EditStats({
             label="State"
             placeholder="State"
             onChange={(e) => form.setFieldValue("state", e.target.value)}
+          />
+          <TextInput
+            mt="md"
+            label="Height"
+            placeholder="Height"
+            onChange={(e) => form.setFieldValue("height", e.target.value)}
           />
 
           <Grid>
@@ -114,6 +123,12 @@ export default function EditStats({
             label="Overall Skill"
             placeholder="Beginner, Intermediate, Baller"
             onChange={(e) => form.setFieldValue("overallSkill", e.target.value)}
+          />
+          <TextInput
+            mt="md"
+            label="Prefered Role"
+            placeholder="Prefered Role"
+            onChange={(e) => form.setFieldValue("preferedRole", e.target.value)}
           />
           <TextInput
             mt="md"
