@@ -70,7 +70,6 @@ export default function App() {
       ) : null}
       {page === 'findTeam' ? <FindTeammates /> : null}
       {page === 'messages' ? <Messages userObj = {userObj}/> : null}
-      <GamePage gameid={'633f0c4a19cc8b5cf1ba79bc'} userid={userId} set={setPage}/>
 
 
     </div>
