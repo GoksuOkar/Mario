@@ -24,9 +24,11 @@ router.get('/comments', controllers.getComments)
 
 /***************USERS*******************/
 router.get('/users', controllers.getUserInfo)
+router.get('/users/:city', controllers.getUsersInState)
 router.get('/currentUser', controllers.getCurrentUser)
 router.put('/addFriend', controllers.addFriend)
 router.put('/unFriend', controllers.unFriend)
 router.put('/updateUser', controllers.updateUser)
 
 /***************CONVERSATIONS*******************/
+
