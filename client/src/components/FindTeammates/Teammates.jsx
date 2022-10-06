@@ -10,9 +10,8 @@ import {
 } from '@mantine/core';
 
 // later: replace this with prop
-const players = require('./sampleTeammates.js');
 
-export default function Teammates() {
+export default function Teammates({players}) {
   return (
     <>
       <Grid>

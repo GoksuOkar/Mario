@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SegmentedControl, Button, Grid, Text, Card } from '@mantine/core';
 import Teammates from './Teammates.jsx';
 import YourGroup from './YourGroup.jsx';
+import { getUsersInSameCity } from '../../requests.js';
 
-export default function FindTeammates() {
+export default function FindTeammates({user}) {
   const [sortBy, setSortBy] = useState('location');
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    let city = user.city;
+    city = city.split(' ');
+    let cityString = city.join('%20');
+    getUsersInSameCity(cityString)
+      .then((res) => setPlayers(res.data));
+  })
 
   return (
     <>
@@ -22,7 +32,7 @@ export default function FindTeammates() {
             value={sortBy}
             onChange={setSortBy}
           />
-          <Teammates />
+          <Teammates players={players}/>
         </Grid.Col>
       </Grid>
     </>
