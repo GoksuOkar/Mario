@@ -13,6 +13,7 @@ export default function Friends({ friends, setDispId, setPage }) {
               <Card
                 m='auto'
                 key={friend._id}
+                sx={{ cursor: 'pointer' }}
                 onClick={() => {
                   setDispId(friend._id);
                   setPage('frnd');

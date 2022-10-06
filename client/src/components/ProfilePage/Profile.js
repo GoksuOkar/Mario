@@ -1,4 +1,4 @@
-import { SimpleGrid, Grid, Avatar, Text, Button } from "@mantine/core";
+import { SimpleGrid, Grid, Avatar, Text, Button, Card } from "@mantine/core";
 import bbimg from "../../assets/images/basketballicon.png";
 import please from "../../requests";
 // eslint-disable-next-line
@@ -25,20 +25,31 @@ export default function Profile({ updateUser, userObj, profile, page }) {
       .then(() => updateUser())
       .catch((err) => console.log(err));
   };
-
   return (
-    <div>
-      <Grid m="5%">
-        <Avatar m="auto" radius={100} size={100} src={profile.picture} />
-        <div>
+    <Card shadow="sm" p="lg" radius="md">
+      <Grid ml="lg">
+        <Avatar mr="lg" radius={100} size={200} src={profile.picture} />
+        <div style={{ marginLeft: "10%" }}>
           <Text weight="bolder">{profile.username}</Text>
           <Text>City: {profile.city}</Text>
           <Text>State: {profile.state}</Text>
-          <Text>Games Attended: 43</Text>
-          <Text>Prefered Role: Guard</Text>
-          <Text>Height: 6'6"</Text>
+          <Text>Prefered Role: {profile.preferedRole}</Text>
+          <Text>Height: {profile.height}</Text>
           {page === "profile" ? (
-            <EditStats id={userObj._id} />
+            <EditStats
+              dunking={dunking}
+              passing={passing}
+              dribbling={dribbling}
+              shooting={shooting}
+              city={profile.city}
+              state={profile.state}
+              overallSkill={profile.overallSkill}
+              picture={profile.picture}
+              updateUserApp={updateUser}
+              preferedRole={profile.preferedRole}
+              height={profile.height}
+              id={userObj._id}
+            />
           ) : userObj.friends.includes(profile._id) ? (
             <Button onClick={unFriend}>Unfriend</Button>
           ) : (
@@ -46,20 +57,22 @@ export default function Profile({ updateUser, userObj, profile, page }) {
           )}
         </div>
       </Grid>
-      <SimpleGrid m="5%">
-        <Text size={20} m="auto" weight={"bolder"}>
+      <SimpleGrid m="lg">
+        <Text size={20} m="auto" weight="bolder">
           Skills
         </Text>
-        <Grid ml="xs">
-          <Text weight="bolder" sx={{ width: "85px" }}>
-            Overall:
+        <Grid m="auto">
+          <Text weight="bolder" align="right">
+            Overall
           </Text>
-          <Text weight="bolder" ml="xs" sx={{ textTransform: "capitalize" }}>
+          <Text weight="bolder" ml="xs" transform="capitalize">
             {profile.overallSkill}
           </Text>
         </Grid>
-        <Grid ml="xs">
-          <Text sx={{ width: "85px" }}>Dunkability</Text>
+        <Grid ml="auto" mr="auto">
+          <Text align="right" mr="xl">
+            Dunkability
+          </Text>
           {[...Array(dunking)].map((num, i) => (
             <img
               src={bbimg}
@@ -70,8 +83,10 @@ export default function Profile({ updateUser, userObj, profile, page }) {
             />
           ))}
         </Grid>
-        <Grid ml="xs">
-          <Text sx={{ width: "85px" }}>Shooting</Text>
+        <Grid ml="auto" mr="auto">
+          <Text align="right" mr="xl">
+            Shooting
+          </Text>
           {[...Array(shooting)].map((num, i) => (
             <img
               src={bbimg}
@@ -82,8 +97,10 @@ export default function Profile({ updateUser, userObj, profile, page }) {
             />
           ))}
         </Grid>
-        <Grid ml="xs">
-          <Text sx={{ width: "85px" }}>Dribbling</Text>
+        <Grid ml="auto" mr="auto">
+          <Text align="right" mr="xl">
+            Dribbling
+          </Text>
           {[...Array(dribbling)].map((num, i) => (
             <img
               src={bbimg}
@@ -94,8 +111,10 @@ export default function Profile({ updateUser, userObj, profile, page }) {
             />
           ))}
         </Grid>
-        <Grid ml="xs">
-          <Text sx={{ width: "85px" }}>Passing</Text>
+        <Grid ml="auto" mr="auto">
+          <Text align="right" mr="xl">
+            Passing
+          </Text>
           {[...Array(passing)].map((num, i) => (
             <img
               src={bbimg}
@@ -107,6 +126,6 @@ export default function Profile({ updateUser, userObj, profile, page }) {
           ))}
         </Grid>
       </SimpleGrid>
-    </div>
+    </Card>
   );
 }

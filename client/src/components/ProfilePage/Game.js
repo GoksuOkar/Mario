@@ -1,48 +1,61 @@
-import { Avatar, Grid, SimpleGrid, Text, Card } from '@mantine/core';
+import { Avatar, Grid, SimpleGrid, Text, Card, Tooltip } from '@mantine/core';
+import moment from 'moment';
 
 export default function Game({ event, setPage, setDispId }) {
   return (
-    <Card>
-      <Grid sx={{ border: '1px solid lightgray' }}>
+    <Card shadow='sm' p='lg' radius='md'>
+      <Grid>
         <SimpleGrid>
           <Grid m='xs'>
             {event.peopleAttending.map((player, i) =>
               player && i % 2 === 0 ? (
-                <Avatar
-                  key={player._id}
-                  src={player.photo}
-                  radius={100}
-                  m='auto'
-                  onClick={() => {
-                    setDispId(player._id);
-                    setPage('frnd');
-                  }}
-                />
+                <Tooltip label={player.username}>
+                  <Avatar
+                    sx={{ cursor: 'pointer' }}
+                    key={player._id}
+                    src={player.photo}
+                    radius={100}
+                    m='auto'
+                    onClick={() => {
+                      setDispId(player._id);
+                      setPage('frnd');
+                    }}
+                  />
+                </Tooltip>
               ) : null
             )}
           </Grid>
           <Grid m='xs'>
             {event.peopleAttending.map((player, i) =>
               player && i % 2 === 1 ? (
-                <Avatar
-                  key={player._id}
-                  src={player.photo}
-                  radius={100}
-                  m='auto'
-                  onClick={() => {
-                    setDispId(player._id);
-                    setPage('frnd');
-                  }}
-                />
+                <Tooltip label={player.username}>
+                  <Avatar
+                    sx={{ cursor: 'pointer' }}
+                    key={player._id}
+                    src={player.photo}
+                    radius={100}
+                    m='auto'
+                    onClick={() => {
+                      setDispId(player._id);
+                      setPage('frnd');
+                    }}
+                  />
+                </Tooltip>
               ) : null
             )}
           </Grid>
         </SimpleGrid>
-        <SimpleGrid m='xs' onClick={() => console.log(event)}>
-          <Text weight='bolder'>{event.eventName}</Text>
+        <div style={{ cursor: 'pointer' }} onClick={() => console.log(event)}>
+          <Text>
+            <h3>{event.eventName}</h3>
+          </Text>
           <Text>{event.location}</Text>
-          <Text>{event.startTime}</Text>
-        </SimpleGrid>
+          <Text>Date: {moment(event.startTime).format('ll')}</Text>
+          <Text>
+            Time: {moment(event.startTime).format('LT')} -{' '}
+            {moment(event.endTime).format('LT')}
+          </Text>
+        </div>
       </Grid>
     </Card>
   );

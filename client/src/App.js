@@ -11,6 +11,7 @@ import Axios from '../src/requests';
 import io from 'socket.io-client';
 const socket = io('http://localhost:3001', {autoConnect: false});
 
+
 export default function App() {
   //const divRef = useRef(true);
   const [userId, setUserId] = useState("633ca1f73a3cb5d9bdc3bff5");
@@ -40,8 +41,6 @@ export default function App() {
       .catch((err) => console.log(err));
   };
 
-  console.log(userObj)
-
   return (
     <div className="App">
       <NavBar userId={userId} page={page} setPage={setPage} />
@@ -66,8 +65,9 @@ export default function App() {
           setDispId={setDispId}
         />
       ) : null}
-      {page === 'findTeam' ? <FindTeammates /> : null}
+      {page === 'findTeam' ? <FindTeammates user={userObj}/> : null}
       {page === 'messages' ? <Messages userObj = {userObj}/> : null}
+
 
     </div>
   );
