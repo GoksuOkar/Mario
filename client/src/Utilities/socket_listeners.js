@@ -12,5 +12,6 @@ export const user = {
   connected: 'user_connected',
   directMessage: 'direct_message',
   getConversations: 'get_conversations',
+  getFriends: 'get_friends',
   newMessage: 'new_message'
 }

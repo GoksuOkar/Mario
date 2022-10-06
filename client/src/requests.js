@@ -46,8 +46,6 @@ module.exports = {
   },
 
   getGamesByIds: (gameIds) => {
-    // I think there's a params serializer we can use instead
-    gameIds = JSON.stringify(gameIds);
     return axios({
       url: "/games",
       method: "get",
@@ -60,6 +58,15 @@ module.exports = {
     return axios({
       url: "/game/join",
       method: "put",
+      baseURL: basePath,
+      data: { userId, eventId },
+    });
+  },
+
+  leaveGame: (userId, eventId) => {
+    return axios({
+      url: '/game/leave',
+      method: 'put',
       baseURL: basePath,
       data: { userId, eventId },
     });
@@ -81,14 +88,6 @@ module.exports = {
       method: "get",
       baseURL: basePath,
       params: { userId },
-    });
-  },
-  joinGame: (gameId) => {
-    return axios({
-      url: "/users",
-      method: "put",
-      baseURL: basePath,
-      params: { gameId },
     });
   },
 

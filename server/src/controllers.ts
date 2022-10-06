@@ -114,13 +114,13 @@ export function auth (req: Request, res: Response) {
 }
 
 /************************GAMES************************/
+
 export async function getGames (req: Request, res: Response) {
-  let { gameIds} = req.query;
+  console.log('received request with these params:',req.query)
+  let gameIds = req.query.gameIds;
   if (gameIds) {
     // case1 : get games based on array of ids
-    let results = [];
-    // this is not best practice but it works for now, the incoming array of gameIds should be in json
-    gameIds = JSON.parse(gameIds);
+    let results:string[] = [];
     for (let gameId of gameIds) {
       try {
         let result = await db.Event.findById(gameId);
@@ -164,6 +164,32 @@ export async function joinGame (req:Request, res: Response) {
   } catch(err) {
     console.log(err)
     res.sendStatus(404)
+  }
+}
+
+export async function leaveGame (req: Request, res: Response) {
+  let userId = req.body.userId;
+  let eventId = req.body.eventId;
+  console.log(userId, eventId)
+  try{
+    let user = await db.User.updateOne({_id: userId}, {$pull: {events: eventId}})
+    let event = await db.Event.updateOne({_id: eventId}, {$pull: {peopleAttending: userId}})
+    let result = {user: user, event: event}
+    res.status(200).send(result);
+  } catch(err) {
+    console.log(err)
+    res.sendStatus(404)
+  }
+}
+
+export async function createGame (req: Request, res: Response) {
+  try {
+    console.log('body of request', req.body);
+    await db.Event.create(req.body);
+    res.sendStatus(201);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(400)
   }
 }
 
