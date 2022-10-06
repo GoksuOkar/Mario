@@ -28,6 +28,7 @@ export function BigStyledButton({string, onClick = null}) {
         radius='xl'
         onClick={onClick}
         variant='light'
+        size='md'
         styles={(theme) => ({
           root: {
             backgroundColor: '#fc8025',
