@@ -11,6 +11,7 @@ import Axios from '../src/requests';
 import io from 'socket.io-client';
 const socket = io('http://localhost:3001', {autoConnect: false});
 
+
 export default function App() {
   //const divRef = useRef(true);
   const [userId, setUserId] = useState("633ca1f73a3cb5d9bdc3bff5");
@@ -59,6 +60,7 @@ export default function App() {
       ) : null}
       {page === 'findTeam' ? <FindTeammates /> : null}
       {page === 'messages' ? <Messages userObj = {userObj}/> : null}
+
 
     </div>
   );
