@@ -50,7 +50,14 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
               null
               )}
           </SimpleGrid>
+          {event.location.length < 30
+          ?
           <Text>{event.location}</Text>
+          :
+          <Tooltip label={event.location}>
+            <Text>{event.location.slice(0, 30)}...</Text>
+          </Tooltip>
+          }
           {/* italicise and insert calculated distance */}
           <Text>Miles from you</Text>
           <Text>Date: {moment(event.startTime).format('ll')}</Text>
