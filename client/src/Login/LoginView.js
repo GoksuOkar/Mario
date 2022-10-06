@@ -27,7 +27,7 @@ function LoginView({ setUserId, userId, setPage }) {
       text: 'continue_with'
     });
     // // else set user id to returned id
-  }, [])
+  }, [alerted])
 
   // handles sign in with google on the backend
   const handleCredentialResponse = (response) => {

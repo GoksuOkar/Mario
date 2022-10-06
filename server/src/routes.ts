@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { resourceLimits } from 'worker_threads';
 import * as controllers from './controllers';
 
 
@@ -26,5 +27,6 @@ router.get('/users', controllers.getUserInfo)
 router.get('/currentUser', controllers.getCurrentUser)
 router.put('/addFriend', controllers.addFriend)
 router.put('/unFriend', controllers.unFriend)
+router.put('/updateUser', controllers.updateUser)
 
 /***************CONVERSATIONS*******************/
