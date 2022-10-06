@@ -37,7 +37,7 @@ export default function FindTeammates({user}) {
             onChange={setSortBy}
           />
           <Grid gutter={30}>
-            <Teammates players={players}/>
+            <Teammates players={players} user={user}/>
           </Grid>
         </Grid.Col>
       </Grid>
