@@ -18,11 +18,7 @@ const UserAvatar = ({playerId, setDispId, setPage}) => {
       src={playerInfo.picture}
       alt='small picture of person attending'
       radius='xl'
-      sx={{
-        '&:hover': {
-          cursor: 'pointer',
-        },
-      }}
+      sx={{cursor: 'pointer'}}
       onClick={() => {
         setDispId(playerId);
         setPage('frnd');
