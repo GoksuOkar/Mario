@@ -33,7 +33,6 @@ export default function EditStats({
     },
   });
   const submit = (values) => {
-    console.log(values);
     updateUser(values, id)
       .then((result) => {
         console.log(result);
