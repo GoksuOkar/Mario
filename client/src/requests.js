@@ -74,6 +74,15 @@ module.exports = {
     });
   },
 
+  leaveGame: (userId, eventId) => {
+    return axios({
+      url: '/game/leave',
+      method: 'put',
+      baseURL: basePath,
+      data: { userId, eventId },
+    });
+  },
+
   createGame: (body) => {
     return axios({
       url: '/game',
