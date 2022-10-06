@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SegmentedControl, Button, Grid, SimpleGrid } from '@mantine/core';
-import EventCards from './EventCards.jsx';
+import EventCard from './EventCard.jsx';
 import UpcomingGames from './UpcomingGames.jsx';
 import MakeGame from './MakeGame.jsx';
 import please from '../../requests.js';
@@ -11,12 +11,18 @@ const Dashboard = ({ userId }) => {
   const [formOpen, setFormOpen] = useState(false);
   const [games, setGames] = useState([])
   const [myGames, setMyGames] = useState([]);
+  const [myGameIds, setMyGameIds] = useState([]);
 
   const join = (gameId) => {
     console.log('sending request to join game')
     please.joinGame(userId, gameId)
      .then(() => please.getAllGames())
      .then(data => setGames(data.data))
+     .catch(error => console.log(error));
+  }
+
+  const leaveGame = (gameId) => {
+    console.log('sending request to leave game')
   }
 
   useEffect(() => {
@@ -27,14 +33,17 @@ const Dashboard = ({ userId }) => {
   // I shouldn't have to make a request for user info, that request should be made earlier and passed down as a prop
   useEffect(() => {
     please.getUserInfo(userId)
-     .then(data => setMyGames(data.data.events))
-    //  map events into an array of event ids
-    // get events based on that array of ids
+     .then(data => {
+      let events = data.data.events
+      let eventIds = events.map(event => event._id)
+      setMyGames(events);
+      setMyGameIds(eventIds);
+    })
      .catch(error => console.log(error));
   }, [])
 
   return (
-    <>
+    <div style={{margin: '40px'}}>
       <Grid grow>
         <Grid.Col span={1}>
           <UpcomingGames myGames={myGames}/>
@@ -60,10 +69,22 @@ const Dashboard = ({ userId }) => {
               onChange={setSortBy}
               />
           </SimpleGrid>
-          {games && <EventCards sortBy={sortBy} setSortBy={setSortBy} games={games} join={join}/>}
+          {/* {games && <EventCard
+            games={games}
+            join={join}
+            myGames={myGames}/>} */}
+          {
+            games
+            ?
+            <Grid>
+              {games.map(event => <EventCard event={event} join={join} myGameIds={myGameIds}/>)}
+            </Grid>
+            :
+            null
+          }
         </Grid.Col>
       </Grid>
-    </>
+    </div>
   )
 
 }
