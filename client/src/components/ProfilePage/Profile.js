@@ -71,18 +71,6 @@ export default function Profile({ updateUser, userObj, profile, page }) {
           ))}
         </Grid>
         <Grid ml="xs">
-          <Text sx={{ width: "85px" }}>Defense</Text>
-          {[...Array(5)].map((num, i) => (
-            <img
-              src={bbimg}
-              alt="bbimg"
-              style={bbSty}
-              className={`roll${i}`}
-              key={i}
-            />
-          ))}
-        </Grid>
-        <Grid ml="xs">
           <Text sx={{ width: "85px" }}>Shooting</Text>
           {[...Array(shooting)].map((num, i) => (
             <img
