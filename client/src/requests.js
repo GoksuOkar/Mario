@@ -146,7 +146,7 @@ module.exports = {
       params: { gameId },
       data: comment
     });
-  }
+  },
 
   updateUser: (userInfo, id) => {
     return axios({

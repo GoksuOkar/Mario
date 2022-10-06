@@ -309,6 +309,7 @@ export async function addComment (req: Request, res: Response) {
       console.log(err);
       res.sendStatus(404);
     })
+}
 
 export async function updateUser (req: Request, res: Response) {
   let id = req.body.id

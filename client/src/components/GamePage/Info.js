@@ -29,7 +29,11 @@ const Info = ({ name, createdBy, attending, location, start, end, description, s
       if (photos) {
         return photos.map((player) => {
           if (player.photo) {
-            return <img src={player.photo} alt={player.id} onClick={handlePlayerClick}></img>
+            return <img
+              key={player._id}
+              src={player.photo}
+              alt={player.id}
+              onClick={handlePlayerClick}></img>
           }
         })
       }

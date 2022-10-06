@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { LoginView } from './Login/LoginView.js';
 import { Messages } from '../src/components/Messages/Messages.js';
+import GamePage from './components/GamePage/GamePage.js';
 
 import NavBar from './components/NavBar.js';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
@@ -69,6 +70,7 @@ export default function App() {
       ) : null}
       {page === 'findTeam' ? <FindTeammates /> : null}
       {page === 'messages' ? <Messages userObj = {userObj}/> : null}
+      <GamePage gameid={'633f0c4a19cc8b5cf1ba79bc'} userid={userId} set={setPage}/>
 
 
     </div>

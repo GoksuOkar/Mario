@@ -16,10 +16,13 @@ const Comments = ({ name, eventID }) => {
     const [comBody, setComBody] = useState("");
     const [comments, setComments] = useState([]);
 
+
   useEffect(() => {
     if ( eventID ) {
       request.getComments(eventID)
         .then(({ data }) => {
+          console.log('eventID:', eventID);
+          console.log('comments data:', data);
           data.map((comm) => {
             if (comm) {
               setComments(comments => comments.concat(comm));

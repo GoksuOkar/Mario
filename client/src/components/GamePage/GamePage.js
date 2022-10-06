@@ -11,7 +11,7 @@ const GamePage = ({ gameid, userid, set }) => {
   const [game, setGame] = useState([]);
 
   useEffect(() => {
-    request.getOneGame('633ca1f83a3cb5d9bdc3bfff').then((data) => {
+    request.getOneGame('633f0c4a19cc8b5cf1ba79bc').then((data) => {
       setGame(data.data);
     }).catch((err) => {
       console.log('this is a getOneGame error!', err);
@@ -21,7 +21,6 @@ const GamePage = ({ gameid, userid, set }) => {
 
 
   return(
-    // <GMap />
     <div>
       <Info
         name={game.eventName}
