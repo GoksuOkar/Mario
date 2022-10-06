@@ -42,6 +42,7 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
               {event.peopleAttending.map(playerId => playerId
               ?
               <UserAvatar
+              key={playerId}
               playerId={playerId}
               setDispId={setDispId}
               setPage={setPage}/>

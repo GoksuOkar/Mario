@@ -70,6 +70,7 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
             ?
             <Grid>
               {games.map(event => <EventCard
+              key={event._id}
               event={event}
               userId={userId}
               myGameIds={myGameIds}
