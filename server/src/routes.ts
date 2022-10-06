@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { resourceLimits } from 'worker_threads';
 import * as controllers from './controllers';
 
 
@@ -15,7 +16,8 @@ router.delete('/logout', controllers.logout);
 router.get('/games', controllers.getGames)
 router.get('/game', controllers.getGame)
 router.put('/game/join', controllers.joinGame)
-// router.post('./games', )
+router.put('/game/leave', controllers.leaveGame)
+router.post('/game', controllers.createGame)
 
 /***************COMMENTS*******************/
 router.get('/comments', controllers.getComments)
@@ -25,5 +27,6 @@ router.get('/users', controllers.getUserInfo)
 router.get('/currentUser', controllers.getCurrentUser)
 router.put('/addFriend', controllers.addFriend)
 router.put('/unFriend', controllers.unFriend)
+router.put('/updateUser', controllers.updateUser)
 
 /***************CONVERSATIONS*******************/
