@@ -12,9 +12,17 @@ import {
 
 import { StyledButton } from '../../styledComponents/Button.js';
 
-// later: replace this with prop
+// add the clicked team mate to group
+export default function Teammates({players, user, setGroup, group}) {
+  const addToGroup = (player) => {
+    let id = player._id;
+    if (!(group[id])) {
+      let copy = {...group};
+      copy[id] = player;
+      setGroup(copy);
+    }
+  };
 
-export default function Teammates({players, user}) {
   return (
     <>
       <SimpleGrid cols={2} spacing="lg" verticalSpacing="lg">
@@ -36,12 +44,13 @@ export default function Teammates({players, user}) {
                   </Grid.Col>
                 </Grid>
                 <Grid>
-                  <StyledButton string={'add to group'}/>
+                  <StyledButton string={'add to group'} onClick={() => addToGroup(player)}/>
                   <StyledButton string={'add to friends'}/>
                 </Grid>
               </Card>
             )
           }
+          return null;
         })}
       </SimpleGrid>
     </>

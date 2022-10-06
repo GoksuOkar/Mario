@@ -7,6 +7,7 @@ import { getUsersInSameCity } from '../../requests.js';
 export default function FindTeammates({user}) {
   const [sortBy, setSortBy] = useState('location');
   const [players, setPlayers] = useState([]);
+  const [group, setGroup] = useState({});
 
   useEffect(() => {
     let city = user.city;
@@ -14,13 +15,13 @@ export default function FindTeammates({user}) {
     let cityString = city.join('%20');
     getUsersInSameCity(cityString)
       .then((res) => setPlayers(res.data));
-  })
+  },[group])
 
   return (
     <>
       <Grid>
         <Grid.Col span={3}>
-          <YourGroup />
+          <YourGroup group={group}/>
         </Grid.Col>
         <Grid.Col span={8}>
           <p>Sort by:</p>
@@ -37,7 +38,7 @@ export default function FindTeammates({user}) {
             onChange={setSortBy}
           />
           <Grid gutter={30}>
-            <Teammates players={players} user={user}/>
+            <Teammates players={players} user={user} setGroup={setGroup} group={group}/>
           </Grid>
         </Grid.Col>
       </Grid>

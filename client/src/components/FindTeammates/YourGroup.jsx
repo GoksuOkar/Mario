@@ -1,9 +1,8 @@
 import { Button, Avatar, Grid, Text, Card, Divider } from '@mantine/core';
 
 // later: replace this with prop
-const sampleTeammates = require('./sampleTeammates.js');
 
-export default function YourGroup() {
+export default function YourGroup({group}) {
   const joinRoom = (e) => {
     e.preventDefault();
   };
@@ -13,14 +12,14 @@ export default function YourGroup() {
         <Text>Your Group</Text>
         <Divider my='sm' />
         <Text>Teammates</Text>
-        {sampleTeammates.map((teammate) => (
+        {Object.values(group).map((teammate) => (
           <div key={teammate._id}>
             <Grid>
               <Avatar
                 src={teammate.photo}
                 alt='profile picture of teammates'
                 radius='xl'></Avatar>
-              <Text>{teammate.name}</Text>
+              <Text>{teammate.username}</Text>
             </Grid>
           </div>
         ))}

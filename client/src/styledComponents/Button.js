@@ -1,8 +1,9 @@
 import {Button} from '@mantine/core';
 
-export function StyledButton({string}) {
+export function StyledButton({string, onClick}) {
   return (
   <Button
+      onClick={onClick}
       variant='light'
       size='xs'
       styles={(theme) => ({
