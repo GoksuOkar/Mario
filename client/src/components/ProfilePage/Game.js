@@ -9,10 +9,9 @@ export default function Game({ event, setPage, setDispId }) {
           <Grid m='xs'>
             {event.peopleAttending.map((player, i) =>
               player && i % 2 === 0 ? (
-                <Tooltip label={player.username}>
+                <Tooltip key={player._id} label={player.username}>
                   <Avatar
                     sx={{ cursor: 'pointer' }}
-                    key={player._id}
                     src={player.photo}
                     radius={100}
                     m='auto'
@@ -28,10 +27,9 @@ export default function Game({ event, setPage, setDispId }) {
           <Grid m='xs'>
             {event.peopleAttending.map((player, i) =>
               player && i % 2 === 1 ? (
-                <Tooltip label={player.username}>
+                <Tooltip key={player._id} label={player.username}>
                   <Avatar
                     sx={{ cursor: 'pointer' }}
-                    key={player._id}
                     src={player.photo}
                     radius={100}
                     m='auto'
