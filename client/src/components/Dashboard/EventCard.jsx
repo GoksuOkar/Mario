@@ -1,12 +1,10 @@
-import { Card, Text, Grid, SimpleGrid, Avatar, Chip } from '@mantine/core';
+import { Card, Text, Grid, SimpleGrid, Avatar, Chip, Tooltip } from '@mantine/core';
 import moment from 'moment';
 import { useState, useEffect } from 'react';
 import please from '../../requests.js';
 
 const EventCard = ({ event, myGameIds, userId, updateUserInfo }) => {
-  // not sure about the best way to keep track of this state, whether the user is already going to the event
-  // const [checked, setChecked] = useState(myGameIds.includes(event._id))
-
+  console.log('EVENT', event)
   const join = () => {
     console.log('sending request to join game')
     console.log('userid', userId, 'gameid', event._id);
@@ -30,10 +28,6 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo }) => {
     }
   }
 
-  // useEffect(() => {
-  //   setChecked(myGameIds.includes(event._id))
-  // }, [])
-  // make a join/leave function here that updates the checked status
   return (
     <>
       <Grid.Col key={event._id} span={3}>
@@ -48,7 +42,14 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo }) => {
               {/* later: click avatar to go to friend's page */}
               {/* later: add default initials if user has no photo */}
               {/* later: use Indicator to point out which are your friends, maybe move them to the top */}
-              {event.peopleAttending.map(people => people ? <Avatar key={people._id} src={people.photo} alt='small picture of person attending' radius='xl'></Avatar> : null
+              {event.peopleAttending.map(people => people
+              ?
+              // current data that we're getting back does not have person's name
+              <Tooltip label={people.name}>
+                <Avatar key={people._id} src={people.photo} alt='small picture of person attending' radius='xl'></Avatar>
+              </Tooltip>
+              :
+              null
               )}
           </SimpleGrid>
           <Text>{event.location}</Text>

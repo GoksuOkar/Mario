@@ -42,7 +42,7 @@ const Dashboard = ({ userId }) => {
           {/* link this to open up modal form */}
           <Button
             radius='xl'
-            size='xl'
+            size='md'
             onClick={()=>setFormOpen(true)}>
             Make Game
           </Button>
@@ -60,10 +60,6 @@ const Dashboard = ({ userId }) => {
               onChange={setSortBy}
               />
           </SimpleGrid>
-          {/* {games && <EventCard
-            games={games}
-            join={join}
-            myGames={myGames}/>} */}
           {
             games
             ?
