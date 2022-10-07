@@ -2,12 +2,16 @@ import { Avatar, SimpleGrid, Grid, Text, Card, Divider } from '@mantine/core';
 import { BigStyledButton } from '../../styledComponents/StyledButtons.js';
 import { socket } from './../../App';
 import { join } from '../../Utilities/socket_listeners';
+import { useState } from 'react';
 
 // later: replace this with prop
 
-export default function YourGroup({ group, user }) {
+export default function YourGroup({ group, user, setPage }) {
+  const [makeGroup, setMakeGroup] = useState(false);
+
   const joinRoom = () => {
     // all the users array will be Object.keys(group);
+    setMakeGroup(true);
     socket.emit(join.group, {
       conversationName: null,
       users: Object.keys(group),
@@ -16,9 +20,12 @@ export default function YourGroup({ group, user }) {
 
   socket.on(join.room, (convo) => {
     // if convo users includes my username, then add that convo to convo list
-    console.log(convo);
     if (convo.users.includes(user.username)) {
       socket.emit(join.room, { conversationId: convo._id.toString() });
+      if (makeGroup) {
+        setMakeGroup(false);
+        setPage('messages');
+      }
     }
   });
 

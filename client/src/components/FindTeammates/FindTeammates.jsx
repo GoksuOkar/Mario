@@ -4,7 +4,7 @@ import Teammates from './Teammates.jsx';
 import YourGroup from './YourGroup.jsx';
 import { getUsersInSameCity } from '../../requests.js';
 
-export default function FindTeammates({ user }) {
+export default function FindTeammates({ user, setPage }) {
   const [sortBy, setSortBy] = useState('location');
   const [players, setPlayers] = useState([]);
   const [group, setGroup] = useState({});
@@ -20,7 +20,7 @@ export default function FindTeammates({ user }) {
     <>
       <Grid gutter={40}>
         <Grid.Col span={3}>
-          <YourGroup group={group} user={user} />
+          <YourGroup group={group} user={user} setPage={setPage} />
         </Grid.Col>
         <Grid.Col span={8}>
           <p>Sort by:</p>
