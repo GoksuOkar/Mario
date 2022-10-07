@@ -23,6 +23,8 @@ button:hover {
 #basketball-outline {
   width: 100px;
   position: absolute;
+  background-color: white;
+  border-radius: 50% 50%;
 }
 
 .toggle-btn-ctn {
