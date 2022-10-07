@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import request from '../../requests.js';
+import { BigStyledButton } from '../../styledComponents/StyledButtons.js';
 
 
-const Info = ({ name, createdBy, attending, location, start, end, description, set }) => {
+const Info = ({ name, createdBy, attending, location, start, end, description }) => {
   const [photos, setPhotos] = useState([]);
   const [created, setCreated] = useState("");
 
@@ -55,7 +56,7 @@ const Info = ({ name, createdBy, attending, location, start, end, description, s
 
   return(
     <div className="gp_info">
-      <button>join game</button>
+      <BigStyledButton string={"Join Game"} />
       <h4>{name}</h4>
       <p><small>created by {created}</small></p>
       <p>{location}</p>

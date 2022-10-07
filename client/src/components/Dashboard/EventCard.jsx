@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import please from '../../requests.js';
 import UserAvatar from './UserAvatar.jsx';
 
-const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPage }) => {
+const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPage, setGameState }) => {
   const join = () => {
     please.joinGame(userId, event._id)
      .then(() => updateUserInfo())
@@ -31,6 +31,12 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
     fakeKey++;
   }
 
+
+  const handleCardClick = () => {
+    setGameState(event._id);
+    setPage('gp');
+  }
+
   return (
     <>
       <Grid.Col
@@ -46,7 +52,7 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
           p='lg'
           radius='md'>
           <Text sx={{textAlign:'center'}}>
-            <h3>{event.eventName}</h3>
+            <h3 onClick={handleCardClick}>{event.eventName}</h3>
           </Text>
           <SimpleGrid cols={6} spacing='sm' verticalSpacing='sm'>
           {attendees.map(playerId =>

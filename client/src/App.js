@@ -18,6 +18,7 @@ export default function App() {
   const [userObj, setUserObj] = useState({});
   const [page, setPage] = useState(null);
   const [dispId, setDispId] = useState(userId);
+  const [gameState, setGameState] = useState('');
 
   // checks if the user is already authenticated, sets the page to 'login' if not.
   useEffect(() => {
@@ -47,10 +48,15 @@ export default function App() {
       {page === 'login' ? (
         <LoginView setPage={setPage} setUserId={setUserId} userId={userId} />
       ) : null}
-      {page === 'games' ? (
-        <Dashboard userId={userId} setPage={setPage} setDispId={setDispId} />
-      ) : null}
-      {page === 'profile' || page === 'frnd' ? (
+      {page === "games"
+      ?
+      <Dashboard
+      userId={userId}
+      setPage={setPage}
+      setDispId={setDispId}
+      setGameState={setGameState} />
+      : null}
+      {page === "profile" || page === "frnd" ? (
         <ProfilePage
           userObj={userObj}
           updateUser={updateUser}
@@ -61,10 +67,10 @@ export default function App() {
           setDispId={setDispId}
         />
       ) : null}
-      {page === 'findTeam' ? (
-        <FindTeammates user={userObj} setPage={setPage} name={userObj.username} />
-      ) : null}
-      {page === 'messages' ? <Messages userObj={userObj} /> : null}
+      {page === 'findTeam' ? <FindTeammates user={userObj}/> : null}
+      {page === 'messages' ? <Messages userObj = {userObj}/> : null}
+      {page === 'gp' ? <GamePage gameid={gameState} userName={userObj.username} set={setPage}/> : null}
+
     </div>
   );
 }

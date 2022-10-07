@@ -260,6 +260,7 @@ export async function getCurrentUser (req: Request, res: Response) {
 
 export async function getUserPhotos (req: Request, res: Response) {
   // create a copy of people attending ids
+  console.log('userids:', req.query.userIds);
   const attending: Array<any> = req.query.userIds;
   // create a promise array
   const prom: Array<any> = [];
