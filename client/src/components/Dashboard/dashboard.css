@@ -22,7 +22,7 @@ button:hover {
 
 #basketball-outline {
   width: 100px;
-  position: fixed;
+  position: absolute;
 }
 
 .toggle-btn-ctn {
