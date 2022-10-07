@@ -147,7 +147,7 @@ export default function EditStats({
         </div>
       </Modal>
 
-      <Group position='center'>
+      <Group position='left'>
         <StyledButton string={'Edit Stats'} onClick={() => setOpened(true)} />
       </Group>
     </>
