@@ -1,4 +1,4 @@
-import { Tabs, Text } from '@mantine/core';
+import { Tabs, Text, Space } from '@mantine/core';
 import img from '../assets/images/AlleyHoopsGreen.png';
 import { logOut } from '../requests';
 
@@ -38,13 +38,15 @@ export default function NavBar({ userId, page, setPage }) {
               onClick={() => setPage('games')}>
               Games
             </Tabs.Tab>
+            <Space w='xl' />
             <Tabs.Tab
               sx={sty}
               style={sty}
               value='findTeam'
               onClick={() => setPage('findTeam')}>
-              Find teammates
+              Explore
             </Tabs.Tab>
+            <Space w='xl' />
             <Tabs.Tab
               sx={sty}
               style={sty}
@@ -52,6 +54,7 @@ export default function NavBar({ userId, page, setPage }) {
               onClick={() => setPage('profile')}>
               Profile
             </Tabs.Tab>
+            <Space w='xl' />
             <Tabs.Tab
               sx={sty}
               style={sty}
@@ -59,6 +62,7 @@ export default function NavBar({ userId, page, setPage }) {
               onClick={() => setPage('messages')}>
               Messages
             </Tabs.Tab>
+            <Space w='xl' />
             <Tabs.Tab
               sx={sty}
               style={sty}
@@ -75,6 +79,7 @@ export default function NavBar({ userId, page, setPage }) {
               }}>
               Logout
             </Tabs.Tab>
+            <Space w='xl' />
           </>
         )}
       </Tabs.List>
