@@ -66,12 +66,12 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
           </Avatar>
           )}
           </SimpleGrid>
-          {event.location.length < 30
+          {event.location.length < 28
           ?
           <Text>{event.location}</Text>
           :
           <Tooltip label={event.location}>
-            <Text>{event.location.slice(0, 30)}...</Text>
+            <Text>{event.location.slice(0, 28)}...</Text>
           </Tooltip>
           }
           {/* italicise and insert calculated distance */}
