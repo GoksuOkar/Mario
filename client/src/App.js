@@ -38,7 +38,12 @@ export default function App() {
 
   const updateUser = () => {
     Axios.getCurrentUser(userId)
-      .then(({ data }) => setUserObj(data))
+      .then(({ data }) => {
+        setUserObj(data)
+        const username = data.username;
+        socket.auth = { username };
+        socket.connect();
+      })
       .catch((err) => console.log(err));
   };
 
