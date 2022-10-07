@@ -97,9 +97,6 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
           </div>
         </Card>
       </Grid.Col>
-      <div>
-        { gp ? <GamePage gameid={event._id} userName={userObj.username} set={setPage} /> : null }
-      </div>
     </>
   )
 }
