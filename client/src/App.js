@@ -53,7 +53,8 @@ export default function App() {
       <Dashboard
       userId={userId}
       setPage={setPage}
-      setDispId={setDispId} />
+      setDispId={setDispId}
+      userObj={userObj} />
       : null}
       {page === "profile" || page === "frnd" ? (
         <ProfilePage
@@ -68,7 +69,6 @@ export default function App() {
       ) : null}
       {page === 'findTeam' ? <FindTeammates user={userObj}/> : null}
       {page === 'messages' ? <Messages userObj = {userObj}/> : null}
-
 
     </div>
   );

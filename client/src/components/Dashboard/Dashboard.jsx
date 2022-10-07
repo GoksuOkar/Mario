@@ -7,7 +7,7 @@ import MakeGame from './MakeGame.jsx';
 import please from '../../requests.js';
 import basketballOutline from '../../assets/images/basketballOutline.png';
 
-const Dashboard = ({ userId, setPage, setDispId }) => {
+const Dashboard = ({ userId, setPage, setDispId, userObj }) => {
   const [sortBy, setSortBy] = useState('upcoming');
   const [formOpen, setFormOpen] = useState(false);
   const [games, setGames] = useState([]);
@@ -78,6 +78,7 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
                   updateUserInfo={updateUserInfo}
                   setDispId={setDispId}
                   setPage={setPage}
+                  userObj={userObj}
                 />
               ))}
             </Grid>

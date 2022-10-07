@@ -3,8 +3,10 @@ import moment from 'moment';
 import { useState, useEffect } from 'react';
 import please from '../../requests.js';
 import UserAvatar from './UserAvatar.jsx';
+import GamePage from '../GamePage/GamePage.js';
 
-const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPage }) => {
+const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPage, userObj }) => {
+  const [gp, setGP] = useState('false');
   const join = () => {
     console.log('sending request to join game')
     console.log('userid', userId, 'gameid', event._id);
@@ -34,6 +36,12 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
     fakeKey++;
   }
 
+  const handleGameClick = (e) => {
+    e.preventDefault();
+    setGP('true');
+    console.log('gp:', gp);
+  }
+
   return (
     <>
       <Grid.Col key={event._id} span={3} style={{width: '300px'}}>
@@ -42,7 +50,7 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
           p='lg'
           radius='md'>
           <Text sx={{textAlign:'center'}}>
-            <h3>{event.eventName}</h3>
+            <h3 onClick={handleGameClick}>{event.eventName}</h3>
           </Text>
           <SimpleGrid cols={6} spacing='sm' verticalSpacing='sm'>
           {attendees.map(playerId =>
@@ -97,6 +105,9 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
           </div>
         </Card>
       </Grid.Col>
+      <div>
+        { gp ? <GamePage gameid={event._id} userName={userObj.username} set={setPage} /> : null }
+      </div>
     </>
   )
 }
