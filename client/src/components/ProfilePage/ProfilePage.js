@@ -16,6 +16,7 @@ export default function ProfilePage({
   setPage,
   dispId,
   setDispId,
+  setGameState,
 }) {
   const [profile, setProfile] = useState({});
 
@@ -72,6 +73,7 @@ export default function ProfilePage({
                     event={event}
                     setPage={setPage}
                     setDispId={setDispId}
+                    setGameState={setGameState}
                   />
                 ))
               : null}
