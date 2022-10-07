@@ -24,7 +24,7 @@ export default function EventMap({ address }) {
     <iframe
       title="map"
       width="450"
-      height="250"
+      height="450"
       frameBorder="0"
       style={{ border: 0 }}
       referrerPolicy="no-referrer-when-downgrade"
