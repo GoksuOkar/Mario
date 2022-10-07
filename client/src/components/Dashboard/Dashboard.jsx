@@ -27,7 +27,6 @@ const Dashboard = ({ userId, setPage, setDispId, userObj }) => {
   };
 
   const getGames = () => {
-    console.log('sort crit is', sortBy, 'userid', userId);
     please
       .getAllGames('San Jose', 'CA', sortBy, userId)
       .then((data) => setGames(data.data))
@@ -44,8 +43,8 @@ const Dashboard = ({ userId, setPage, setDispId, userObj }) => {
 
   return (
     <div style={{ margin: '40px' }}>
-      <Grid grow>
-        <Grid.Col span={1}>
+      <Grid>
+        <Grid.Col span='content'>
           <UpcomingGames myGames={myGames} />
           {/* later: turn this into a basketball */}
           {/* link this to open up modal form */}
@@ -55,7 +54,8 @@ const Dashboard = ({ userId, setPage, setDispId, userObj }) => {
           </div>
           {formOpen && <MakeGame setFormOpen={setFormOpen} userId={userId} />}
         </Grid.Col>
-        <Grid.Col span={9}>
+        {/* <Grid.Col xs={5} sm={6} md={7} lg={8}> */}
+        <Grid.Col span='auto'>
           <SimpleGrid>
             <SegmentedControl
               data={[
