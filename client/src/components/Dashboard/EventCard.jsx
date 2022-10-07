@@ -50,7 +50,8 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
         <Card
           shadow='sm'
           p='lg'
-          radius='md'>
+          radius='md'
+          sx={{cursor: 'pointer'}}>
           <Text sx={{textAlign:'center'}}>
             <h3 onClick={handleCardClick}>{event.eventName}</h3>
           </Text>
