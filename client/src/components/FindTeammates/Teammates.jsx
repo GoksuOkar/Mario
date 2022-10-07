@@ -14,6 +14,8 @@ import { StyledButton } from '../../styledComponents/StyledButtons.js';
 
 // add the clicked team mate to group
 export default function Teammates({players, user, setGroup, group}) {
+
+  // add the teammate to group
   const addToGroup = (player) => {
     let name = player.username;
     if (!(group[name])) {

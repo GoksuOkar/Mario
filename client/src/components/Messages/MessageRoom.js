@@ -1,12 +1,25 @@
-import {Card, Grid, Avatar, Text} from '@mantine/core';
+import { Card, Grid, Avatar, Text } from '@mantine/core';
 
-export default function MessageRoom({ setDisplayChat, convo, socket }) {
+export default function MessageRoom({
+  setDisplayChat,
+  convo,
+  socket,
+  userObj,
+}) {
+  const users = [...convo.users];
+  const ind = users.indexOf(userObj.username);
+
+  users.splice(ind, 1);
 
   return (
-    <Card onClick={()=>setDisplayChat(convo)}sx={{border: '1px solid lightgray'}}>
+    <Card
+      onClick={() => setDisplayChat(convo)}
+      sx={{ border: '1px solid lightgray' }}>
       <Grid>
         <Avatar />
-        <Text>{convo.users[1]}</Text>
+        {users.map((user) => (
+          <Text key={user}>{user}</Text>
+        ))}
       </Grid>
     </Card>
   );

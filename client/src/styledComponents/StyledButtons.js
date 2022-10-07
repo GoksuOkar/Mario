@@ -1,8 +1,9 @@
 import {Button} from '@mantine/core';
 
-export function StyledButton({string, onClick}) {
+export function StyledButton({string, onClick = null, type = null}) {
   return (
   <Button
+      type={type}
       onClick={onClick}
       variant='light'
       size='xs'
@@ -12,7 +13,7 @@ export function StyledButton({string, onClick}) {
           color: 'white',
           margin: 5,
           "&:hover": {
-            backgroundColor: "#f7d25b"
+            backgroundColor: '#0d5f65'
           },
         },
       })}
@@ -35,7 +36,7 @@ export function BigStyledButton({string, onClick = null}) {
             color: 'white',
             margin: 5,
             "&:hover": {
-              backgroundColor: "#cb510b"
+              backgroundColor: '#fc8025'
             },
           },
         })}

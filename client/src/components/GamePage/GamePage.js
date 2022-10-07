@@ -5,7 +5,7 @@ import Info from './Info';
 import Comments from './Comments.js';
 import EventMap from './Map.js';
 
-//<GamePage gameid={'633f3006ceae3af0c34eeea4'} userName={userObj.username} set={setPage}/>
+//<GamePage gameid={id} userName={userObj.username} set={setPage} />
 
 
 const GamePage = ({ gameid, userName, set }) => {

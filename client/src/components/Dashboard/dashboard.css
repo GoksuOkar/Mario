@@ -1,0 +1,34 @@
+#button-ctn{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  border-radius: 50% 50%;
+  width: 100px;
+  height: 100px;
+  font-size: 20px;
+  color: white;
+  background-color: #cb510b;
+  border-width: 0;
+  z-index: 1;
+}
+button:hover {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+#basketball-outline {
+  width: 100px;
+  position: absolute;
+  background-color: #cb510b;
+  border-radius: 50% 50%;
+}
+
+.toggle-btn-ctn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
