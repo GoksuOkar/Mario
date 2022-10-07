@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import request from '../../requests.js';
+import { BigStyledButton, StyledButton } from '../../styledComponents/StyledButtons.js';
+import {Avatar, Grid, Tooltip, Divider} from '@mantine/core'
 
 
-const Info = ({ name, createdBy, attending, location, start, end, description, set }) => {
+const Info = ({ name, createdBy, attending, location, start, end, description }) => {
   const [photos, setPhotos] = useState([]);
   const [created, setCreated] = useState("");
 
@@ -35,12 +37,20 @@ const Info = ({ name, createdBy, attending, location, start, end, description, s
       if (photos) {
         return photos.map((player) => {
           if (player.photo) {
-            return <img
+            return (
+            // change get requests to get username?
+            // <Tooltip >
+              <Avatar
+              style={{margin: '10px'}}
               key={player._id}
               src={player.photo}
               alt={player.id}
-              onClick={handlePlayerClick(player._id)}></img>
-          }
+              radius='xl'
+              sx={{cursor: 'pointer'}}
+              onClick={handlePlayerClick(player._id)}>
+              </Avatar>
+            // </Tooltip>
+          )}
         })
       }
 
@@ -55,16 +65,23 @@ const Info = ({ name, createdBy, attending, location, start, end, description, s
 
   return(
     <div className="gp_info">
-      <button>join game</button>
+      <StyledButton string={"Join Game"} />
       <h4>{name}</h4>
       <p><small>created by {created}</small></p>
-      <p>{location}</p>
-      <p>{start} - {end}</p>
-      <p>{description}</p>
-      <p><small>see who's playing...</small></p>
-      <div>
-        {getPlayers()}
-      </div>
+      <Grid>
+        <Grid.Col span={6}>
+          <p>{location}</p>
+          <p>{start} - {end}</p>
+          <p>{description}</p>
+        </Grid.Col>
+        <Grid.Col span={6}>
+          <Divider orientation='vertical'/>
+          <p>see who's playing...</p>
+          <div style={{display: 'flex'}}>
+            {getPlayers()}
+          </div>
+        </Grid.Col>
+      </Grid>
     </div>
   )
 
