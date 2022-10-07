@@ -27,20 +27,25 @@ export async function onConnection (socket: Socket | any) {
 
   // On connection, retrieves all conversations of user from db and sends to client
   // Joins socket to all conversation rooms
-  await getConversationIDsFor(username)
-    .then((user) =>  {
-      console.log(user.conversations)
-      user.conversations.forEach((convoID: String) => socket.join(convoID))
-      return getConversationsFrom(user.conversations);
-    })
-    .then((conversationList) => {
-      io.sockets.in(username).emit(user.getConversations, conversationList)
-    })
-    .catch((err) => console.error(`Error retrieving messages server side: ${err}`));
 
-  await getFriends(username)
-    .then((friends) => io.sockets.in(username).emit(user.getFriends, friends))
-    .catch(err => console.error(err));
+  socket.on(user.getConversations, () => {
+    getConversationIDsFor(username)
+      .then((user) =>  {
+        console.log(user.conversations)
+        user.conversations.forEach((convoID: String) => socket.join(convoID))
+        return getConversationsFrom(user.conversations);
+      })
+      .then((conversationList) => {
+        io.sockets.in(username).emit(user.getConversations, conversationList)
+      })
+      .catch((err) => console.error(`Error retrieving messages server side: ${err}`));
+  })
+
+  socket.on(user.getFriends, () => {
+    getFriends(username)
+      .then((friends) => io.sockets.in(username).emit(user.getFriends, friends))
+      .catch(err => console.error(err));
+  })
 
   socket.on(user.directMessage, (message: ISchema.Message) => {
     console.log(message);

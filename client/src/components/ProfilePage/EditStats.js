@@ -1,15 +1,13 @@
-import { useState } from "react";
-import { Modal, Button, Group, Grid, TextInput } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { updateUser } from "../../requests";
+import { useState } from 'react';
+import { Modal, Button, Group, Grid, TextInput } from '@mantine/core';
+import { useForm } from '@mantine/form';
+import { updateUser } from '../../requests';
+import { StyledButton } from '../../styledComponents/StyledButtons.js';
 
 export default function EditStats({
   id,
   updateUserApp,
-  shooting,
-  passing,
-  dribbling,
-  dunking,
+  userObj,
   state,
   city,
   overallSkill,
@@ -22,16 +20,17 @@ export default function EditStats({
     initialValues: {
       city: city,
       state: state,
-      dribbling: dribbling,
-      passing: passing,
-      shooting: shooting,
-      dunking: dunking,
+      dribbling: userObj.stats.dribbling,
+      passing: userObj.stats.passing,
+      shooting: userObj.stats.shooting,
+      dunking: userObj.stats.dunking,
       overallSkill: overallSkill,
       picture: picture,
       preferedRole: preferedRole,
       height: height,
     },
   });
+
   const submit = (values) => {
     updateUser(values, id)
       .then((result) => {
@@ -47,110 +46,108 @@ export default function EditStats({
   return (
     <>
       <Modal
-        title="STATS"
-        transition="fade"
+        title='STATS'
+        transition='fade'
         transitionDuration={600}
-        transitionTimingFunction="ease"
+        transitionTimingFunction='ease'
         centered
         opened={opened}
-        onClose={() => setOpened(false)}
-      >
-        <div style={{ maxWidth: 320, margin: "auto" }}>
+        onClose={() => setOpened(false)}>
+        <div style={{ maxWidth: 320, margin: 'auto' }}>
           <TextInput
-            label="City"
-            placeholder="City"
-            onChange={(e) => form.setFieldValue("city", e.target.value)}
+            label='City'
+            placeholder='City'
+            onChange={(e) => form.setFieldValue('city', e.target.value)}
           />
           <TextInput
-            mt="md"
-            label="State"
-            placeholder="State"
-            onChange={(e) => form.setFieldValue("state", e.target.value)}
+            mt='md'
+            label='State'
+            placeholder='State'
+            onChange={(e) => form.setFieldValue('state', e.target.value)}
           />
           <TextInput
-            mt="md"
-            label="Height"
-            placeholder="Height"
-            onChange={(e) => form.setFieldValue("height", e.target.value)}
+            mt='md'
+            label='Height'
+            placeholder='Height'
+            onChange={(e) => form.setFieldValue('height', e.target.value)}
           />
 
           <Grid>
             <Grid.Col xs={6} lg={3}>
               <TextInput
-                mt="xs"
-                label="Dribbling"
-                placeholder="1-5"
+                mt='xs'
+                label='Dribbling'
+                placeholder='1-5'
                 onChange={(e) =>
-                  form.setFieldValue("dribbling", Number(e.target.value))
+                  form.setFieldValue('dribbling', Number(e.target.value))
                 }
               />
             </Grid.Col>
             <Grid.Col xs={6} lg={3}>
               <TextInput
-                mt="xs"
-                label="Passing"
-                placeholder="1-5"
+                mt='xs'
+                label='Passing'
+                placeholder='1-5'
                 onChange={(e) =>
-                  form.setFieldValue("passing", Number(e.target.value))
+                  form.setFieldValue('passing', Number(e.target.value))
                 }
               />
             </Grid.Col>
             <Grid.Col xs={6} lg={3}>
               <TextInput
-                mt="xs"
-                label="Shooting"
-                placeholder="1-5"
+                mt='xs'
+                label='Shooting'
+                placeholder='1-5'
                 onChange={(e) =>
-                  form.setFieldValue("shooting", Number(e.target.value))
+                  form.setFieldValue('shooting', Number(e.target.value))
                 }
               />
             </Grid.Col>
             <Grid.Col xs={6} lg={3}>
               <TextInput
-                mt="xs"
-                label="Dunking"
-                placeholder="1-5"
+                mt='xs'
+                label='Dunking'
+                placeholder='1-5'
                 onChange={(e) =>
-                  form.setFieldValue("dunking", Number(e.target.value))
+                  form.setFieldValue('dunking', Number(e.target.value))
                 }
               />
             </Grid.Col>
           </Grid>
 
           <TextInput
-            mt="md"
-            label="Overall Skill"
-            placeholder="Beginner, Intermediate, Baller"
-            onChange={(e) => form.setFieldValue("overallSkill", e.target.value)}
+            mt='md'
+            label='Overall Skill'
+            placeholder='Beginner, Intermediate, Baller'
+            onChange={(e) => form.setFieldValue('overallSkill', e.target.value)}
           />
           <TextInput
-            mt="md"
-            label="Prefered Role"
-            placeholder="Prefered Role"
-            onChange={(e) => form.setFieldValue("preferedRole", e.target.value)}
+            mt='md'
+            label='Prefered Role'
+            placeholder='Prefered Role'
+            onChange={(e) => form.setFieldValue('preferedRole', e.target.value)}
           />
           <TextInput
-            mt="md"
-            label="Picture"
-            placeholder="Paste URL here"
-            onChange={(e) => form.setFieldValue("picture", e.target.value)}
+            mt='md'
+            label='Picture'
+            placeholder='Paste URL here'
+            onChange={(e) => form.setFieldValue('picture', e.target.value)}
           />
 
-          <Group position="center" mt="xl">
+          <Group position='center' mt='xl'>
             <Button
-              variant="outline"
+              variant='outline'
               onClick={() => {
                 submit(form.values);
-              }}
-            >
+              }}>
               Submit Stats
             </Button>
           </Group>
         </div>
       </Modal>
 
-      <Group position="center">
-        <Button onClick={() => setOpened(true)}>Edit Stats</Button>
+      <Group position='center'>
+        <StyledButton string={'Edit Stats'} onClick={() => setOpened(true)} />
       </Group>
     </>
   );
