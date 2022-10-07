@@ -7,7 +7,7 @@ import MakeGame from './MakeGame.jsx';
 import please from '../../requests.js';
 import basketballOutline from '../../assets/images/basketballOutline.png';
 
-const Dashboard = ({ userId, setPage, setDispId, userObj }) => {
+const Dashboard = ({ userId, setPage, setDispId, setGameState }) => {
   const [sortBy, setSortBy] = useState('upcoming');
   const [formOpen, setFormOpen] = useState(false);
   const [games, setGames] = useState([]);
@@ -67,19 +67,19 @@ const Dashboard = ({ userId, setPage, setDispId, userObj }) => {
               onChange={setSortBy}
             />
           </SimpleGrid>
-          <div style={{marginTop: '18px'}}>
-            {games ? (
-              <Grid>
-                {games.map((event) => (
-                  <EventCard
-                    key={event._id}
-                    event={event}
-                    userId={userId}
-                    myGameIds={myGameIds}
-                    updateUserInfo={updateUserInfo}
-                    setDispId={setDispId}
-                    setPage={setPage}
-                    userObj={userObj}
+        <div style={{marginTop:"18px"}}>
+          {games ? (
+            <Grid>
+              {games.map((event) => (
+                <EventCard
+                  key={event._id}
+                  event={event}
+                  userId={userId}
+                  myGameIds={myGameIds}
+                  updateUserInfo={updateUserInfo}
+                  setDispId={setDispId}
+                  setPage={setPage}
+                  setGameState={setGameState}
                 />
                 ))}
               </Grid>
