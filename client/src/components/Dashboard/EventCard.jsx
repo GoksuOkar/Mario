@@ -40,7 +40,7 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
         md={6}
         lg={4}
         xl={3}
-        style={{width: '300px'}}>
+        >
         <Card
           shadow='sm'
           p='lg'

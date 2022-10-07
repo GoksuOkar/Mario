@@ -54,7 +54,8 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
           </div>
           {formOpen && <MakeGame setFormOpen={setFormOpen} userId={userId} />}
         </Grid.Col>
-        <Grid.Col xs={5} sm={6} md={7} lg={8}>
+        {/* <Grid.Col xs={5} sm={6} md={7} lg={8}> */}
+        <Grid.Col span='auto'>
           <SimpleGrid>
             <SegmentedControl
               data={[
