@@ -305,11 +305,13 @@ export async function getComments (req: Request, res: Response) {
   }
 }
 
-export async function addComment (req: Request, res: Response) {
-  const {username, body, date, event_id} = req.body;
-  await db.Comment.create(req.body)
+export function addComment (req: Request, res: Response) {
+  const {username, body, date, event_id} = req.body.comment;
+  console.log('req.body:', req.body.comment);
+  db.Comment.create({username: username, body: body, date: date, event_id: event_id})
     .then((result) => {
-      res.status(201);
+      console.log('result:', result);
+      res.sendStatus(201);
     })
     .catch((err) => {
       console.log(err);
