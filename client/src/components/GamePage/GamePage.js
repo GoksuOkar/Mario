@@ -31,7 +31,6 @@ const GamePage = ({ gameid, userName, set }) => {
         start={game.startTime}
         end={game.endTime}
         description={game.eventDescription}
-        set={set}
         />
       <Comments
         name={userName}

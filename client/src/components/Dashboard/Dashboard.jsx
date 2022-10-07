@@ -6,7 +6,7 @@ import MakeGame from './MakeGame.jsx';
 import please from '../../requests.js';
 import { BigStyledButton } from '../../styledComponents/StyledButtons.js';
 
-const Dashboard = ({ userId, setPage, setDispId }) => {
+const Dashboard = ({ userId, setPage, setDispId, setGameState }) => {
   const [sortBy, setSortBy] = useState('upcoming');
   const [formOpen, setFormOpen] = useState(false);
   const [games, setGames] = useState([]);
@@ -74,6 +74,7 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
                   updateUserInfo={updateUserInfo}
                   setDispId={setDispId}
                   setPage={setPage}
+                  setGameState={setGameState}
                 />
               ))}
             </Grid>
