@@ -1,7 +1,7 @@
 import React from "react";
 import { API_KEY } from "../../config";
 
-export const EventMap = ({ address }) => {
+export default function EventMap({ address }) {
   //get address in correct format "City Hall, New York, NY" to City+Hall,New+York,NY,
   address = address || "5020 Mindora Dr, Torrance, Ca, United States";
   address = address.split(",");

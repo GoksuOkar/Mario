@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { LoginView } from './Login/LoginView.js';
 import { Messages } from '../src/components/Messages/Messages.js';
+import GamePage from './components/GamePage/GamePage.js';
 
 import NavBar from './components/NavBar.js';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
