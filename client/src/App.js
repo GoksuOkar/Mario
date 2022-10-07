@@ -62,7 +62,7 @@ export default function App() {
         />
       ) : null}
       {page === 'findTeam' ? (
-        <FindTeammates user={userObj} setPage={setPage} />
+        <FindTeammates user={userObj} setPage={setPage} name={userObj.username} />
       ) : null}
       {page === 'messages' ? <Messages userObj={userObj} /> : null}
     </div>

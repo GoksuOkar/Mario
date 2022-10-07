@@ -11,11 +11,11 @@ export default function YourGroup({ group, user, setPage }) {
 
   const joinRoom = () => {
     // all the users array will be Object.keys(group);
-    setMakeGroup(true);
     socket.emit(join.group, {
       conversationName: null,
       users: Object.keys(group),
     });
+    setMakeGroup(true);
   };
 
   socket.on(join.room, (convo) => {

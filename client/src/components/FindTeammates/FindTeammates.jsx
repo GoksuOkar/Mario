@@ -4,10 +4,11 @@ import Teammates from './Teammates.jsx';
 import YourGroup from './YourGroup.jsx';
 import { getUsersInSameCity } from '../../requests.js';
 
-export default function FindTeammates({ user, setPage }) {
+export default function FindTeammates({ user, setPage, name }) {
+  // eslint-disable-next-line no-undef
   const [sortBy, setSortBy] = useState('location');
   const [players, setPlayers] = useState([]);
-  const [group, setGroup] = useState({});
+  const [group, setGroup] = useState({[name]: user});
 
   useEffect(() => {
     let city = user.city;

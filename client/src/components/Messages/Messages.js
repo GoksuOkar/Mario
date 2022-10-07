@@ -34,7 +34,6 @@ export function Messages({ userObj }) {
 
   socket.on(join.room, (convo) => {
     // if convo users includes my username, then add that convo to convo list
-    console.log(convo);
     if (convo.users.includes(username)) {
       socket.emit(join.room, { conversationId: convo._id.toString() });
       let temp = [...convoList];
