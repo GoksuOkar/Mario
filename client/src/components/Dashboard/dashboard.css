@@ -16,13 +16,15 @@ button {
   z-index: 1;
 }
 button:hover {
-  opacity: 0.7;
   cursor: pointer;
+  background-color: transparent;
 }
 
 #basketball-outline {
   width: 100px;
-  position: fixed;
+  position: absolute;
+  background-color: #cb510b;
+  border-radius: 50% 50%;
 }
 
 .toggle-btn-ctn {

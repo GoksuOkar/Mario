@@ -100,12 +100,22 @@ const MakeGame = ({ setFormOpen, userId }) => {
             defaultValue='Come play some basketball! Beginners are welcome.'
           />
           <Button
-          //later: change color
-          variant='light'
-          onClick={handleSubmit}
-          >
-            Submit
-          </Button>
+            onClick={handleSubmit}
+            variant='filled'
+            size='lg'
+            styles={(theme) => ({
+              root: {
+                backgroundColor: '#6d5881',
+                color: 'white',
+                marginTop: '20px',
+                "&:hover": {
+                  backgroundColor: '#f7d25b'
+                },
+              },
+            })}
+            >
+            submit
+            </Button>
         </div>
       </div>
     </>

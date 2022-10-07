@@ -50,7 +50,7 @@ const Dashboard = ({ userId, setPage, setDispId, userObj }) => {
           {/* later: turn this into a basketball */}
           {/* link this to open up modal form */}
           <div id='button-ctn'>
-            <img id='basketball-outline' src={basketballOutline}/>
+            <img id='basketball-outline' src={basketballOutline} alt='outline of basketball'/>
             <button type='button' onClick={() => setFormOpen(true)}>Make Game</button>
           </div>
           {formOpen && <MakeGame setFormOpen={setFormOpen} userId={userId} />}
@@ -67,22 +67,24 @@ const Dashboard = ({ userId, setPage, setDispId, userObj }) => {
               onChange={setSortBy}
             />
           </SimpleGrid>
-          {games ? (
-            <Grid>
-              {games.map((event) => (
-                <EventCard
-                  key={event._id}
-                  event={event}
-                  userId={userId}
-                  myGameIds={myGameIds}
-                  updateUserInfo={updateUserInfo}
-                  setDispId={setDispId}
-                  setPage={setPage}
-                  userObj={userObj}
+          <div style={{marginTop: '18px'}}>
+            {games ? (
+              <Grid>
+                {games.map((event) => (
+                  <EventCard
+                    key={event._id}
+                    event={event}
+                    userId={userId}
+                    myGameIds={myGameIds}
+                    updateUserInfo={updateUserInfo}
+                    setDispId={setDispId}
+                    setPage={setPage}
+                    userObj={userObj}
                 />
-              ))}
-            </Grid>
-          ) : null}
+                ))}
+              </Grid>
+            ) : null}
+          </div>
         </Grid.Col>
       </Grid>
     </div>
