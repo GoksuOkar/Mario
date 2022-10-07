@@ -52,31 +52,31 @@ const MakeGame = ({ setFormOpen, userId }) => {
       </div>
       <div id='right-form-panel'>
         <div id='form'>
+          <div className='form-labels'>Game name:</div>
           <TextInput
             placeholder='name of the game'
-            label='Game Name:'
             id='game-name'
             defaultValue='Capitol Park Courts'
             // withAsterisk
           />
           {/* can we integrate google maps here? */}
+          <div className='form-labels'>Location: </div>
           <TextInput
             placeholder='address'
-            label='Location:'
             id='location'
             defaultValue='800 Peter Pan Ave, San Jose, CA 95116'
           />
+          <div className='form-labels'>Date: </div>
           <DatePicker
             placeholder="Pick a date"
-            label="Date"
             id='date'
             value={date}
             onChange={(value) => {
               setDate(value);
             }}
           />
+          <div className='form-labels'>Start Time: </div>
           <TimeInput
-            label='Start Time'
             id='start-time'
             format='12'
             amLabel="am"
@@ -84,8 +84,8 @@ const MakeGame = ({ setFormOpen, userId }) => {
             value={startTime}
             onChange={setStartTime}
           />
+          <div className='form-labels'>End Time: </div>
           <TimeInput
-            label='End Time'
             id='end-time'
             format='12'
             amLabel="am"
@@ -93,9 +93,9 @@ const MakeGame = ({ setFormOpen, userId }) => {
             value={endTime}
             onChange={setEndTime}
           />
+          <div className='form-labels'>Description: </div>
           <Textarea
             placeholder='add some description'
-            label='Description'
             id='game-description'
             defaultValue='Come play some basketball! Beginners are welcome.'
           />
