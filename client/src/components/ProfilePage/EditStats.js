@@ -15,15 +15,16 @@ export default function EditStats({
   preferedRole,
   height,
 }) {
+  const { dribbling, dunking, passing, shooting } = userObj.stats || 0;
   const [opened, setOpened] = useState(false);
   const form = useForm({
     initialValues: {
       city: city,
       state: state,
-      dribbling: userObj.stats.dribbling,
-      passing: userObj.stats.passing,
-      shooting: userObj.stats.shooting,
-      dunking: userObj.stats.dunking,
+      dribbling: dribbling,
+      passing: passing,
+      shooting: shooting,
+      dunking: dunking,
       overallSkill: overallSkill,
       picture: picture,
       preferedRole: preferedRole,

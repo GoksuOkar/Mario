@@ -1,11 +1,18 @@
-import {Grid,SimpleGrid,Text, Input, Button} from '@mantine/core';
+import {Grid,SimpleGrid,Text, Input, Button, TextInput} from '@mantine/core';
+import { useForm } from '@mantine/form';
+import { StyledButton } from '../../styledComponents/StyledButtons';
 import React, {useState, useEffect, useRef} from 'react';
 import { user, join } from '../../Utilities/socket_listeners';
 const sampleMes = ['Hey', 'Let\'s ball!', 'I\'m down!'];
 
 export function MessageDisplay ({socket, displayChat, userObj}) {
   const [messages, setMessages] = useState(sampleMes);
-  const [text, setText] = useState('');
+
+  const form = useForm({
+    initialValues: {
+      message: '',
+    },
+  });
 
   function scrollToBottom() {
     const bottom = document.querySelector('#id').scrollHeight;
@@ -28,20 +35,15 @@ export function MessageDisplay ({socket, displayChat, userObj}) {
   });
 
   // start direct message
-  const messageUser = async (e) => {
-    e.preventDefault();
+  const messageUser = async ({message}) => {
     socket.emit(user.directMessage, {
       conversationId: displayChat._id,
       username: userObj.username,
-      text: text,
+      text: message,
       time: new Date()
     });
-    setText('');
   };
 
-  const handleInput = (e) => {
-    setText(e.target.value);
-  }
 
   const sty = {
     border: '1px solid lightgray',
@@ -62,10 +64,24 @@ export function MessageDisplay ({socket, displayChat, userObj}) {
         )
       }
         </div>
-      <form onSubmit={messageUser}>
+      <form onSubmit={form.onSubmit((values) => {
+        messageUser(values);
+        form.setValues({
+          message: ''
+        })
+      })}>
         <Grid m='auto'>
-        <input style={{width: '70%', marginLeft: '1%'}} name='message' placeholder='message' onChange={handleInput} value={text}/>
-        <Button>Send</Button>
+          <TextInput
+            placeholder='message'
+            styles={(theme) => ({
+              root: {
+                width: '70%',
+                marginLeft: '1%'
+              }
+            })}
+            {...form.getInputProps('message')}
+          />
+        <StyledButton string={'Send'} type='submit'/>
         </Grid>
       </form>
       </SimpleGrid>

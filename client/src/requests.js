@@ -141,13 +141,13 @@ module.exports = {
     });
   },
 
-  addComment: (gameId, comment) => {
+  addComment: (comment) => {
+    console.log('comment:', comment);
     return axios({
       url: '/comments',
       method: 'post',
       baseURL: basePath,
-      params: { gameId },
-      data: comment,
+      data: {comment},
     });
   },
 
