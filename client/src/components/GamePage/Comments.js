@@ -1,6 +1,5 @@
 import request from '../../requests.js';
 import { useState, useEffect } from 'react';
-import { StyledButton } from '../../styledComponents/StyledButtons.js';
 
 const Comments = ({ name, eventID }) => {
     const [comBody, setComBody] = useState("");
