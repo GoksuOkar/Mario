@@ -12,12 +12,10 @@ const Comments = ({ name, eventID }) => {
 
 
   useEffect(() => {
-    if ( eventID ) {
       request.getComments(eventID)
         .then(({ data }) => {
           data.map((comm) => {
             if (comm) {
-              console.log("comment:", comm);
               setComments(comments => comments.concat(comm));
             }
           })
@@ -25,7 +23,6 @@ const Comments = ({ name, eventID }) => {
         .catch((err) => {
           console.log("this is a getComments error!", err);
         });
-    }
   }, [])
 
   const renderComments = (data) => {
@@ -50,12 +47,11 @@ const Comments = ({ name, eventID }) => {
   const handleComSubmit = (e) => {
     e.preventDefault();
     console.log('eventID:', eventID);
-    const d = new Date()
     let newComment = {
       event_id: eventID,
       username: name,
       body: comBody,
-      date: moment(d).format('LT')
+      date: new Date()
     }
       request.addComment(newComment)
         .then((data) => {
