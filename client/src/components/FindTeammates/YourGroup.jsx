@@ -1,25 +1,34 @@
 import { Avatar, SimpleGrid, Grid, Text, Card, Divider } from '@mantine/core';
 import { BigStyledButton } from '../../styledComponents/StyledButtons.js';
 import { socket } from './../../App';
-import { user, join } from '../../Utilities/socket_listeners';
+import { join } from '../../Utilities/socket_listeners';
 
 // later: replace this with prop
 
-export default function YourGroup({group}) {
+export default function YourGroup({ group, user }) {
   const joinRoom = () => {
     // all the users array will be Object.keys(group);
     socket.emit(join.group, {
       conversationName: null,
       users: Object.keys(group),
-    })
+    });
   };
+
+  socket.on(join.room, (convo) => {
+    // if convo users includes my username, then add that convo to convo list
+    console.log(convo);
+    if (convo.users.includes(user.username)) {
+      socket.emit(join.room, { conversationId: convo._id.toString() });
+    }
+  });
+
   return (
     <>
       <Card shadow='sm' p='lg' radius='md'>
         <Text>Your Group</Text>
         <Divider my='sm' />
         <SimpleGrid>
-        <Text>Teammates</Text>
+          <Text>Teammates</Text>
           {Object.values(group).map((teammate) => (
             <div key={teammate._id}>
               <Grid>
@@ -31,7 +40,7 @@ export default function YourGroup({group}) {
               </Grid>
             </div>
           ))}
-          <BigStyledButton string={'Message Group'} onClick={joinRoom}/>
+          <BigStyledButton string={'Message Group'} onClick={joinRoom} />
         </SimpleGrid>
       </Card>
     </>
