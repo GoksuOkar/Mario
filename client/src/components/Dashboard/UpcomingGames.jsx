@@ -6,7 +6,7 @@ const UpcomingGames = ({myGames}) => {
     // later: put this in a grid and size it
     <Card shadow='sm' p='xs' radius='md' sx={{backgroundColor: '#f1f3f5'}}>
         <Text size='xl' align='center'>Your games</Text>
-        <Divider my='sm'size='md'/>
+        <Divider my='sm'size='md' color='white'/>
         <ScrollArea type='hover' style={{height: '500px'}}>
           {myGames.map(game =>
             <Card key={game._id} sx={{backgroundColor: 'white', marginTop: '6px'}}>
