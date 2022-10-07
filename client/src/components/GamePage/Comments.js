@@ -2,28 +2,14 @@ import request from '../../requests.js';
 import { useState, useEffect } from 'react';
 
 const Comments = ({ name, eventID }) => {
-  //get comments
-  // display comments
-  // add comment form
-    //on submit, adds the comment to the list of comments in db.
     const [comBody, setComBody] = useState("");
-    const [userName, setUserName] = useState("");
     const [comments, setComments] = useState([]);
 
 
   useEffect(() => {
-  // get the username of the current user for use in the newComment state
-  if (name) {
-    request.getCurrentUser(name).then((data) => {
-      console.log("current user:", data.data);
-      setUserName(data.data.username);
-    })
-  }
-
     if ( eventID ) {
       request.getComments(eventID)
         .then(({ data }) => {
-          console.log('comments data:', data);
           data.map((comm) => {
             if (comm) {
               setComments(comments => comments.concat(comm));
@@ -40,7 +26,7 @@ const Comments = ({ name, eventID }) => {
     return data.map((com) => {
       return <div className="comment">
         <p>{com.username}: {com.body}</p>
-        <p>{com.date}</p>
+        <p><small>{com.date}</small></p>
       </div>
     })
   }
@@ -65,12 +51,9 @@ const Comments = ({ name, eventID }) => {
 
   const handleChange = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
     setComBody(e.target.value)
 
   }
-
-  console.log('comments', comments);
 
 
     return(
