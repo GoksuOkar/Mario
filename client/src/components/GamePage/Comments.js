@@ -1,5 +1,5 @@
 import request from '../../requests.js';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
 
 const Comments = ({ name, eventID }) => {
