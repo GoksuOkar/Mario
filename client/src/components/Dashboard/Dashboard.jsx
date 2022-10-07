@@ -67,6 +67,7 @@ const Dashboard = ({ userId, setPage, setDispId, setGameState }) => {
               onChange={setSortBy}
             />
           </SimpleGrid>
+        <div style={{marginTop:"18px"}}>
           {games ? (
             <Grid>
               {games.map((event) => (
