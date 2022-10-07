@@ -6,7 +6,7 @@ import ball from './ball.css';
 import EditStats from './EditStats';
 
 export default function Profile({ updateUser, userObj, profile, page }) {
-  const { dribbling, dunking, passing, shooting } = profile.stats || 0;
+  const { dribbling, dunking, passing, shooting } = userObj.stats || 0;
   const bbSty = {
     width: '25px',
     height: '25px',
@@ -37,10 +37,7 @@ export default function Profile({ updateUser, userObj, profile, page }) {
           <Text>Height: {profile.height}</Text>
           {page === 'profile' ? (
             <EditStats
-              dunking={dunking}
-              passing={passing}
-              dribbling={dribbling}
-              shooting={shooting}
+              userObj={userObj}
               city={profile.city}
               state={profile.state}
               overallSkill={profile.overallSkill}

@@ -2,17 +2,6 @@ import request from '../../requests.js';
 import { useState, useEffect } from 'react';
 
 const Comments = ({ name, eventID }) => {
-  //get comments
-  // display comments
-  // add comment form
-    //on submit, adds the comment to the list of comments in db.
-
-    const [newComment, setNewComment] = useState({
-      event_id: '',
-      username: '',
-      body: '',
-      date: new Date()
-    })
     const [comBody, setComBody] = useState("");
     const [comments, setComments] = useState([]);
 
@@ -21,8 +10,6 @@ const Comments = ({ name, eventID }) => {
     if ( eventID ) {
       request.getComments(eventID)
         .then(({ data }) => {
-          console.log('eventID:', eventID);
-          console.log('comments data:', data);
           data.map((comm) => {
             if (comm) {
               setComments(comments => comments.concat(comm));
@@ -33,19 +20,27 @@ const Comments = ({ name, eventID }) => {
           console.log("this is a getComments error!", err);
         });
     }
-  }, [newComment, eventID])
+  }, [eventID])
 
   const renderComments = (data) => {
-    data.map((com) => {
+    return data.map((com) => {
       return <div className="comment">
         <p>{com.username}: {com.body}</p>
-        <p>{com.date}</p>
+        <p><small>{com.date}</small></p>
       </div>
     })
   }
 
-  const handleComSubmit = () => {
-      request.addComment(eventID, newComment)
+  const handleComSubmit = (e) => {
+    e.preventDefault();
+    console.log('eventID:', eventID);
+    let newComment = {
+      event_id: eventID,
+      username: name,
+      body: comBody,
+      date: new Date()
+    }
+      request.addComment(newComment)
         .then((data) => {
           console.log('addComment success!')
         })
@@ -56,16 +51,15 @@ const Comments = ({ name, eventID }) => {
 
   const handleChange = (e) => {
     e.preventDefault();
-    setComBody(prev => prev = e.target.value)
-  }
+    setComBody(e.target.value)
 
-  console.log('comments', comments);
+  }
 
 
     return(
       <div>
         <div className="com-form">
-          <form>
+          <form onSubmit={handleComSubmit}>
             <label>
               <input
                 type="text"
@@ -74,7 +68,7 @@ const Comments = ({ name, eventID }) => {
                 value={comBody}
                 onChange={handleChange}/>
             </label>
-            <input type="submit" value="Submit" onSubmit={handleComSubmit}/>
+            <input type="submit" value="Submit"/>
           </form>
         </div>
         <div className="com-container">

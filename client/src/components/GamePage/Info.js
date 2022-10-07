@@ -4,8 +4,14 @@ import request from '../../requests.js';
 
 const Info = ({ name, createdBy, attending, location, start, end, description, set }) => {
   const [photos, setPhotos] = useState([]);
+  const [created, setCreated] = useState("");
 
   useEffect(() => {
+    request.getCurrentUser(createdBy)
+      .then((data) => {
+        setCreated(data.data.username);
+      })
+
     if ( attending ) {
       request.getUserPhotos(attending)
         .then(({ data }) => {
@@ -33,14 +39,14 @@ const Info = ({ name, createdBy, attending, location, start, end, description, s
               key={player._id}
               src={player.photo}
               alt={player.id}
-              onClick={handlePlayerClick}></img>
+              onClick={handlePlayerClick(player._id)}></img>
           }
         })
       }
 
   }
 
-  const handlePlayerClick = () => {
+  const handlePlayerClick = (id) => {
     //when a user clicks on a player's image, it takes them to the player's profile.
     //send player.id to tell the page which profile page to load
 
@@ -51,11 +57,11 @@ const Info = ({ name, createdBy, attending, location, start, end, description, s
     <div className="gp_info">
       <button>join game</button>
       <h4>{name}</h4>
-      <p>{createdBy}</p>
+      <p><small>created by {created}</small></p>
       <p>{location}</p>
       <p>{start} - {end}</p>
       <p>{description}</p>
-      <p>see who's playing...</p>
+      <p><small>see who's playing...</small></p>
       <div>
         {getPlayers()}
       </div>
