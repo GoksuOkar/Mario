@@ -67,21 +67,23 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
               onChange={setSortBy}
             />
           </SimpleGrid>
-          {games ? (
-            <Grid>
-              {games.map((event) => (
-                <EventCard
-                  key={event._id}
-                  event={event}
-                  userId={userId}
-                  myGameIds={myGameIds}
-                  updateUserInfo={updateUserInfo}
-                  setDispId={setDispId}
-                  setPage={setPage}
-                />
-              ))}
-            </Grid>
-          ) : null}
+          <div style={{marginTop: '18px'}}>
+            {games ? (
+              <Grid>
+                {games.map((event) => (
+                  <EventCard
+                    key={event._id}
+                    event={event}
+                    userId={userId}
+                    myGameIds={myGameIds}
+                    updateUserInfo={updateUserInfo}
+                    setDispId={setDispId}
+                    setPage={setPage}
+                  />
+                ))}
+              </Grid>
+            ) : null}
+          </div>
         </Grid.Col>
       </Grid>
     </div>
