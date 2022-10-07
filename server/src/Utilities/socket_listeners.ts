@@ -15,16 +15,3 @@ export const user = {
   getFriends: 'get_friends',
   newMessage: 'new_message'
 }
-
-export const client = {
-  user: {
-    connected: 'client_user_connected',
-    directMessage: 'client_direct_message',
-    getConversations: 'client_get_conversations',
-    newMessage: 'client_new_message'
-  }
-}
-
-export const server = {
-
-}
