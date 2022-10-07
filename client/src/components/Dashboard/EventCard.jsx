@@ -26,6 +26,8 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
     }
   }
 
+
+
   const handleCardClick = () => {
     setGameState(event._id);
     setPage('gp');
