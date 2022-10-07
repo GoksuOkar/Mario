@@ -86,7 +86,7 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
                   color: 'white',
                   margin: 5,
                   "&:hover": {
-                    backgroundColor: `${myGameIds.includes(event._id) ?'hsl(0, 0%, 40%)' : "hsl(184,77%,22%)"}`
+                    backgroundColor: `${myGameIds.includes(event._id) ?'hsl(0, 0%, 40%)' : 'hsl(184,67%,32%)'}`
 
                   },
                 },
