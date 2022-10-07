@@ -30,11 +30,13 @@ export default function Profile({ updateUser, userObj, profile, page }) {
       <Grid ml='lg'>
         <Avatar mr='lg' radius={100} size={200} src={profile.picture} />
         <div style={{ marginLeft: '10%' }}>
-          <Text weight='bolder'>{profile.username}</Text>
-          <Text>City: {profile.city}</Text>
-          <Text>State: {profile.state}</Text>
-          <Text>Prefered Role: {profile.preferedRole}</Text>
-          <Text>Height: {profile.height}</Text>
+          <Text size={25} weight='bolder'>
+            {profile.username}
+          </Text>
+          <Text size={20}>City: {profile.city}</Text>
+          <Text size={20}>State: {profile.state}</Text>
+          <Text size={20}>Prefered Role: {profile.preferedRole}</Text>
+          <Text size={20}>Height: {profile.height}</Text>
           {page === 'profile' ? (
             <EditStats
               userObj={userObj}

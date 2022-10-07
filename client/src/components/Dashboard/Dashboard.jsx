@@ -7,7 +7,7 @@ import MakeGame from './MakeGame.jsx';
 import please from '../../requests.js';
 import basketballOutline from '../../assets/images/basketballOutline.png';
 
-const Dashboard = ({ userId, setPage, setDispId }) => {
+const Dashboard = ({ userId, setPage, setDispId, setGameState }) => {
   const [sortBy, setSortBy] = useState('upcoming');
   const [formOpen, setFormOpen] = useState(false);
   const [games, setGames] = useState([]);
@@ -27,7 +27,6 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
   };
 
   const getGames = () => {
-    console.log('sort crit is', sortBy, 'userid', userId);
     please
       .getAllGames('San Jose', 'CA', sortBy, userId)
       .then((data) => setGames(data.data))
@@ -44,8 +43,8 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
 
   return (
     <div style={{ margin: '40px' }}>
-      <Grid grow>
-        <Grid.Col span={1}>
+      <Grid>
+        <Grid.Col span='content'>
           <UpcomingGames myGames={myGames} />
           {/* later: turn this into a basketball */}
           {/* link this to open up modal form */}
@@ -55,7 +54,8 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
           </div>
           {formOpen && <MakeGame setFormOpen={setFormOpen} userId={userId} />}
         </Grid.Col>
-        <Grid.Col span={9}>
+        {/* <Grid.Col xs={5} sm={6} md={7} lg={8}> */}
+        <Grid.Col span='auto'>
           <SimpleGrid>
             <SegmentedControl
               data={[
@@ -67,19 +67,20 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
               onChange={setSortBy}
             />
           </SimpleGrid>
-          <div style={{marginTop: '18px'}}>
-            {games ? (
-              <Grid>
-                {games.map((event) => (
-                  <EventCard
-                    key={event._id}
-                    event={event}
-                    userId={userId}
-                    myGameIds={myGameIds}
-                    updateUserInfo={updateUserInfo}
-                    setDispId={setDispId}
-                    setPage={setPage}
-                  />
+        <div style={{marginTop:"18px"}}>
+          {games ? (
+            <Grid>
+              {games.map((event) => (
+                <EventCard
+                  key={event._id}
+                  event={event}
+                  userId={userId}
+                  myGameIds={myGameIds}
+                  updateUserInfo={updateUserInfo}
+                  setDispId={setDispId}
+                  setPage={setPage}
+                  setGameState={setGameState}
+                />
                 ))}
               </Grid>
             ) : null}

@@ -4,17 +4,14 @@ import { useState, useEffect } from 'react';
 import please from '../../requests.js';
 import UserAvatar from './UserAvatar.jsx';
 
-const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPage }) => {
+const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPage, setGameState }) => {
   const join = () => {
-    console.log('sending request to join game')
-    console.log('userid', userId, 'gameid', event._id);
     please.joinGame(userId, event._id)
      .then(() => updateUserInfo())
      .catch(error => console.log(error));
   }
 
   const leaveGame = (gameId) => {
-    console.log('sending request to leave game')
     please.leaveGame(userId, event._id)
       .then(() => updateUserInfo())
       .catch(error => console.log(error))
@@ -34,15 +31,28 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
     fakeKey++;
   }
 
+
+  const handleCardClick = () => {
+    setGameState(event._id);
+    setPage('gp');
+  }
+
   return (
     <>
-      <Grid.Col key={event._id} span={3} style={{width: '300px'}}>
+      <Grid.Col
+        key={event._id}
+        xs={12}
+        sm={12}
+        md={6}
+        lg={4}
+        xl={3}
+        >
         <Card
           shadow='sm'
           p='lg'
           radius='md'>
           <Text sx={{textAlign:'center'}}>
-            <h3>{event.eventName}</h3>
+            <h3 onClick={handleCardClick}>{event.eventName}</h3>
           </Text>
           <SimpleGrid cols={6} spacing='sm' verticalSpacing='sm'>
           {attendees.map(playerId =>
@@ -62,12 +72,12 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
           </Avatar>
           )}
           </SimpleGrid>
-          {event.location.length < 30
+          {event.location.length < 28
           ?
           <Text>{event.location}</Text>
           :
           <Tooltip label={event.location}>
-            <Text>{event.location.slice(0, 30)}...</Text>
+            <Text>{event.location.slice(0, 28)}...</Text>
           </Tooltip>
           }
           {/* italicise and insert calculated distance */}
@@ -86,7 +96,7 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
                   color: 'white',
                   margin: 5,
                   "&:hover": {
-                    backgroundColor: `${myGameIds.includes(event._id) ?'hsl(0, 0%, 40%)' : "hsl(184,77%,22%)"}`
+                    backgroundColor: `${myGameIds.includes(event._id) ?'hsl(0, 0%, 40%)' : 'hsl(184,67%,32%)'}`
 
                   },
                 },
