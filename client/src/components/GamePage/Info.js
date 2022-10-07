@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import request from '../../requests.js';
 import { BigStyledButton, StyledButton } from '../../styledComponents/StyledButtons.js';
-import {Avatar, Grid, Tooltip, Divider} from '@mantine/core'
+import {Avatar, Grid, Tooltip, Divider} from '@mantine/core';
+import moment from 'moment';
 
 
 const Info = ({ name, createdBy, attending, location, start, end, description }) => {
@@ -71,7 +72,7 @@ const Info = ({ name, createdBy, attending, location, start, end, description })
       <Grid>
         <Grid.Col span={6}>
           <p>{location}</p>
-          <p>{start} - {end}</p>
+          <p>{moment(start).format('MMMM D')}, {moment(start).format('LT')} - {moment(end).format('LT')}</p>
           <p>{description}</p>
         </Grid.Col>
         <Grid.Col span={6}>

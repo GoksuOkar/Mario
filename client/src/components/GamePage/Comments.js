@@ -1,9 +1,14 @@
 import request from '../../requests.js';
 import { useState, useEffect } from 'react';
+import moment from 'moment';
 
 const Comments = ({ name, eventID }) => {
     const [comBody, setComBody] = useState("");
     const [comments, setComments] = useState([]);
+
+  const dateStyle = {
+    textAlign: "right",
+  }
 
 
   useEffect(() => {
@@ -26,7 +31,7 @@ const Comments = ({ name, eventID }) => {
     return data.map((com) => {
       return <div className="comment">
         <p>{com.username}: {com.body}</p>
-        <p><small>{com.date}</small></p>
+        <p style={dateStyle}><small>{moment(com.date).format('MMMM D')}, {moment(com.date).format('LT')}</small></p>
       </div>
     })
   }
@@ -34,11 +39,12 @@ const Comments = ({ name, eventID }) => {
   const handleComSubmit = (e) => {
     e.preventDefault();
     console.log('eventID:', eventID);
+    const d = new Date()
     let newComment = {
       event_id: eventID,
       username: name,
       body: comBody,
-      date: new Date()
+      date: moment(d).format('LT')
     }
       request.addComment(newComment)
         .then((data) => {
