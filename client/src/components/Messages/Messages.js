@@ -4,7 +4,7 @@ import { socket } from './../../App';
 import MessageRoom from './MessageRoom.js';
 import { MessageDisplay } from './MessageDisplay';
 import { user, join } from '../../Utilities/socket_listeners';
-import { StyledButton } from '../../styledComponents/StyledButtons';
+import { BigStyledButton } from '../../styledComponents/StyledButtons';
 
 
 export function Messages({ userObj }) {
@@ -74,10 +74,10 @@ export function Messages({ userObj }) {
       <Grid m='auto'>
         <div style={{width: '20vw', padding: '2rem'}}>
           {friends.length > 0 ? (
-            <div>
-              <Select placeholder="Choose a friend to message!" data={friends} onChange={setSelectedFriend}/>
-              <StyledButton string={'New Message'} onClick={handleNewMessage} />
-            </div>
+          <div style={{display:'flex', flexDirection:'column'}}>
+            <Select placeholder="Choose a friend to message!" data={friends} onChange={setSelectedFriend}/>
+            <BigStyledButton string={'New Message'} onClick={handleNewMessage} />
+          </div>
           ) : (
             <div>You got no friends cuh</div>
           )}
