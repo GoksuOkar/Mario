@@ -43,8 +43,8 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
 
   return (
     <div style={{ margin: '40px' }}>
-      <Grid grow>
-        <Grid.Col span={1}>
+      <Grid>
+        <Grid.Col span='content'>
           <UpcomingGames myGames={myGames} />
           {/* later: turn this into a basketball */}
           {/* link this to open up modal form */}
@@ -54,7 +54,7 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
           </div>
           {formOpen && <MakeGame setFormOpen={setFormOpen} userId={userId} />}
         </Grid.Col>
-        <Grid.Col span={9}>
+        <Grid.Col xs={5} sm={6} md={7} lg={8}>
           <SimpleGrid>
             <SegmentedControl
               data={[
