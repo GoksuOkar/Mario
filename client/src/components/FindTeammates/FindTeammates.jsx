@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SegmentedControl, Button, Grid, Text, Card } from '@mantine/core';
+import { SegmentedControl, Grid} from '@mantine/core';
 import Teammates from './Teammates.jsx';
 import YourGroup from './YourGroup.jsx';
 import { getUsersInSameCity } from '../../requests.js';
@@ -19,12 +19,12 @@ export default function FindTeammates({ user, setPage, name }) {
 
   return (
     <>
-      <Grid gutter={40}>
+      <Grid gutter={40} align='center'>
+        <Grid.Col span={12}></Grid.Col>
         <Grid.Col span={3}>
           <YourGroup group={group} user={user} setPage={setPage} />
         </Grid.Col>
         <Grid.Col span={8}>
-          <p>Sort by:</p>
           <SegmentedControl
             styles={(theme) => ({
               root: {

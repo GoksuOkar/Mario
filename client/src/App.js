@@ -67,7 +67,7 @@ export default function App() {
           setDispId={setDispId}
         />
       ) : null}
-      {page === 'findTeam' ? <FindTeammates user={userObj}/> : null}
+      {page === 'findTeam' ? <FindTeammates user={userObj} name={userObj.username}/> : null}
       {page === 'messages' ? <Messages userObj = {userObj}/> : null}
       {page === 'gp' ? <GamePage gameid={gameState} userName={userObj.username} set={setPage}/> : null}
 
