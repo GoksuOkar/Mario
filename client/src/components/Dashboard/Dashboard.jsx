@@ -1,4 +1,4 @@
-import './button.css'
+import './dashboard.css'
 import React, { useState, useEffect } from 'react';
 import { SegmentedControl, Button, Grid, SimpleGrid } from '@mantine/core';
 import EventCard from './EventCard.jsx';
