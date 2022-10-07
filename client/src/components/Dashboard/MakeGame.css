@@ -11,6 +11,9 @@
   align-items: center;
   animation: moveright 0.5s 1;
 }
+#left-form-panel:hover{
+  cursor: pointer
+}
 
 #right-form-panel {
   position: fixed;
@@ -43,4 +46,10 @@
 #form {
   width: 60%;
   max-width: 400px;
+}
+
+.form-labels {
+  color: hsl(0, 0%, 90%);
+  margin-top: 10px;
+  font-size: 20px;
 }

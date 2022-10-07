@@ -1,4 +1,4 @@
-import { Card, Text, Grid, SimpleGrid, Avatar, Chip, Tooltip } from '@mantine/core';
+import { Card, Text, Grid, SimpleGrid, Avatar, Button, Tooltip } from '@mantine/core';
 import moment from 'moment';
 import { useState, useEffect } from 'react';
 import please from '../../requests.js';
@@ -27,10 +27,16 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
       join();
     }
   }
+  let attendees = event.peopleAttending;
+  let fakeKey = 0;
+  while (attendees.length < 12) {
+    attendees.push(fakeKey)
+    fakeKey++;
+  }
 
   return (
     <>
-      <Grid.Col key={event._id} span={3}>
+      <Grid.Col key={event._id} span={3} style={{width: '300px'}}>
         <Card
           shadow='sm'
           p='lg'
@@ -39,30 +45,56 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
             <h3>{event.eventName}</h3>
           </Text>
           <SimpleGrid cols={6} spacing='sm' verticalSpacing='sm'>
-              {event.peopleAttending.map(playerId => playerId
-              ?
-              <UserAvatar
-              key={playerId}
-              playerId={playerId}
-              setDispId={setDispId}
-              setPage={setPage}/>
-              :
-              null
-              )}
+          {attendees.map(playerId =>
+          typeof playerId === 'string'
+          ?
+          <UserAvatar
+          key={playerId}
+          playerId={playerId}
+          setDispId={setDispId}
+          setPage={setPage}/>
+          :
+          <Avatar
+          key={playerId}
+          src={null}
+          alt='small picture of person attending'
+          radius='xl'>
+          </Avatar>
+          )}
           </SimpleGrid>
+          {event.location.length < 30
+          ?
           <Text>{event.location}</Text>
+          :
+          <Tooltip label={event.location}>
+            <Text>{event.location.slice(0, 30)}...</Text>
+          </Tooltip>
+          }
           {/* italicise and insert calculated distance */}
-          <Text>Miles from you</Text>
+          {/* <Text>Miles from you</Text> */}
           <Text>Date: {moment(event.startTime).format('ll')}</Text>
           <Text>Time: {moment(event.startTime).format('LT')} - {moment(event.endTime).format('LT')}</Text>
-          <Chip
-            checked={myGameIds.includes(event._id)}
-            variant='filled'
-            radius='md'
-            color='teal'
-            onClick={() => toggleJoinLeave()}>
+          <div className='toggle-btn-ctn'>
+            <Button
+              onClick={() => toggleJoinLeave()}
+              variant='light'
+              // size='xs'
+              sx={{width: '100px'}}
+              styles={(theme) => ({
+                root: {
+                  backgroundColor: `${myGameIds.includes(event._id) ?'hsl(0, 0%, 80%)' : '#0d5f65'}`,
+                  color: 'white',
+                  margin: 5,
+                  "&:hover": {
+                    backgroundColor: `${myGameIds.includes(event._id) ?'hsl(0, 0%, 40%)' : "hsl(184,77%,22%)"}`
+
+                  },
+                },
+              })}
+            >
             {myGameIds.includes(event._id) ? 'Going' : 'Let\'s go!'}
-          </Chip>
+            </Button>
+          </div>
         </Card>
       </Grid.Col>
     </>
