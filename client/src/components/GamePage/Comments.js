@@ -17,6 +17,7 @@ const Comments = ({ name, eventID }) => {
         .then(({ data }) => {
           data.map((comm) => {
             if (comm) {
+              console.log("comment:", comm);
               setComments(comments => comments.concat(comm));
             }
           })
@@ -25,9 +26,17 @@ const Comments = ({ name, eventID }) => {
           console.log("this is a getComments error!", err);
         });
     }
-  }, [eventID])
+  }, [])
 
   const renderComments = (data) => {
+    data.sort((a, b) => {
+      var dateA = new Date(a.date);
+      var dateB = new Date(b.date);
+      if (dateA < dateB) return -1;
+      if (dateA > dateB) return 1;
+      return 0
+    });
+
     return data.map((com) => {
       return <div className="comment">
         <p>{com.username}: {com.body}</p>
@@ -35,6 +44,8 @@ const Comments = ({ name, eventID }) => {
       </div>
     })
   }
+
+
 
   const handleComSubmit = (e) => {
     e.preventDefault();

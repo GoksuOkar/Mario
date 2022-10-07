@@ -63,26 +63,43 @@ const Info = ({ name, createdBy, attending, location, start, end, description })
 
   }
 
+  const dividerStyle = {
+    margin: "40px",
+    marginBottom: "60px"
+  }
+
+  const nameStyle = {
+    textAlign: "center",
+  }
+
+  const descriptionStyle = {
+    marginTop: "40px"
+  }
+
+
 
   return(
     <div className="gp_info">
-      <StyledButton string={"Join Game"} />
-      <h4>{name}</h4>
-      <p><small>created by {created}</small></p>
+      <StyledButton string={"Join Game"}/>
+      <h4 style={nameStyle}>{name}</h4>
+      <p style={nameStyle}><small>created by {created}</small></p>
       <Grid>
         <Grid.Col span={6}>
           <p>{location}</p>
-          <p>{moment(start).format('MMMM D')}, {moment(start).format('LT')} - {moment(end).format('LT')}</p>
-          <p>{description}</p>
+          <p><small>{moment(start).format('MMMM D')}, {moment(start).format('LT')} - {moment(end).format('LT')}</small></p>
+          <p style={descriptionStyle}>{description}</p>
         </Grid.Col>
         <Grid.Col span={6}>
-          <Divider orientation='vertical'/>
+          <Divider orientation='vertical' my="sm" props={{color: "grey"}}/>
           <p>see who's playing...</p>
           <div style={{display: 'flex'}}>
-            {getPlayers()}
+            <Grid>
+              {getPlayers()}
+            </Grid>
           </div>
         </Grid.Col>
       </Grid>
+      <Divider my="sm" style={dividerStyle}/>
     </div>
   )
 
