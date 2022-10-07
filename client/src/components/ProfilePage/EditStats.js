@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Modal, Button, Group, Grid, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { updateUser } from "../../requests";
+import { StyledButton } from '../../styledComponents/StyledButtons.js';
 
 export default function EditStats({
   id,
@@ -150,7 +151,7 @@ export default function EditStats({
       </Modal>
 
       <Group position="center">
-        <Button onClick={() => setOpened(true)}>Edit Stats</Button>
+        <StyledButton string={'Edit Stats'} onClick={() => setOpened(true)}/>
       </Group>
     </>
   );

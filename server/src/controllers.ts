@@ -253,6 +253,12 @@ export function getUserInfo (req: Request, res: Response) {
     .catch(err=>res.send(err));
 }
 
+export async function getUsersInCity (req: Request, res: Response) {
+  const { city } = req.params;
+  db.User.find({ city })
+  .then((result) => res.send(result));
+}
+
 export async function getCurrentUser (req: Request, res: Response) {
   db.User.findOne({_id: req.query.userId})
   .then(result=>res.send(result))
