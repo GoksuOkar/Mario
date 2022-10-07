@@ -3,7 +3,6 @@ import moment from 'moment';
 import { useState, useEffect } from 'react';
 import please from '../../requests.js';
 import UserAvatar from './UserAvatar.jsx';
-import GamePage from '../GamePage/GamePage.js';
 
 const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPage, setGameState }) => {
   const join = () => {
@@ -25,7 +24,12 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
       join();
     }
   }
-
+  let attendees = event.peopleAttending;
+  let fakeKey = 0;
+  while (attendees.length < 12) {
+    attendees.push(fakeKey)
+    fakeKey++;
+  }
 
 
   const handleCardClick = () => {
