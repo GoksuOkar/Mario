@@ -27,7 +27,6 @@ const Dashboard = ({ userId, setPage, setDispId }) => {
   };
 
   const getGames = () => {
-    console.log('sort crit is', sortBy, 'userid', userId);
     please
       .getAllGames('San Jose', 'CA', sortBy, userId)
       .then((data) => setGames(data.data))

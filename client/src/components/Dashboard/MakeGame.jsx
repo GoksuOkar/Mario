@@ -37,7 +37,6 @@ const MakeGame = ({ setFormOpen, userId }) => {
       endTime: computedEndTime,
       creator: userId,
     }
-    console.log('SENDING FORM TO SERVER', body);
     please.createGame(body)
      .then(() => setFormOpen(false))
      .catch(error => console.log(error))

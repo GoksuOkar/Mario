@@ -6,15 +6,12 @@ import UserAvatar from './UserAvatar.jsx';
 
 const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPage }) => {
   const join = () => {
-    console.log('sending request to join game')
-    console.log('userid', userId, 'gameid', event._id);
     please.joinGame(userId, event._id)
      .then(() => updateUserInfo())
      .catch(error => console.log(error));
   }
 
   const leaveGame = (gameId) => {
-    console.log('sending request to leave game')
     please.leaveGame(userId, event._id)
       .then(() => updateUserInfo())
       .catch(error => console.log(error))
