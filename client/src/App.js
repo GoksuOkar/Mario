@@ -10,12 +10,11 @@ import FindTeammates from './components/FindTeammates/FindTeammates.jsx';
 
 import Axios from '../src/requests';
 import io from 'socket.io-client';
-const socket = io('http://localhost:3001', {autoConnect: false});
-
+const socket = io('http://localhost:3001', { autoConnect: false });
 
 export default function App() {
   //const divRef = useRef(true);
-  const [userId, setUserId] = useState("633ca1f73a3cb5d9bdc3bff5");
+  const [userId, setUserId] = useState('633ca1f73a3cb5d9bdc3bff5');
   const [userObj, setUserObj] = useState({});
   const [page, setPage] = useState(null);
   const [dispId, setDispId] = useState(userId);
@@ -26,10 +25,10 @@ export default function App() {
       .then((res) => {
         if (res.data.id !== null) {
           setUserId(res.data.id);
-          setPage("games");
+          setPage('games');
         }
       })
-      .catch(() => setPage("login"));
+      .catch(() => setPage('login'));
   }, []);
 
   useEffect(() => {
@@ -43,19 +42,15 @@ export default function App() {
   };
 
   return (
-    <div className="App">
+    <div className='App'>
       <NavBar userId={userId} page={page} setPage={setPage} />
-      {page === "login" ? (
+      {page === 'login' ? (
         <LoginView setPage={setPage} setUserId={setUserId} userId={userId} />
       ) : null}
-      {page === "games"
-      ?
-      <Dashboard
-      userId={userId}
-      setPage={setPage}
-      setDispId={setDispId} />
-      : null}
-      {page === "profile" || page === "frnd" ? (
+      {page === 'games' ? (
+        <Dashboard userId={userId} setPage={setPage} setDispId={setDispId} />
+      ) : null}
+      {page === 'profile' || page === 'frnd' ? (
         <ProfilePage
           userObj={userObj}
           updateUser={updateUser}
@@ -66,10 +61,10 @@ export default function App() {
           setDispId={setDispId}
         />
       ) : null}
-      {page === 'findTeam' ? <FindTeammates user={userObj}/> : null}
-      {page === 'messages' ? <Messages userObj = {userObj}/> : null}
-
-
+      {page === 'findTeam' ? (
+        <FindTeammates user={userObj} setPage={setPage} name={userObj.username} />
+      ) : null}
+      {page === 'messages' ? <Messages userObj={userObj} /> : null}
     </div>
   );
 }
