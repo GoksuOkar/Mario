@@ -42,8 +42,6 @@ export default function App() {
       .catch((err) => console.log(err));
   };
 
-  console.log(userObj)
-
   return (
     <div className="App">
       <NavBar userId={userId} page={page} setPage={setPage} />
@@ -68,7 +66,7 @@ export default function App() {
           setDispId={setDispId}
         />
       ) : null}
-      {page === 'findTeam' ? <FindTeammates /> : null}
+      {page === 'findTeam' ? <FindTeammates user={userObj}/> : null}
       {page === 'messages' ? <Messages userObj = {userObj}/> : null}
 
 

@@ -159,4 +159,11 @@ module.exports = {
       data: { userInfo, id },
     });
   },
+
+  //FINDING TEAMMATES//
+  getUsersInSameCity: (cityString) => {
+    // city params must be an object in the form of {city: 'your city'}
+    let path = '/users/' + cityString
+    return Axios.get(path);
+  }
 };

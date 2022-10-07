@@ -25,10 +25,11 @@ router.post('/comments', controllers.addComment)
 
 /***************USERS*******************/
 router.get('/users', controllers.getUserInfo)
-router.get('/user', controllers.getUserPhotos)
+router.get('/users/:city', controllers.getUsersInCity)
 router.get('/currentUser', controllers.getCurrentUser)
 router.put('/addFriend', controllers.addFriend)
 router.put('/unFriend', controllers.unFriend)
 router.put('/updateUser', controllers.updateUser)
 
 /***************CONVERSATIONS*******************/
+
