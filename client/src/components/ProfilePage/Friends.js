@@ -1,12 +1,13 @@
-import { Grid, Avatar, Card, Text, SimpleGrid } from '@mantine/core';
+import { Grid, Avatar, Text, SimpleGrid, Divider } from '@mantine/core';
 
 export default function Friends({ friends, setDispId, setPage }) {
   if (friends) {
     return (
-      <SimpleGrid>
-        <Text size={20} m='auto' weight='bolder'>
+      <SimpleGrid mt='xl'>
+        <Text color='white' size={20} m='auto' weight='bolder'>
           FRIENDS
         </Text>
+        <Divider></Divider>
         <Grid columns={5}>
           {friends.map((friend) =>
             friend ? (
@@ -17,8 +18,10 @@ export default function Friends({ friends, setDispId, setPage }) {
                     setDispId(friend._id);
                     setPage('frnd');
                   }}>
-                  <Avatar m='auto' src={friend.photo} />
-                  <Text align='center'>{friend.username}</Text>
+                  <Avatar m='auto' src={friend.picture} />
+                  <Text color='white' align='center'>
+                    {friend.username}
+                  </Text>
                 </div>
               </Grid.Col>
             ) : null
