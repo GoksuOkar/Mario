@@ -1,13 +1,15 @@
-import { Avatar, SimpleGrid, Grid, Text, Card, Divider } from '@mantine/core';
+import { Avatar, SimpleGrid, Grid, Text, Card, Divider, TextInput } from '@mantine/core';
 import { BigStyledButton } from '../../styledComponents/StyledButtons.js';
 import { socket } from './../../App';
 import { join } from '../../Utilities/socket_listeners';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 // later: replace this with prop
 
 export default function YourGroup({ group, user, setPage }) {
   const [makeGroup, setMakeGroup] = useState(false);
+  const conversation = useRef(null);
+
 
   const joinRoom = () => {
     // all the users array will be Object.keys(group);
@@ -39,7 +41,7 @@ export default function YourGroup({ group, user, setPage }) {
   return (
     <>
       <Card shadow='sm' p='lg' radius='md'>
-        <Text>Your Group</Text>
+        <TextInput ref={conversation} placeholder="Your Group"/>
         <Divider my='sm' />
         <SimpleGrid>
           <Text>Teammates</Text>
@@ -54,9 +56,9 @@ export default function YourGroup({ group, user, setPage }) {
               </Grid>
             </div>
           ))}
-          <BigStyledButton string={'Message Group'} onClick={joinRoom} />
+          <BigStyledButton string={'Message Group'} onClick={() => joinRoom(conversation.current.value)} />
         </SimpleGrid>
       </Card>
     </>
   );
-}
+};

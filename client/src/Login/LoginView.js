@@ -34,7 +34,6 @@ function LoginView({ setUserId, userId, setPage, setLogin }) {
     Axios
     .googleLogin(response)
     .then((res) => {
-      console.log(res)
       setUserId(res.data.id)
       setPage('games');
     })
@@ -43,7 +42,6 @@ function LoginView({ setUserId, userId, setPage, setLogin }) {
 
   // Sends login credentials to backend, alerts if wrong login
   const handleSubmit = (values) => {
-    console.log(values);
     Axios.login(values)
     .then((res) => {
       setUserId(res.data.id);
@@ -157,7 +155,7 @@ function LoginView({ setUserId, userId, setPage, setLogin }) {
           style={{
             opacity:'0.5',
             position: 'absolute',
-            top: '-40%',
+            top: '-50%',
             zIndex: '-1'
           }}
         />
