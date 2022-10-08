@@ -19,6 +19,31 @@ export default function App() {
   const [page, setPage] = useState(null);
   const [dispId, setDispId] = useState(userId);
   const [gameState, setGameState] = useState('');
+  const [myGames, setMyGames] = useState([]);
+  const [myGameIds, setMyGameIds] = useState([]);
+
+  const updateUserInfo = () => {
+    Axios.getUserInfo(userId)
+      .then((data) => {
+        let events = data.data.events;
+        let eventIds = events.map((event) => event._id);
+        setMyGames(events);
+        setMyGameIds(eventIds);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const toggleJoinLeave = (eventId) => {
+    if (myGameIds.includes(eventId)) {
+      Axios.leaveGame(userId, eventId)
+      .then(() => updateUserInfo())
+      .catch(error => console.log(error))
+    } else {
+      Axios.joinGame(userId, eventId)
+      .then(() => updateUserInfo())
+      .catch(error => console.log(error));
+    }
+  }
 
   // checks if the user is already authenticated, sets the page to 'login' if not.
   useEffect(() => {
@@ -48,15 +73,19 @@ export default function App() {
       {page === 'login' ? (
         <LoginView setPage={setPage} setUserId={setUserId} userId={userId} />
       ) : null}
-      {page === 'games' ? (
-        <Dashboard
-          userId={userId}
-          setPage={setPage}
-          setDispId={setDispId}
-          setGameState={setGameState}
-        />
-      ) : null}
-      {page === 'profile' || page === 'frnd' ? (
+      {page === "games"
+      ?
+      <Dashboard
+      userId={userId}
+      setPage={setPage}
+      setDispId={setDispId}
+      setGameState={setGameState}
+      myGameIds={myGameIds}
+      myGames={myGames}
+      updateUserInfo={updateUserInfo}
+      toggleJoinLeave={toggleJoinLeave} />
+      : null}
+      {page === "profile" || page === "frnd" ? (
         <ProfilePage
           userObj={userObj}
           updateUser={updateUser}
@@ -70,13 +99,7 @@ export default function App() {
       ) : null}
       {page === 'findTeam' ? <FindTeammates user={userObj} /> : null}
       {page === 'messages' ? <Messages userObj={userObj} /> : null}
-      {page === 'gp' ? (
-        <GamePage
-          gameid={gameState}
-          userName={userObj.username}
-          set={setPage}
-        />
-      ) : null}
+      {page === 'gp' ? <GamePage gameid={gameState} userName={userObj.username} set={setPage} toggleJoinLeave={toggleJoinLeave} myGameIds={myGameIds}/> : null}
     </div>
   );
 }

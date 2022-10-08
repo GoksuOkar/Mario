@@ -9,7 +9,7 @@ import {Grid, Avatar, Button, Divider, Card} from '@mantine/core';
 //<GamePage gameid={id} userName={userObj.username} set={setPage} />
 
 
-const GamePage = ({ gameid, userName, set }) => {
+const GamePage = ({ gameid, userName, set, toggleJoinLeave, myGameIds }) => {
   const [game, setGame] = useState({});
 
   useEffect(() => {
@@ -30,6 +30,26 @@ const GamePage = ({ gameid, userName, set }) => {
             shadow='sm'
             p='lg'
             radius='md'>
+            <Button
+              onClick={(e) => {
+                e.stopPropagation()
+                toggleJoinLeave(gameid)
+              }}
+              variant='light'
+              sx={{width: '100px'}}
+              styles={(theme) => ({
+                root: {
+                  backgroundColor: `${myGameIds.includes(gameid) ?'hsl(0, 0%, 80%)' : '#0d5f65'}`,
+                  color: 'white',
+                  margin: 5,
+                  "&:hover": {
+                    backgroundColor: `${myGameIds.includes(gameid) ?'hsl(0, 0%, 40%)' : 'hsl(184,67%,32%)'}`
+                  },
+                },
+              })}
+            >
+            {myGameIds.includes(gameid) ? 'Going' : 'Let\'s go!'}
+            </Button>
             <Info
               name={game.eventName}
               createdBy={game.creator}
