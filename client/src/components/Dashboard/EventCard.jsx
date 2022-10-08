@@ -1,22 +1,19 @@
 import { Card, Text, Grid, SimpleGrid, Avatar, Button, Tooltip } from '@mantine/core';
 import moment from 'moment';
-import { useState, useEffect } from 'react';
 import please from '../../requests.js';
 import UserAvatar from './UserAvatar.jsx';
 
-const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPage, setGameState }) => {
+const EventCard = ({
+  event,
+  myGameIds,
+  userId,
+  updateUserInfo,
+  setDispId,
+  setPage,
+  setGameState,
+  toggleJoinLeave
+  }) => {
 
-  const toggleJoinLeave = () => {
-    if (myGameIds.includes(event._id)) {
-      please.leaveGame(userId, event._id)
-      .then(() => updateUserInfo())
-      .catch(error => console.log(error))
-    } else {
-      please.joinGame(userId, event._id)
-      .then(() => updateUserInfo())
-      .catch(error => console.log(error));
-    }
-  }
   // padds attendees list to render empty slots
   let attendees = event.peopleAttending;
   let fakeKey = 0;
@@ -75,15 +72,15 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
             <Text>{event.location.slice(0, 28)}...</Text>
           </Tooltip>
           }
-          {/* italicise and insert calculated distance */}
-          {/* <Text>Miles from you</Text> */}
           <Text>Date: {moment(event.startTime).format('ll')}</Text>
           <Text>Time: {moment(event.startTime).format('LT')} - {moment(event.endTime).format('LT')}</Text>
           <div className='toggle-btn-ctn'>
             <Button
-              onClick={() => toggleJoinLeave()}
+              onClick={(e) => {
+                e.stopPropagation()
+                toggleJoinLeave(myGameIds, event._id)
+              }}
               variant='light'
-              // size='xs'
               sx={{width: '100px'}}
               styles={(theme) => ({
                 root: {
@@ -92,7 +89,6 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
                   margin: 5,
                   "&:hover": {
                     backgroundColor: `${myGameIds.includes(event._id) ?'hsl(0, 0%, 40%)' : 'hsl(184,67%,32%)'}`
-
                   },
                 },
               })}

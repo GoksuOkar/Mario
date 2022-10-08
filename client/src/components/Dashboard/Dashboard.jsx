@@ -7,28 +7,24 @@ import MakeGame from './MakeGame.jsx';
 import please from '../../requests.js';
 import basketballOutline from '../../assets/images/basketballOutline.png';
 
-const Dashboard = ({ userId, setPage, setDispId, setGameState }) => {
+const Dashboard = ({
+  userId,
+  setPage,
+  setDispId,
+  setGameState,
+  myGameIds,
+  myGames,
+  updateUserInfo,
+  toggleJoinLeave
+  }) => {
+
   const [sortBy, setSortBy] = useState('upcoming');
   const [formOpen, setFormOpen] = useState(false);
   const [games, setGames] = useState([]);
-  const [myGames, setMyGames] = useState([]);
-  const [myGameIds, setMyGameIds] = useState([]);
-
-  const updateUserInfo = () => {
-    please
-      .getUserInfo(userId)
-      .then((data) => {
-        let events = data.data.events;
-        let eventIds = events.map((event) => event._id);
-        setMyGames(events);
-        setMyGameIds(eventIds);
-      })
-      .catch((error) => console.log(error));
-  };
 
   useEffect(() => {
-    please
-    .getAllGames('San Jose', 'CA', sortBy, userId)
+    // update to use user's city and state
+    please.getAllGames('San Jose', 'CA', sortBy, userId)
     .then((data) => setGames(data.data))
     .catch((err) => console.log(err));
   }, [sortBy, formOpen, userId])
@@ -84,6 +80,7 @@ const Dashboard = ({ userId, setPage, setDispId, setGameState }) => {
                   setDispId={setDispId}
                   setPage={setPage}
                   setGameState={setGameState}
+                  toggleJoinLeave={toggleJoinLeave}
                 />
                 ))}
               </Grid>
