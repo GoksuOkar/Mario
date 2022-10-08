@@ -155,7 +155,7 @@ function LoginView({ setUserId, userId, setPage, setLogin }) {
           style={{
             opacity:'0.5',
             position: 'absolute',
-            top: '-40%',
+            top: '-50%',
             zIndex: '-1'
           }}
         />

@@ -10,6 +10,7 @@ const sty = {
   fontSize: 'larger',
 };
 
+
 const headSty = {
   backgroundColor: '#0d5f65',
   color: 'white',
@@ -26,9 +27,13 @@ export default function NavBar({ userId, page, setPage, setLogin, setUserId }) {
       <Tabs.List>
         <img src={img} alt='IMG NOT FOUND' style={{height: '80px'}}/>
         {page === 'login' ? (
-          <Text m='auto' sx={headSty}>
+          <Tabs.Tab
+            value='login'
+            ml='auto'
+            style={headSty}
+          >
             Login
-          </Text>
+          </Tabs.Tab>
         ) : (
           <>
             <Tabs.Tab
