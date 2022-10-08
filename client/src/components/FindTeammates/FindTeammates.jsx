@@ -19,33 +19,18 @@ export default function FindTeammates({ user, setPage, name }) {
 
   return (
     <>
-      <Grid gutter={40} align='center'>
+      <Grid gutter={40}>
         <Grid.Col span={12}></Grid.Col>
-        <Grid.Col span={3}>
-          <YourGroup group={group} user={user} setPage={setPage} />
-        </Grid.Col>
-        <Grid.Col span={8}>
-          <SegmentedControl
-            styles={(theme) => ({
-              root: {
-                marginBottom: 30,
-              },
-            })}
-            data={[
-              { label: 'location', value: 'location' },
-              { label: 'skill level', value: 'skill level' },
-            ]}
-            value={sortBy}
-            onChange={setSortBy}
-          />
-          <Grid gutter={30}>
+          <Grid.Col span={3}>
+            <YourGroup group={group} user={user} setPage={setPage} />
+          </Grid.Col>
+          <Grid.Col span={9}>
             <Teammates
               players={players}
               user={user}
               setGroup={setGroup}
               group={group}
             />
-          </Grid>
         </Grid.Col>
       </Grid>
     </>

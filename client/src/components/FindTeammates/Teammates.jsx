@@ -27,7 +27,7 @@ export default function Teammates({players, user, setGroup, group}) {
 
   return (
     <>
-      <SimpleGrid cols={2} spacing="lg" verticalSpacing="lg">
+      <SimpleGrid cols='auto' spacing="lg" verticalSpacing="lg">
         {players.map((player) => {
           if (player._id !== user._id) {
             return (
