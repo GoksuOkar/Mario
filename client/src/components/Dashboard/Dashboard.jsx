@@ -1,6 +1,6 @@
 import './dashboard.css'
 import React, { useState, useEffect } from 'react';
-import { SegmentedControl, Button, Grid, SimpleGrid } from '@mantine/core';
+import { SegmentedControl, Grid, SimpleGrid } from '@mantine/core';
 import EventCard from './EventCard.jsx';
 import UpcomingGames from './UpcomingGames.jsx';
 import MakeGame from './MakeGame.jsx';
@@ -26,49 +26,53 @@ const Dashboard = ({ userId, setPage, setDispId, setGameState }) => {
       .catch((error) => console.log(error));
   };
 
-  const getGames = () => {
-    please
-      .getAllGames('San Jose', 'CA', sortBy, userId)
-      .then((data) => setGames(data.data))
-      .catch((err) => console.log(err));
-  };
-
   useEffect(() => {
-    getGames();
-  }, [sortBy, formOpen])
+    please
+    .getAllGames('San Jose', 'CA', sortBy, userId)
+    .then((data) => setGames(data.data))
+    .catch((err) => console.log(err));
+  }, [sortBy, formOpen, userId])
 
   useEffect(() => {
     updateUserInfo();
-  }, []);
+  }, [userId]);
 
   return (
-    <div style={{ margin: '40px' }}>
+    <div id='dashboard-ctn'>
       <Grid>
         <Grid.Col span='content'>
           <UpcomingGames myGames={myGames} />
-          {/* later: turn this into a basketball */}
-          {/* link this to open up modal form */}
           <div id='button-ctn'>
-            <img id='basketball-outline' src={basketballOutline} alt='outline of basketball'/>
-            <button type='button' onClick={() => setFormOpen(true)}>Make Game</button>
+            <img
+              id='basketball-outline'
+              src={basketballOutline}
+              alt='outline of basketball'/>
+            <button
+              type='button'
+              onClick={() => setFormOpen(true)}>
+              Make Game
+            </button>
           </div>
-          {formOpen && <MakeGame setFormOpen={setFormOpen} userId={userId} />}
+          {formOpen &&
+          <MakeGame
+            setFormOpen={setFormOpen}
+            userId={userId}
+          />}
         </Grid.Col>
-        {/* <Grid.Col xs={5} sm={6} md={7} lg={8}> */}
         <Grid.Col span='auto'>
           <SimpleGrid>
             <SegmentedControl
               data={[
                 { label: 'upcoming', value: 'upcoming' },
-                // {label: 'nearest to me', value: 'distance'},
                 { label: 'with friends attending', value: 'friends' },
               ]}
               value={sortBy}
               onChange={setSortBy}
             />
           </SimpleGrid>
-        <div style={{marginTop:"18px"}}>
-          {games ? (
+          <div style={{marginTop:"18px"}}>
+            {games
+            ?
             <Grid>
               {games.map((event) => (
                 <EventCard
@@ -83,7 +87,7 @@ const Dashboard = ({ userId, setPage, setDispId, setGameState }) => {
                 />
                 ))}
               </Grid>
-            ) : null}
+            : null}
           </div>
         </Grid.Col>
       </Grid>

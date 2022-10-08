@@ -5,25 +5,19 @@ import please from '../../requests.js';
 import UserAvatar from './UserAvatar.jsx';
 
 const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPage, setGameState }) => {
-  const join = () => {
-    please.joinGame(userId, event._id)
-     .then(() => updateUserInfo())
-     .catch(error => console.log(error));
-  }
-
-  const leaveGame = (gameId) => {
-    please.leaveGame(userId, event._id)
-      .then(() => updateUserInfo())
-      .catch(error => console.log(error))
-  }
 
   const toggleJoinLeave = () => {
     if (myGameIds.includes(event._id)) {
-      leaveGame()
+      please.leaveGame(userId, event._id)
+      .then(() => updateUserInfo())
+      .catch(error => console.log(error))
     } else {
-      join();
+      please.joinGame(userId, event._id)
+      .then(() => updateUserInfo())
+      .catch(error => console.log(error));
     }
   }
+  // padds attendees list to render empty slots
   let attendees = event.peopleAttending;
   let fakeKey = 0;
   while (attendees.length < 12) {
@@ -31,8 +25,7 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
     fakeKey++;
   }
 
-
-  const handleCardClick = () => {
+  const lookAtEvent = () => {
     setGameState(event._id);
     setPage('gp');
   }
@@ -48,12 +41,13 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
         xl={3}
         >
         <Card
+          onClick={lookAtEvent}
           shadow='sm'
           p='lg'
           radius='md'
           sx={{cursor: 'pointer'}}>
           <Text sx={{textAlign:'center'}}>
-            <h3 onClick={handleCardClick}>{event.eventName}</h3>
+            <h3>{event.eventName}</h3>
           </Text>
           <SimpleGrid cols={6} spacing='sm' verticalSpacing='sm'>
           {attendees.map(playerId =>
