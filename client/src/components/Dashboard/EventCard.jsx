@@ -1,13 +1,10 @@
 import { Card, Text, Grid, SimpleGrid, Avatar, Button, Tooltip } from '@mantine/core';
 import moment from 'moment';
-import please from '../../requests.js';
 import UserAvatar from './UserAvatar.jsx';
 
 const EventCard = ({
   event,
   myGameIds,
-  userId,
-  updateUserInfo,
   setDispId,
   setPage,
   setGameState,
@@ -78,7 +75,7 @@ const EventCard = ({
             <Button
               onClick={(e) => {
                 e.stopPropagation()
-                toggleJoinLeave(myGameIds, event._id)
+                toggleJoinLeave(event._id)
               }}
               variant='light'
               sx={{width: '100px'}}

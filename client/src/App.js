@@ -33,7 +33,7 @@ export default function App() {
       .catch((error) => console.log(error));
   };
 
-  const toggleJoinLeave = (myGameIds, eventId) => {
+  const toggleJoinLeave = (eventId) => {
     if (myGameIds.includes(eventId)) {
       Axios.leaveGame(userId, eventId)
       .then(() => updateUserInfo())
@@ -98,7 +98,7 @@ export default function App() {
       ) : null}
       {page === 'findTeam' ? <FindTeammates user={userObj}/> : null}
       {page === 'messages' ? <Messages userObj = {userObj}/> : null}
-      {page === 'gp' ? <GamePage gameid={gameState} userName={userObj.username} set={setPage}/> : null}
+      {page === 'gp' ? <GamePage gameid={gameState} userName={userObj.username} set={setPage} toggleJoinLeave={toggleJoinLeave} myGameIds={myGameIds}/> : null}
 
     </div>
   );

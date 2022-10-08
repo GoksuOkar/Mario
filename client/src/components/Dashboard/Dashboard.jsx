@@ -74,9 +74,7 @@ const Dashboard = ({
                 <EventCard
                   key={event._id}
                   event={event}
-                  userId={userId}
                   myGameIds={myGameIds}
-                  updateUserInfo={updateUserInfo}
                   setDispId={setDispId}
                   setPage={setPage}
                   setGameState={setGameState}
