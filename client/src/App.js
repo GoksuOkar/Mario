@@ -14,11 +14,12 @@ const socket = io('http://localhost:3001', { autoConnect: false });
 
 export default function App() {
   //const divRef = useRef(true);
-  const [userId, setUserId] = useState('633ca1f73a3cb5d9bdc3bff5');
+  const [userId, setUserId] = useState('');
   const [userObj, setUserObj] = useState({});
   const [page, setPage] = useState(null);
   const [dispId, setDispId] = useState(userId);
   const [gameState, setGameState] = useState('');
+  const [login, setLogin] = useState(false);
 
   // checks if the user is already authenticated, sets the page to 'login' if not.
   useEffect(() => {
@@ -40,18 +41,21 @@ export default function App() {
     Axios.getCurrentUser(userId)
       .then(({ data }) => {
         setUserObj(data)
-        const username = data.username;
-        socket.auth = { username };
-        socket.connect();
+        if (login) {
+          const username = data.username;
+          socket.auth = { username };
+          socket.connect();
+        }
       })
+
       .catch((err) => console.log(err));
   };
 
   return (
     <div className='App'>
-      <NavBar userId={userId} page={page} setPage={setPage} />
+      <NavBar userId={userId} page={page} setPage={setPage} setLogin={setLogin} setUserId={setUserId}/>
       {page === 'login' ? (
-        <LoginView setPage={setPage} setUserId={setUserId} userId={userId} />
+        <LoginView setPage={setPage} setUserId={setUserId} userId={userId} setLogin={setLogin}/>
       ) : null}
       {page === "games"
       ?

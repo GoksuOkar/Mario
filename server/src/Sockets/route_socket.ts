@@ -68,6 +68,7 @@ export async function onConnection (socket: Socket | any) {
   })
 
   socket.on(join.group, (joingroup: ISchema.JoinGroup) => {
+    console.log(joingroup);
     createGroupConversation(joingroup)
     .then((conversation) =>
       io.sockets.emit(join.room, conversation)
