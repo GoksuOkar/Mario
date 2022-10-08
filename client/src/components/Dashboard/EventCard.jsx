@@ -1,29 +1,17 @@
 import { Card, Text, Grid, SimpleGrid, Avatar, Button, Tooltip } from '@mantine/core';
 import moment from 'moment';
-import { useState, useEffect } from 'react';
-import please from '../../requests.js';
 import UserAvatar from './UserAvatar.jsx';
 
-const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPage, setGameState }) => {
-  const join = () => {
-    please.joinGame(userId, event._id)
-     .then(() => updateUserInfo())
-     .catch(error => console.log(error));
-  }
+const EventCard = ({
+  event,
+  myGameIds,
+  setDispId,
+  setPage,
+  setGameState,
+  toggleJoinLeave
+  }) => {
 
-  const leaveGame = (gameId) => {
-    please.leaveGame(userId, event._id)
-      .then(() => updateUserInfo())
-      .catch(error => console.log(error))
-  }
-
-  const toggleJoinLeave = () => {
-    if (myGameIds.includes(event._id)) {
-      leaveGame()
-    } else {
-      join();
-    }
-  }
+  // padds attendees list to render empty slots
   let attendees = event.peopleAttending;
   let fakeKey = 0;
   while (attendees.length < 12) {
@@ -31,8 +19,7 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
     fakeKey++;
   }
 
-
-  const handleCardClick = () => {
+  const lookAtEvent = () => {
     setGameState(event._id);
     setPage('gp');
   }
@@ -48,12 +35,13 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
         xl={3}
         >
         <Card
+          onClick={lookAtEvent}
           shadow='sm'
           p='lg'
           radius='md'
           sx={{cursor: 'pointer'}}>
           <Text sx={{textAlign:'center'}}>
-            <h3 onClick={handleCardClick}>{event.eventName}</h3>
+            <h3>{event.eventName}</h3>
           </Text>
           <SimpleGrid cols={6} spacing='sm' verticalSpacing='sm'>
           {attendees.map(playerId =>
@@ -81,15 +69,15 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
             <Text>{event.location.slice(0, 28)}...</Text>
           </Tooltip>
           }
-          {/* italicise and insert calculated distance */}
-          {/* <Text>Miles from you</Text> */}
           <Text>Date: {moment(event.startTime).format('ll')}</Text>
           <Text>Time: {moment(event.startTime).format('LT')} - {moment(event.endTime).format('LT')}</Text>
           <div className='toggle-btn-ctn'>
             <Button
-              onClick={() => toggleJoinLeave()}
+              onClick={(e) => {
+                e.stopPropagation()
+                toggleJoinLeave(event._id)
+              }}
               variant='light'
-              // size='xs'
               sx={{width: '100px'}}
               styles={(theme) => ({
                 root: {
@@ -98,7 +86,6 @@ const EventCard = ({ event, myGameIds, userId, updateUserInfo, setDispId, setPag
                   margin: 5,
                   "&:hover": {
                     backgroundColor: `${myGameIds.includes(event._id) ?'hsl(0, 0%, 40%)' : 'hsl(184,67%,32%)'}`
-
                   },
                 },
               })}
