@@ -94,12 +94,12 @@ export default function App() {
           setPage={setPage}
           dispId={dispId}
           setDispId={setDispId}
+          setGameState={setGameState}
         />
       ) : null}
-      {page === 'findTeam' ? <FindTeammates user={userObj}/> : null}
-      {page === 'messages' ? <Messages userObj = {userObj}/> : null}
+      {page === 'findTeam' ? <FindTeammates user={userObj} /> : null}
+      {page === 'messages' ? <Messages userObj={userObj} /> : null}
       {page === 'gp' ? <GamePage gameid={gameState} userName={userObj.username} set={setPage} toggleJoinLeave={toggleJoinLeave} myGameIds={myGameIds}/> : null}
-
     </div>
   );
 }
