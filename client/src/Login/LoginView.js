@@ -7,7 +7,7 @@ import LoginAlert from "./LoginAlert.js";
 const Axios = require('../requests.js');
 const Config = require('../config.js');
 
-function LoginView({ setUserId, userId, setPage }) {
+function LoginView({ setUserId, userId, setPage, setLogin }) {
   const [alerted, setAlert] = useState(false);
   const [opened, setOpened] = useState(false);
   const divRef = useRef(null);
@@ -46,6 +46,7 @@ function LoginView({ setUserId, userId, setPage }) {
     .then((res) => {
       setUserId(res.data.id);
       setPage('games');
+      setLogin(true);
     })
     .catch((err) => {
       setAlert(true);

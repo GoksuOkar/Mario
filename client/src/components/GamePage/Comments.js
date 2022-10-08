@@ -1,13 +1,17 @@
 import request from '../../requests.js';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import moment from 'moment';
 
 const Comments = ({ name, eventID }) => {
     const [comBody, setComBody] = useState("");
     const [comments, setComments] = useState([]);
 
+  const dateStyle = {
+    textAlign: "right",
+  }
+
 
   useEffect(() => {
-    if ( eventID ) {
       request.getComments(eventID)
         .then(({ data }) => {
           data.map((comm) => {
@@ -19,17 +23,26 @@ const Comments = ({ name, eventID }) => {
         .catch((err) => {
           console.log("this is a getComments error!", err);
         });
-    }
-  }, [eventID])
+  }, [])
 
   const renderComments = (data) => {
+    data.sort((a, b) => {
+      var dateA = new Date(a.date);
+      var dateB = new Date(b.date);
+      if (dateA < dateB) return -1;
+      if (dateA > dateB) return 1;
+      return 0
+    });
+
     return data.map((com) => {
       return <div className="comment">
         <p>{com.username}: {com.body}</p>
-        <p><small>{com.date}</small></p>
+        <p style={dateStyle}><small>{moment(com.date).format('MMMM D')}, {moment(com.date).format('LT')}</small></p>
       </div>
     })
   }
+
+
 
   const handleComSubmit = (e) => {
     e.preventDefault();
