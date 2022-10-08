@@ -80,7 +80,6 @@ const Info = ({ name, createdBy, attending, location, start, end, description })
 
   return(
     <div className="gp_info">
-      <StyledButton string={"Join Game"}/>
       <h4 style={nameStyle}>{name}</h4>
       <p style={nameStyle}><small>created by {created}</small></p>
       <Grid>
