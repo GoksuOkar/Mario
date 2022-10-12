@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import request from '../../requests.js';
+import { BigStyledButton, StyledButton } from '../../styledComponents/StyledButtons.js';
+import {Avatar, Grid, Tooltip, Divider} from '@mantine/core';
+import moment from 'moment';
 
 
-const Info = ({ name, createdBy, attending, location, start, end, description, set }) => {
+const Info = ({ name, createdBy, attending, location, start, end, description }) => {
   const [photos, setPhotos] = useState([]);
   const [created, setCreated] = useState("");
 
@@ -35,12 +38,20 @@ const Info = ({ name, createdBy, attending, location, start, end, description, s
       if (photos) {
         return photos.map((player) => {
           if (player.photo) {
-            return <img
+            return (
+            // change get requests to get username?
+            // <Tooltip >
+              <Avatar
+              style={{margin: '10px'}}
               key={player._id}
               src={player.photo}
               alt={player.id}
-              onClick={handlePlayerClick(player._id)}></img>
-          }
+              radius='xl'
+              sx={{cursor: 'pointer'}}
+              onClick={handlePlayerClick(player._id)}>
+              </Avatar>
+            // </Tooltip>
+          )}
         })
       }
 
@@ -52,19 +63,42 @@ const Info = ({ name, createdBy, attending, location, start, end, description, s
 
   }
 
+  const dividerStyle = {
+    margin: "40px",
+    marginBottom: "60px"
+  }
+
+  const nameStyle = {
+    textAlign: "center",
+  }
+
+  const descriptionStyle = {
+    marginTop: "40px"
+  }
+
+
 
   return(
     <div className="gp_info">
-      <button>join game</button>
-      <h4>{name}</h4>
-      <p><small>created by {created}</small></p>
-      <p>{location}</p>
-      <p>{start} - {end}</p>
-      <p>{description}</p>
-      <p><small>see who's playing...</small></p>
-      <div>
-        {getPlayers()}
-      </div>
+      <h4 style={nameStyle}>{name}</h4>
+      <p style={nameStyle}><small>created by {created}</small></p>
+      <Grid>
+        <Grid.Col span={6}>
+          <p>{location}</p>
+          <p><small>{moment(start).format('MMMM D')}, {moment(start).format('LT')} - {moment(end).format('LT')}</small></p>
+          <p style={descriptionStyle}>{description}</p>
+        </Grid.Col>
+        <Grid.Col span={6}>
+          <Divider orientation='vertical' my="sm" props={{color: "grey"}}/>
+          <p>see who's playing...</p>
+          <div style={{display: 'flex'}}>
+            <Grid>
+              {getPlayers()}
+            </Grid>
+          </div>
+        </Grid.Col>
+      </Grid>
+      <Divider my="sm" style={dividerStyle}/>
     </div>
   )
 

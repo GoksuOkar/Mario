@@ -1,25 +1,50 @@
-import { Avatar, SimpleGrid, Grid, Text, Card, Divider } from '@mantine/core';
+import { Avatar, SimpleGrid, Grid, Text, Card, Divider, TextInput } from '@mantine/core';
 import { BigStyledButton } from '../../styledComponents/StyledButtons.js';
 import { socket } from './../../App';
-import { user, join } from '../../Utilities/socket_listeners';
+import { join } from '../../Utilities/socket_listeners';
+import { useState, useRef } from 'react';
 
 // later: replace this with prop
 
-export default function YourGroup({group}) {
+export default function YourGroup({ group, user, setPage }) {
+  const [makeGroup, setMakeGroup] = useState(false);
+  const conversation = useRef(null);
+
+
   const joinRoom = () => {
     // all the users array will be Object.keys(group);
+
+    let users = Object.keys(group)
+    users.shift();
+    users.push('Goksu9000');
     socket.emit(join.group, {
       conversationName: null,
-      users: Object.keys(group),
-    })
+      users: users,
+    });
+    setMakeGroup(true);
   };
+
+  socket.on(join.room, (convo) => {
+    // if convo users includes my username, then add that convo to convo list
+    console.log(convo);
+    if (convo.users.includes(user.username)) {
+      console.log('huh');
+      socket.emit(join.room, { conversationId: convo._id.toString() });
+      if (makeGroup) {
+        console.log('why');
+        setPage('messages');
+        setMakeGroup(false);
+      }
+    }
+  });
+
   return (
     <>
       <Card shadow='sm' p='lg' radius='md'>
-        <Text>Your Group</Text>
+        <TextInput ref={conversation} placeholder="Your Group"/>
         <Divider my='sm' />
         <SimpleGrid>
-        <Text>Teammates</Text>
+          <Text>Teammates</Text>
           {Object.values(group).map((teammate) => (
             <div key={teammate._id}>
               <Grid>
@@ -31,9 +56,9 @@ export default function YourGroup({group}) {
               </Grid>
             </div>
           ))}
-          <BigStyledButton string={'Message Group'} onClick={joinRoom}/>
+          <BigStyledButton string={'Message Group'} onClick={() => joinRoom(conversation.current.value)} />
         </SimpleGrid>
       </Card>
     </>
   );
-}
+};

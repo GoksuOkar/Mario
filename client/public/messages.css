@@ -1,0 +1,41 @@
+.m-MesCon {
+  margin: 0.3rem;
+  background-color: #542381
+}
+
+.m-userMesCon {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.m-othMesCon {
+  justify-content: flex-start;
+}
+
+.m-Mes {
+  width: 40%;
+  padding: 1rem;
+}
+
+.m-myMes {
+  width: 40%;
+  padding: 1rem;
+  border: 1px solid lightblue;
+  background-color: #526bce;
+}
+
+.m-othMes {
+  width: 40%;
+  padding: 1rem;
+  border: 1px solid lightblue;
+  background-color: #542381;
+}
+
+.m-messageDisplay {
+  /* border: 1px solid lightgray; */
+  height: 65vh;
+  width: 60vw;
+  overflow-y: auto;
+  max-width: 80vw;
+  padding: 2rem;
+}

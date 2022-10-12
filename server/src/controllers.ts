@@ -36,7 +36,6 @@ export function register (req: Request, res: Response): void {
 }
 
 export function login (req: Request, res: Response): void {
-  console.log(req.session);
   const {email, password} = req.body;
   db.User.findOne({email: email})
   .then ((result) => {
@@ -96,7 +95,7 @@ export function googleLogin (req: Request, res: Response): void {
 export function logout (req: Request, res: Response) {
   req.session.destroy((err) => {
     if (err) {
-      console.log(err)
+      console.error(err)
       res.send('unable to log out').status(404);
     } else {
       res.sendStatus(200);
@@ -105,7 +104,6 @@ export function logout (req: Request, res: Response) {
 }
 
 export function auth (req: Request, res: Response) {
-  console.log('session', req.session);
   if (req.session.isAuth === true)  {
     res.send({id: req.session.user}).status(200)
   } else {
@@ -116,7 +114,6 @@ export function auth (req: Request, res: Response) {
 /************************GAMES************************/
 
 export async function getGames (req: Request, res: Response) {
-  console.log('received request with these params:',req.query)
   let gameIds = req.query.gameIds;
   if (gameIds) {
     // case1 : get games based on array of ids
@@ -133,7 +130,6 @@ export async function getGames (req: Request, res: Response) {
     res.send(results);
   } else {
     let {sort, userId} = req.query;
-    console.log('sorting results by:', sort);
     // case2 : get all games and apply sort criterion
     if (sort === 'distance') {
       // implement later
@@ -178,7 +174,6 @@ export async function getGame (req:Request, res: Response) {
 export async function joinGame (req:Request, res: Response) {
   let userId = req.body.userId;
   let eventId = req.body.eventId;
-  console.log(userId, eventId)
   try{
     let user = await db.User.updateOne({_id: userId}, {$addToSet: {events: eventId}})
     let event = await db.Event.updateOne({_id: eventId}, {$addToSet: {peopleAttending: userId}})
@@ -193,7 +188,6 @@ export async function joinGame (req:Request, res: Response) {
 export async function leaveGame (req: Request, res: Response) {
   let userId = req.body.userId;
   let eventId = req.body.eventId;
-  console.log(userId, eventId)
   try{
     let user = await db.User.updateOne({_id: userId}, {$pull: {events: eventId}})
     let event = await db.Event.updateOne({_id: eventId}, {$pull: {peopleAttending: userId}})
@@ -207,7 +201,6 @@ export async function leaveGame (req: Request, res: Response) {
 
 export async function createGame (req: Request, res: Response) {
   try {
-    console.log('body of request', req.body);
     await db.Event.create(req.body);
     res.sendStatus(201);
   } catch (error) {
@@ -267,6 +260,7 @@ export async function getCurrentUser (req: Request, res: Response) {
 
 export async function getUserPhotos (req: Request, res: Response) {
   // create a copy of people attending ids
+  console.log('userids:', req.query.userIds);
   const attending: Array<any> = req.query.userIds;
   // create a promise array
   const prom: Array<any> = [];
@@ -277,7 +271,6 @@ export async function getUserPhotos (req: Request, res: Response) {
   })
   //  Promise.all resolves all the promises
   Promise.all(prom).then(peeps => {
-    console.log(peeps)
     // .then res.send(array of people attending objects)
     res.send(peeps)
   })
@@ -307,10 +300,8 @@ export async function getComments (req: Request, res: Response) {
 
 export function addComment (req: Request, res: Response) {
   const {username, body, date, event_id} = req.body.comment;
-  console.log('req.body:', req.body.comment);
   db.Comment.create({username: username, body: body, date: date, event_id: event_id})
     .then((result) => {
-      console.log('result:', result);
       res.sendStatus(201);
     })
     .catch((err) => {

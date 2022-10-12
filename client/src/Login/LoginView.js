@@ -7,7 +7,7 @@ import LoginAlert from "./LoginAlert.js";
 const Axios = require('../requests.js');
 const Config = require('../config.js');
 
-function LoginView({ setUserId, userId, setPage }) {
+function LoginView({ setUserId, userId, setPage, setLogin }) {
   const [alerted, setAlert] = useState(false);
   const [opened, setOpened] = useState(false);
   const divRef = useRef(null);
@@ -34,7 +34,6 @@ function LoginView({ setUserId, userId, setPage }) {
     Axios
     .googleLogin(response)
     .then((res) => {
-      console.log(res)
       setUserId(res.data.id)
       setPage('games');
     })
@@ -43,11 +42,11 @@ function LoginView({ setUserId, userId, setPage }) {
 
   // Sends login credentials to backend, alerts if wrong login
   const handleSubmit = (values) => {
-    console.log(values);
     Axios.login(values)
     .then((res) => {
       setUserId(res.data.id);
       setPage('games');
+      setLogin(true);
     })
     .catch((err) => {
       setAlert(true);
@@ -156,7 +155,7 @@ function LoginView({ setUserId, userId, setPage }) {
           style={{
             opacity:'0.5',
             position: 'absolute',
-            top: '-40%',
+            top: '-50%',
             zIndex: '-1'
           }}
         />

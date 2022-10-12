@@ -13,7 +13,7 @@ export function StyledButton({string, onClick = null, type = null}) {
           color: 'white',
           margin: 5,
           "&:hover": {
-            backgroundColor: '#0d5f65'
+            backgroundColor: 'hsl(184,67%,32%)'
           },
         },
       })}
@@ -36,7 +36,7 @@ export function BigStyledButton({string, onClick = null}) {
             color: 'white',
             margin: 5,
             "&:hover": {
-              backgroundColor: '#fc8025'
+              backgroundColor: 'hsl(25,97%,67%)'
             },
           },
         })}

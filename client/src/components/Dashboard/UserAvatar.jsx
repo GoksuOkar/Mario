@@ -11,7 +11,6 @@ const UserAvatar = ({playerId, setDispId, setPage}) => {
     .catch(error => console.log(error))
   })
   return (
-      // current data that we're getting back does not have person's name
     <>
       {
         playerInfo.username
@@ -23,7 +22,8 @@ const UserAvatar = ({playerId, setDispId, setPage}) => {
           alt='small picture of person attending'
           radius='xl'
           sx={{cursor: 'pointer'}}
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
             setDispId(playerId);
             setPage('frnd');
           }}></Avatar>
